@@ -9,28 +9,19 @@
 
 
 \documentclass[epsbased,copyright,final,printable,covers,extendedindex,firstnumbered,tfg,gnuplot]{tfgtfmthesisuam}
-\usepackage[T1]{fontenc}
-\usepackage{selinput}
-\SelectInputMappings{%
-	aacute={á},
-	ntilde={ñ},
-	Euro={€}
-}
-\usepackage{babel}
-\advisor{Álvaro Ortigosa Juárez}
-\levelin{Doble Grado en Ingeniería Informática y Matemáticas}
-\title{Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa}
-%\subtitle{Si hace falta subtítulo}
-\author{Carlos Li Hu}
-\copyrightdate{X de Noviembre de 2019}
-\begin{comment}
-	\dedication{A mi mujer y a mis hijos}
-	\famouscite{Lo peor es cuando has terminado un capítulo\\y la máquina de escribir no aplaude. \\[0.1em] \begin{flushright}Orson Welles\end{flushright}}
-\end{comment}
-\privateaddress{C\textbackslash\ Francisco Tomás y Valiente Nº 11}
 
-%\prefacefile{inicio/prefacio}
-%\ackfile{inicio/agradecimientos}
+\advisor{Eloy Anguiano}
+\levelin{Ingeniería de Textos}
+\title{Manual del estilo tfgtfmthesisuam}
+\subtitle{Si hace falta subtítulo}
+\author{Eloy Anguiano Rey}
+\privateaddress{C\textbackslash\ Francisco Tomás y Valiente Nº 11}
+\copyrightdate{3 de Noviembre de 2017}
+
+\dedication{A mi mujer y a mis hijos}
+\famouscite{Lo peor es cuando has terminado un capítulo\\y la máquina de escribir no aplaude. \\[0.1em] \begin{flushright}Orson Welles\end{flushright}}
+\prefacefile{inicio/prefacio}
+\ackfile{inicio/agradecimientos}
 \resumenfile{inicio/resumen}
 \abstractfile{inicio/abstract}
 
@@ -53,13 +44,13 @@
 
 \begin{document}
 
-\chapter{Introducción\label{CAP:INTRODUCCION}}{introduccion/introduccion}
-  \section{Motivación\label{SEC:MOTIVACION}}{introduccion/motivacion}
-  \section{Objetivos\label{SEC:OBJETIVOS}}{introduccion/objetivos}
-  \section{Organización de la memoria\label{SEC:ORGANIZACION}}{introduccion/organizacion}
+\chapter{Estética\label{CAP:ESTETICA}}{estetica/estetica}
+  \section{Tipo de documento\label{SEC:TIPODOC}}{estetica/tipodocumento}
+  \section{Gama de colores\label{SEC:GAMASEL}}{estetica/gamacolores}
+  \section{Colores\label{SEC:COLORES}}{estetica/colores}
+  \section{Uso de los colores\label{SEC:USOCOLORES}}{estetica/usocolores}
 
-\chapter{Estado del arte\label{CAP:ESTADOARTE}}{estadoarte/estadoarte}
-\begin{comment}
+\chapter{Estructura\label{CAP:ESTRUCTURA}}{estructura/estructura}
   \section{Título, autor, tutor y otras variables\label{SEC:VARIABLES}}{estructura/titulo}
   \section{Índices\label{SEC:INDICES}}{estructura/indices}
   \section{Copyright, dedicatoria y cita inicial\label{SEC:COPYRIGHT}}{estructura/copyright}
@@ -68,18 +59,12 @@
   \section[Glosario, acrónimos y definiciones]{Glosario, acrónimos y definiciones\label{SEC:GLOSARIO}}{estructura/glosario}
   \section{Referencias\label{SEC:REFERENCIAS}}{estructura/referencias}
   \section{Bibliografía\label{SEC:BIBLIOGRAFIA}}{estructura/bibliografia}
-\end{comment}
 
-
-\chapter{Diseño\label{CAP:DISEÑO}}{diseno/diseno}
-\begin{comment}
+\chapter{Primeros pasos\label{CAP:PRIMEROSPASOS}}{primpas/primpas}
   \section{Estructurar el documento\label{SEC:ESTRUCTURAR}}{primpas/estructuradoc}
   \section{Enlazar la bibliografía\label{SEC:ENLAZBIBLIOGRAFIA}}{primpas/enlazarbib}
-\end{comment}
 
-\chapter{Desarrollo\label{CAP:DESARROLLO}}{desarrollo/desarrollo}
-
-\begin{comment}
+\chapter{Elementos internos\label{CAP:ELEMINT}}{elemint/elemint}
   \section{Figuras\label{SEC:FIGURAS}}{elemint/figuras}
     \subsection{Gráficas\label{SS:GRAFICAS}}{elemint/graficas}
     \subsection{Imágenes\label{SS:INMAGENES}}{elemint/imagenes}
@@ -92,20 +77,15 @@
   \section{Algoritmos\label{SEC:ALGORITMOS}}{elemint/algoritmos}
   \section{Listas\label{SEC:LISTAS}}{elemint/listas}
   \section{Referencias internas e hiperenlaces\label{SEC:HIPERENLACES}}{elemint/hiperenlaces}
-\end{comment}
+\chapter{Compilación\label{CAP:COMPILACION}}{varios/compilacion}
 
-\chapter{Integración, pruebas y resultados\label{CAP:IPR}}{ipr/ipr}
-\chapter{Conclusiones y trabajo futuro\label{CAP:CONCTRAB}}{conctrab/conctrab}
-   \section{Conclusiones\label{SEC:CONCLUSIONES}}{conctrab/conclusiones}
-   \section{Trabajo futuro\label{SEC:TRABAJO}}{conctrab/trabajo}
 \appendix
 
-\begin{comment}
 \chapter{Word\textsuperscript{\textregistered} vs. \LaTeXe\label{CAP:WORDLATEX}}{varios/wordlatex}
 \chapter{Instalación\label{CAP:INSTALACION}}{varios/instalacion}
 \chapter{Packetes incluidos\label{CAP:PAQUETES}}{varios/paquetes}
 \chapter{Resumen de opciones del estilo\label{CAP:OPCIONES}}{varios/opciones}
 \chapter{Funciones y entornos\label{CAP:FUNCENT}}{varios/funciones}
-\end{comment}
+
 
 \end{document}
