@@ -1,0 +1,329 @@
+<?
+$dbname            ='datos'; //Name of the database
+$dbuser            ='root'; //Username for the db
+$dbpass            ='pi'; //Password for the db
+$dbserver        ='localhost'; //Name of the mysql server
+ 
+$dbcnx = mysql_connect ("$dbserver", "$dbuser", "$dbpass");
+mysql_select_db("$dbname") or die(mysql_error());
+?>
+<!DOCTYPE html>
+<html>
+<font face="calibri">
+  <head>
+    <style>
+       #map {
+        height: 600px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+<h1 style="font-family:verdana;">Command & Control</h1>
+	<!-- <div id="side_bar" style="height: 450px; overflow:auto"></div> -->
+	<div id="floating-panel">
+		<input onclick="ClearMarkers();" type=button value="Clear">
+		<input onclick="ShowMarkers();" type=button value="Show">
+		<input onclick="boton3();" type=button value="Boton3">
+		<input onclick="boton4();" type=button value="Boton4">
+	</div> 
+	<!-- <div id="map"></div> -->
+	<table border="1">
+      <tr>
+        <td>
+           <div id="map" style="width: 800px; height: 500px"></div> 
+        </td>
+        <td valign="top" style="width:200px; text-decoration: underline; color: #4444ff;"> 
+           <div id="side_bar" style="height: 450px; overflow:auto"></div>
+	</td>
+      </tr>
+    </table>
+    <script>
+	var customLabel = {
+        activo: {
+          label: 'A'
+        },
+        inactivo: {
+          label: 'I'
+        }
+      };
+	var gmarkers = [];
+	var side_bar_html = "";
+	var markers = [];
+	var cell_circle = [];
+	function CenterControl(controlDiv, map) {
+
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '0px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 0px 0px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'Centrar Activo 1';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Centrar1';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners
+        controlUI.addEventListener('click', function() {
+          map.setCenter(gmarkers[1].getPosition());
+		  });
+		
+      }
+	  
+ function CenterControl1(controlDiv, map) {
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '0px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 0px 0px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'Centrar Activo 2';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Centrar Activo 2';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners
+        controlUI.addEventListener('click', function() {
+          map.setCenter(gmarkers[2].getPosition());
+		  });
+		
+      }
+
+function initMap() {
+        var Activo1 = {lat: 40.4037505, lng: -3.697132};
+		var Activo2 = {lat: 40.4059034, lng: -3.7007672};
+		var Activo3 = {lat: 40.4061181, lng: -3.7011184};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: Activo1
+        });
+        //setMarkers(map);
+		
+		var centerControlDiv = document.createElement('div');
+		var centerControlDiv1= document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+		var centerControl1 = new CenterControl1(centerControlDiv1, map);
+		map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+		map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv1);
+		
+		
+		// aqui llamamos a las antenas del fichero hacerantenas.php
+		var infoWindow = new google.maps.InfoWindow;
+		downloadUrl('hacerantenas.php', function(data) {
+        var xml = data.responseXML;
+        var markers = xml.documentElement.getElementsByTagName('antenas');
+        Array.prototype.forEach.call(markers, function(markerElem) {
+            var name = markerElem.getAttribute('name');
+            var clave = markerElem.getAttribute('clave');
+            var type = markerElem.getAttribute('accuracy');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('lat')),
+                parseFloat(markerElem.getAttribute('lng')));
+            var infowincontent = document.createElement('div');
+            var strong = document.createElement('strong');
+                strong.textContent = name
+                infowincontent.appendChild(strong);
+                infowincontent.appendChild(document.createElement('br'));
+            var text = document.createElement('text');
+                text.textContent = "CLAVE:" + clave
+                infowincontent.appendChild(text);
+            var icon = customLabel[type] || {};
+            var torreicono = {
+				url: 'iconotorre.png',
+				size: new google.maps.Size(20, 32),
+				origin: new google.maps.Point(0, 0),
+				anchor: new google.maps.Point(0, 32)
+				};	
+			var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                label: icon.label,
+				icon: torreicono
+              });
+			  // VAMOS A PINTAR CIRCULOS DE ANTENAS //
+			var cell_circle =  new google.maps.Circle({
+					strokeColor: 'yellow',
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: parseFloat(markerElem.getAttribute('accuracy')) > 800 ? 'red' : 'green',
+					fillOpacity: 0.1,
+					map: map,
+					center: point,
+					radius: parseFloat(markerElem.getAttribute('accuracy'))
+					});
+								  
+			  // A VER SI HAY COJONES //
+				marker.addListener('click', function() {
+                infoWindow.setContent(infowincontent);
+                infoWindow.open(map, marker);
+              });
+            });
+          });
+		
+		
+		var infoWindowACTIVOS = new google.maps.InfoWindow;
+		downloadUrl('haceractivos.php', function(data) {
+        var xml = data.responseXML;
+        var markers = xml.documentElement.getElementsByTagName('activos');
+        Array.prototype.forEach.call(markers, function(markerElem) {
+            var name = markerElem.getAttribute('nombre');
+            var clave = markerElem.getAttribute('categoria');
+			var loc = markerElem.getAttribute('localizador');
+            var type = markerElem.getAttribute('estado');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('lat')),
+                parseFloat(markerElem.getAttribute('lng')));
+            var infowincontent = document.createElement('div');
+            var strong = document.createElement('strong');
+                strong.textContent =  clave
+                infowincontent.appendChild(strong);
+                infowincontent.appendChild(document.createElement('br'));
+            var text = document.createElement('text');
+                text.textContent = "nombre:"+name;
+				infowincontent.appendChild(text);
+				infowincontent.appendChild(document.createElement('br'));
+			var text1 = document.createElement('text');
+                text1.textContent = "loc:"+loc
+                infowincontent.appendChild(text1);
+            var icon = customLabel[type] || {};
+            var persona = {
+				url: 'persona.png',
+				size: new google.maps.Size(20, 32),
+				origin: new google.maps.Point(0, 0),
+				anchor: new google.maps.Point(0, 32)
+				};
+			var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                label: icon.label,
+				icon: persona
+              });
+              marker.addListener('click', function() {
+                infoWindowACTIVOS.setContent(infowincontent);
+                infoWindowACTIVOS.open(map, marker);
+              });
+			// VAMOS A PONER LOS ACTIVOS EN SIDE_BAR_HTML
+				gmarkers.push(marker);
+				side_bar_html += '<a href="javascript:myclick(' + (gmarkers.length-1) + ')">' + name + '<\/a><br>';
+				document.getElementById("side_bar").innerHTML = side_bar_html;
+            });
+          });
+		  	  
+		  setMarkers(map);
+	}
+	// FIN DEL INITMAP
+	function myclick(i) {
+		google.maps.event.trigger(gmarkers[i], 'click', function() {
+		//map.setZoom(12);
+        map.setCenter(gmarkers[i].getPosition());
+        });
+	}
+	
+	function setMarkers(map) {
+			
+	var persona = {
+          url: 'persona.jpg',
+          size: new google.maps.Size(20, 32),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(0, 32)
+        };
+	var malo = {
+          url: 'malo.jpg',
+          size: new google.maps.Size(20, 32),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(0, 32)
+        };
+		
+	var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+    
+	//	var markermalo = new google.maps.Marker({
+	//	  position: Activo3,
+	//	  map: map,
+	//	  icon: malo,
+	//	  title: "Malo"
+	//	});
+	// Aqui insertamos los activos de la BBDD
+		
+
+	}
+    
+	function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+	function doNothing() {}
+	function DeleteMarkers() {
+       setMarkers();
+        markers = [];
+      }
+	function ClearMarkers() {
+		setMarkers(null);
+	}
+    function ShowMarkers() {
+		setMarkers(map);
+    }
+    function boton3() {
+        
+      }
+	
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA-zI7-Du3Q45eDidWJ86lTeDgAF6AGiU&callback=initMap">
+    </script>
+
+	<div id="floating-panel">
+                <input onclick="mapaseguimiento()" type=button value="Seguimientos">
+                <input onclick="volcadobruto();" type=button value="Volcado">
+	</div>
+
+	<script>
+	function mapaseguimiento() {
+    		window.location.replace("mapaseguimientos.html");
+	}
+	function volcadobruto() {
+    		window.location.replace("volcadobruto.php");
+	}
+	</script>
+</body>
+</font>
+</html>

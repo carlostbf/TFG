@@ -1,0 +1,27 @@
+Estimado como hacia varios meses que no lo tocaba me ha costado bastante recordarlo….
+
+ 
+
+En cualquier caso… estoy en ello, hoy a lo largo del dia.. de hecho me vendría muy bien que lo vieras dado que tengo problemas con parte de ello, te cuento
+
+ 
+
+El sistema es un IMSI Catcher pasivo, representa las antenas y las trayectorias de los IMSIS que el sistema está viendo, pero lo que no consigo hacer funcionar es la GEOVALLA es decir, si trazo en el mapa un polígono, el sistema no me avisa (da igual el medio) si el IMSI XXXXXXX sale del contorno delimitado
+
+ 
+
+Todo está basado en MySQL, PHP, JScript, etc.
+
+ 
+
+La tabla con datos la tienes en datosimsimd.zip es la que alimento desde las distintas aplicaciones que conforman la solución.  La tabla que te interesa es la de antenas
+
+ 
+
+ 
+
+Index.html es la pagina central en la que se representan las antenas, hacerantenas.php también se referencia en Index.html
+
+ 
+
+Echale un ojo dime si falta algún fichero
