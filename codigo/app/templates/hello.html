@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaflet.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
 <body>
 
 <div id="mapid"></div>
-<script src="{{ url_for('static', filename='leaflet.js') }}"></script>
+<script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
 
 <script>
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
