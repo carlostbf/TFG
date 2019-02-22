@@ -36,3 +36,8 @@ tfgtfmthesisuam/tfgtfmthesisuam\.synctex\.gz
 *.log
 
 2015_06_PlantillaMemoriaTFG_v2\.doc
+
+*.pyc
+
+codigo/\.idea/
+codigo/venv/
