@@ -41,3 +41,6 @@ tfgtfmthesisuam/tfgtfmthesisuam\.synctex\.gz
 
 codigo/\.idea/
 codigo/venv/
+codigo/instance/
+
+codigo/flaskr\.egg-info/
