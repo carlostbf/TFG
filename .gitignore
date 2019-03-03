@@ -44,3 +44,11 @@ codigo/venv/
 codigo/instance/
 
 codigo/flaskr\.egg-info/
+
+*.xdy
+
+*.bbl
+
+*.blg
+
+original/tfgtfmthesisuam\.synctex\.gz

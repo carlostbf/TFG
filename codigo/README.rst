@@ -6,7 +6,6 @@ instalar postgresql (lo escojo?)
 	integrar postgres en python)
 
     intentar crear BBDD postgres
-
-mirar leaflet offline
+        usar datos de opencellid
 
 requirements.txt
