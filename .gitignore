@@ -52,3 +52,15 @@ codigo/flaskr\.egg-info/
 *.blg
 
 original/tfgtfmthesisuam\.synctex\.gz
+
+prueba_bd/
+
+codigo/migrations/
+
+*.acr
+
+*.alg
+
+*.glg
+
+*.gls
