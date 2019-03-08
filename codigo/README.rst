@@ -1,19 +1,10 @@
 # TFG
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
-
-rellenar Estado del Arte en TEX
-
-postgresql (lo escojo?)
-	(geolocation permite, a partir de ip, obtener pubs más cercanos
-	integrar postgres en python)
-
-    intentar crear BBDD postgres (SQLALCHEMY)
-    	usar datos de opencellid
-    CONTINUAR TUTORIAL DE POSTGRESQL EN REALPYTHON
-
-
-
+TODO
+    rellenar Estado del Arte en TEX
+    CONTINUAR TUTORIAL DE SQLALCHEMY EN FLASK
+        LIMPIAR DATOS OPENCELLID
 
 config.py?
 	export APP_SETTINGS="config.DevelopmentConfig"
@@ -26,9 +17,22 @@ requirements.txt
 .env para Variables de entorno automaticas
 
 PREGUNTAS
-	aplicación tiene que ser instalable?
+	aplicación tiene que ser instalable? concentrarme en codigo
 		pip install?
-	SQLalchemy
-	
+		script?
+
+	SQLalchemy ok
 	formulario para consultas SQL?
+        si, cuando tenga datos (igual los llego a simular)
+
 	algoritmo para datos?
+        telefonos por antenas
+        ver areas donde se encuentra telefono y descartar posibilidades
+        carreteras en openstreet maps? leaflet roadmap
+
+
+	mostrarle aplicacion, preguntar diseño
+	preguntarle sobre memoria
+    postgresql (lo escojo?)
+	(geolocation permite, a partir de ip, obtener pubs más cercanos
+	integrar postgres en python)

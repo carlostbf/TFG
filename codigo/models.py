@@ -28,48 +28,63 @@ class BaseModel(db.Model):
         }
 
 
-# class Antena(BaseModel, db.Model):
-#     __tablename__='antenas'
-#
-#     radio=db.Column(db.Integer)
-#     mcc=db.Column(db.Integer)
-#     net=db.Column(db.Integer)
-#     area=db.Column(db.Integer)
-#     cell=db.Column(db.Integer)
-#     unit=db.Column(db.Integer)
-#     lon=db.Column(db.Float)
-#     lat=db.Column(db.Float)
-#     range=db.Column(db.Integer)
-#     samples=db.Column(db.Integer)
-#     changeable=db.Column(db.Boolean)
-#     created=db.Column(db.DateTime)
-#     updated=db.Column(db.DateTime)
-#     averageSignal=db.Column(db.Integer)
+class Antenna(db.Model):
+
+    radio=db.Column(db.String(50))
+    mcc=db.Column(db.Integer)
+    net=db.Column(db.Integer)
+    area=db.Column(db.Integer)
+    cell=db.Column(db.Integer, primary_key = True)
+    unit=db.Column(db.Integer)
+    lon=db.Column(db.Float)
+    lat=db.Column(db.Float)
+    range=db.Column(db.Integer)
+    samples=db.Column(db.Integer)
+    changeable=db.Column(db.Boolean)
+    created=db.Column(db.Numeric)
+    updated=db.Column(db.Numeric)
+    averageSignal=db.Column(db.Integer)
 
     #db.Relationship
 
 
-
-class Station(BaseModel, db.Model):
-    """Model for the stations table"""
-    __tablename__ = 'stations'
-
-    id = db.Column(db.Integer, primary_key = True)
-    lat = db.Column(db.Float)
-    lng = db.Column(db.Float)
-
-class Result(db.Model):
-    __tablename__ = 'results'
-
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String())
-    result_all = db.Column(JSON)
-    result_no_stop_words = db.Column(JSON)
-
-    def __init__(self, url, result_all, result_no_stop_words):
-        self.url = url
-        self.result_all = result_all
-        self.result_no_stop_words = result_no_stop_words
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<User %r>' % self.username
+
+# class Station(BaseModel, db.Model):
+#     """Model for the stations table"""
+#     __tablename__ = 'stations'
+#
+#     id = db.Column(db.Integer, primary_key = True)
+#     lat = db.Column(db.Float)
+#     lng = db.Column(db.Float)
+#
+# class Result(db.Model):
+#     __tablename__ = 'results'
+#
+#     id = db.Column(db.Integer, primary_key=True)
+#     url = db.Column(db.String())
+#     result_all = db.Column(JSON)
+#     result_no_stop_words = db.Column(JSON)
+#
+#     def __init__(self, url, result_all, result_no_stop_words):
+#         self.url = url
+#         self.result_all = result_all
+#         self.result_no_stop_words = result_no_stop_words
+#
+#     def __repr__(self):
+#         return '<id {}>'.format(self.id)
+#
+#
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), unique=True, nullable=False)
+#     email = db.Column(db.String(120), unique=True, nullable=False)
+#
+#     def __repr__(self):
+#         return '<User %r>' % self.username
