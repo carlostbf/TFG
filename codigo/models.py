@@ -29,23 +29,20 @@ class BaseModel(db.Model):
 
 
 class Antenna(db.Model):
-
-    radio=db.Column(db.String(50))
-    mcc=db.Column(db.Integer)
-    net=db.Column(db.Integer)
-    area=db.Column(db.Integer)
-    cell=db.Column(db.Integer, primary_key = True)
-    unit=db.Column(db.Integer)
-    lon=db.Column(db.Float)
-    lat=db.Column(db.Float)
-    range=db.Column(db.Integer)
-    samples=db.Column(db.Integer)
-    changeable=db.Column(db.Boolean)
-    created=db.Column(db.Numeric)
-    updated=db.Column(db.Numeric)
-    averageSignal=db.Column(db.Integer)
-
-    #db.Relationship
+    radio = db.Column(db.String(50))
+    mcc = db.Column(db.Integer, primary_key=True)
+    net = db.Column(db.Integer, primary_key=True)
+    area = db.Column(db.Integer, primary_key=True)
+    cell = db.Column(db.Integer, primary_key=True)
+    unit = db.Column(db.Integer)
+    lon = db.Column(db.Float)
+    lat = db.Column(db.Float)
+    range = db.Column(db.Integer)
+    samples = db.Column(db.Integer)
+    changeable = db.Column(db.Boolean)
+    created = db.Column(db.Numeric)
+    updated = db.Column(db.Numeric)
+    averageSignal = db.Column(db.Integer)
 
 
 class User(db.Model):

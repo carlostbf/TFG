@@ -4,7 +4,7 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 TODO
     rellenar Estado del Arte en TEX
     CONTINUAR TUTORIAL DE SQLALCHEMY EN FLASK
-        LIMPIAR DATOS OPENCELLID
+    Pasarle long y lat a leaflet
 
 config.py?
 	export APP_SETTINGS="config.DevelopmentConfig"
@@ -33,6 +33,5 @@ PREGUNTAS
 
 	mostrarle aplicacion, preguntar diseño
 	preguntarle sobre memoria
-    postgresql (lo escojo?)
 	(geolocation permite, a partir de ip, obtener pubs más cercanos
 	integrar postgres en python)
