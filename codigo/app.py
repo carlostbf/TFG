@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template
-from models import db
+from models import db, Antenna
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -26,12 +26,14 @@ db.init_app(app)
     # db.session.commit()
     # print(User.query.all())
     # print(User.query.filter_by(username='admin').first())
-
-
+with app.app_context():
+    antenas = Antenna.query.limit(5).all()
+    for antena in antenas:
+        print(antena)
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('base.html', antenas=antenas, lon=1.304765,lat=38.982559)
 
 # @app.route('/<name>')
 # def hello_name(name):

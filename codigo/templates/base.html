@@ -1,58 +1,67 @@
 <!doctype html>
-<!--<title>{% block title %}{% endblock %} - Flaskr</title>-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-<nav>
-  <h1><a href="{{ url_for('index') }}">Flaskr</a></h1>
-  </nav>
-<section class="content">
-  <!--<header>
-    {% block header %}{% endblock %}
-  </header>-->
-  <!--{% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}-->
-    <div id="mapid"></div>
-    <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+    <head>
+        <title>Leaflet OverPass Layer demo page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script>
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet-overpass-layer/dist/OverPassLayer.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+        <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+        <script src="{{ url_for('static', filename='node_modules/leaflet-overpass-layer/dist/OverPassLayer.bundle.js') }}"></script>
+    </head>
+    <body>
+        <nav>
+          <h1><a href="{{ url_for('index') }}">Mapa {{ lat }}, {{ lon }}</a></h1>
+          </nav>
+        <section class="content">
+          <header>
+            {% block header %}Hola{% endblock %}
+          </header>
 
+          {% block content %}{% endblock %}
+            <div id="mapid"></div>
 
-    var marker = L.marker([51.5, -0.09]).addTo(mymap);
-    var circle = L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(mymap);
+            <script>
+                var attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
+                var attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>';
 
+                var osm = new L.TileLayer(
+                    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    {
+                        'opacity': 0.7,
+                        'attribution': [attr_osm, attr_overpass].join(', ')
+                    }
+                );
 
-    var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap);
-
-
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-    circle.bindPopup("I am a circle.");
-    polygon.bindPopup("I am a polygon.");
+                var map = new L.Map('mapid')
+                .addLayer(osm)
+                .setView(new L.LatLng({{ lat }},{{ lon }}), 14);
 
 
-var popup = L.popup();
+                var opl = new L.OverPassLayer({
+                    'query': '(way(around:100,{{ lat }},{{ lon }})[highway~"^(primary|secondary|tertiary|residential)$"][name]; >;);out;',
+                    
+                });
 
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
-}
+                map.addLayer(opl);
+                L.marker([{{ lat }}, {{ lon }}]).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+                /*
+                {% for antena in antenas %}
+                    L.marker([{{ antena['lat'] }}, {{ antena['lon'] }}]).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+                {% endfor %}
+                */
+                var popup = L.popup();
 
-mymap.on('click', onMapClick);
-    </script>
-</section>
+                function onMapClick(e) {
+                    popup
+                        .setLatLng(e.latlng)
+                        .setContent("You clicked the map at " + e.latlng.toString())
+                        .openOn(map);
+                }
+
+                map.on('click', onMapClick);
+
+            </script>
+        </section>
+    </body>

@@ -2,36 +2,31 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
-    rellenar Estado del Arte en TEX
-    CONTINUAR TUTORIAL DE SQLALCHEMY EN FLASK
-    Pasarle long y lat a leaflet
+    INVESTIGAR LEAFLET CARRETERAS
+        Overpass?
+        YA FUNCIONA, AHORA QUEDA MIRAR CARRETERAS
+            REPASAR POR QUE DA ERROR CONSOLA
+    Redactar Estado del Arte en TEX
+    HACER FORMULARIO PARA FILTROS EN WEB
+    INVESTIGAR JSON PARA CREAR FORMATOS DE CSV EN BBDD
 
-config.py?
-	export APP_SETTINGS="config.DevelopmentConfig"
+COMANDOS
+    export APP_SETTINGS="config.DevelopmentConfig"
 
-Creador formatos csv
-	fichero de texto Json?
-	REPASAR JSON
+EXTRAS
+    requirements.txt
+    .env para Variables de entorno automaticas
+    aplicación tiene que ser instalable? concentrarme en codigo
+        pip install?
+        script?
 
-requirements.txt
-.env para Variables de entorno automaticas
+    (geolocation permite, a partir de ip, obtener pubs más cercanos
+	integrar postgres en python)
 
 PREGUNTAS
-	aplicación tiene que ser instalable? concentrarme en codigo
-		pip install?
-		script?
-
-	SQLalchemy ok
-	formulario para consultas SQL?
-        si, cuando tenga datos (igual los llego a simular)
-
-	algoritmo para datos?
+    algoritmo para datos?
         telefonos por antenas
         ver areas donde se encuentra telefono y descartar posibilidades
         carreteras en openstreet maps? leaflet roadmap
 
 
-	mostrarle aplicacion, preguntar diseño
-	preguntarle sobre memoria
-	(geolocation permite, a partir de ip, obtener pubs más cercanos
-	integrar postgres en python)
