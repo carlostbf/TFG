@@ -1,79 +1,75 @@
-<!doctype html>
-    <head>
-        <title>Leaflet OverPass Layer demo page</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Map</title>
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet-overpass-layer/dist/OverPassLayer.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-        <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
-        <script src="{{ url_for('static', filename='node_modules/leaflet-overpass-layer/dist/OverPassLayer.bundle.js') }}"></script>
-    </head>
-    <body>
-        <nav>
-          <h1><a href="{{ url_for('index') }}">Mapa {{ lat }}, {{ lon }}</a></h1>
-          </nav>
-        <section class="content">
-          <header>
-            {% block header %}Hola{% endblock %}
-          </header>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
 
-          {% block content %}{% endblock %}
-            <div id="mapid"></div>
-            <form action="/query" method="post">
-                <label for="mcc">mcc</label>
-                <input name="mcc" id="mcc" required>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
 
-                <label for="net">net</label>
-                <input name="net" id="net" required>
+<body>
+<nav>
+  <h1><a href="{{ url_for('index') }}">Mapa {{ lat }}, {{ lon }}</a></h1>
+</nav>
 
-                <label for="area">area</label>
-                <input name="area" id="area" required>
+<section class="content">
+  <header>
+    {% block header %}Hola{% endblock %}
+  </header>
+  {% block content %}{% endblock %}
+  <div id="map"></div>
+  <script>
+    var map;
+    var apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
 
-                <label for="cell">cell</label>
-                <input name="cell" id="cell" required>
+    function initMap() {
+      var sol = {lat: 60, lng: 24};
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: sol,
+        zoom: 0,
+      });
+      var marker = new google.maps.Marker({position: sol, map: map});
 
-                <input type="submit" value="Query">
-            </form>
-            {% for message in get_flashed_messages() %}
-                <div class="flash">{{ message }}</div>
-            {% endfor %}
-            <script>
-                var attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
-                var attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>';
+      $.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
+        function (data) {
+          for (var i = 0; i < data.snappedPoints.length; i++) {
+            var latlng = new google.maps.LatLng(
+              data.snappedPoints[i].location.latitude,
+              data.snappedPoints[i].location.longitude);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map
+            });
+          }
+        }
+      );
+    }
+  </script>
 
-                var osm = new L.TileLayer(
-                    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    {
-                        'opacity': 0.7,
-                        'attribution': [attr_osm, attr_overpass].join(', ')
-                    }
-                );
-                var map = new L.Map('mapid')
-                    .addLayer(osm)
-                    .setView(new L.LatLng({{ lat }},{{ lon }}), 14);
-                {% for antena in antenas %}
-
-                    L.marker([{{ antena['lat'] }}, {{ antena['lon'] }}]).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-                    var opl = new L.OverPassLayer({
-                        'query': '(way(around:50,{{ antena['lat'] }},{{ antena['lon'] }})[highway~"^(primary|secondary|tertiary|residential)$"][name]; >;);out skel;',
-                    });
-
-                    map.addLayer(opl);
-
-                {% endfor %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ&callback=initMap"
+          async defer></script>
 
 
-                var popup = L.popup();
-                function onMapClick(e) {
-                    popup
-                        .setLatLng(e.latlng)
-                        .setContent("You clicked the map at " + e.latlng.toString())
-                        .openOn(map);
-                }
-                map.on('click', onMapClick);
+  <form action="/query" method="post">
+    <label for="mcc">mcc</label>
+    <input name="mcc" id="mcc" required>
 
-            </script>
-        </section>
-    </body>
+    <label for="net">net</label>
+    <input name="net" id="net" required>
+
+    <label for="area">area</label>
+    <input name="area" id="area" required>
+
+    <label for="cell">cell</label>
+    <input name="cell" id="cell" required>
+
+    <input type="submit" value="Query">
+  </form>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+</section>
+</body>

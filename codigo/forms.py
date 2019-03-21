@@ -9,7 +9,6 @@ from models import Antenna
 bp = Blueprint('forms', __name__)
 
 
-
 @bp.route('/query', methods=('GET', 'POST'))
 def get_antenna():
     """Get a post and its author by id.
@@ -33,8 +32,8 @@ def get_antenna():
         antena = Antenna.query.filter_by(mcc=mcc, net=net, area=area, cell=cell).first()
 
         if antena is None:
-            error= 'Antena inexistente'
+            error = 'Antena inexistente'
             flash(error)
             return render_template('base.html', lat=40.4167278, lon=-3.7033387)
 
-        return render_template('base.html', antenas=antenas,lat=antena.lat,lon=antena.lon)
+        return render_template('base.html', antenas=antenas, lat=antena.lat, lon=antena.lon)

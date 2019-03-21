@@ -17,7 +17,6 @@ POSTGRES = {
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 %(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
-
 app.register_blueprint(forms.bp)
 db.init_app(app)
 
