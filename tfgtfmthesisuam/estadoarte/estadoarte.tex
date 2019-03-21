@@ -1,17 +1,44 @@
-Bases de Datos
+  %%GLOSARIO
+  \newdefinition{api}{API}{APIs}{La interfaz de programación de aplicaciones es un conjunto de subrutinas, funciones y procedimientos que ofrece cierta biblioteca para ser utilizado por otro software como una capa de abstracción}
+  \newdefinition{framework}{framework}{frameworks}{Estructura conceptual y tecnológica de asistencia definida que sirve de base para la organización y desarrollo de software}
+  \newacronym{bbdd}{BBDD}{Bases de Datos}
+  \newacronym{bd}{BD}{Base de Datos}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  En la actualidad, existen muchas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación describiremos los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
 
-Debido al gran volumen de datos, hemos decidido utilizar la BBDD de PostgreSQL\cite{postgres}.
-Otra posible BBDD era Neo4J\cite{neo4j}, que es una BBDD basada en grafos.
+\section{Bases de Datos}
+  Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bbdd} relacionales y las \ac{bbdd} orientadas a grafos.
+  
+  Las \ac{bbdd} relacionales siguen el modelo relacional, que consiste en guardar los datos en tablas y relaciones. Mientras que las \ac{bbdd} orientadas a grafos guardan los datos en nodos, relacionados con otros nodos mediante aristas.
+  
+  En estos tipos destacan PostgreSQL\cite{postgres} como \ac{bd} relacional y Neo4J\cite{neo4j} como \ac{bd} orientada a grafos.
+  
+  PostgreSQL fue creada en 1989, mientras que Neo4J fue creada en 2007. Por tanto, PostgreSQL es una solución más clásica y tiene muchos más años de soporte, lo que lo hace más robusto y versátil.
 
-MAPAS
+  Por otra parte, Neo4J, por su naturaleza, puede ser más eficiente si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. A pesar de ello, está estudiado que el rendimiento de Neo4J para una gran cantidad de datos conectados densamente decae rápidamente. En cambio, PostgreSQL es más ligero y rápido en estos casos.
+  %distancias
+  %//modulo geolocalizacion
+  
+\section{Framework}
+  A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita la creación de la aplicación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
+  
+  Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en python son Django\cite{django} y Flask\cite{flask}.
+  
+  Ambos proporcionan una estructura a la aplicación, siendo la de Django más restrictiva y estandarizada. A pesar de ello, Django proporciona muchas herramientas de desarrollo integradas.
+  
+  Mientras tanto, Flask se caracteriza por su flexibilidad y simpleza. Proporciona menos herramientas de desarrollo, pero se puede solucionar fácilmente mediante la inclusión de plugins.
+  
 
-Actualmente hay numerosas APIs disponibles para implementar mapas, la más conocida y la más completa es la de Google Maps \cite{gmaps}. El problema es que actualmente no es gratuita. Además no permite usar su API offline
+\section{API de mapas}
 
-
-Por tanto hemos decidido utilizar una API opensource y gratuita, Leaflet\cite{leaflet} junto a los mapas provistos por OpenStreetMap \cite{osm}.
-
-
-Python web frameworks
-Django vs Flask\cite{flask}
-
-
+  Existen muchas \dfnpl{api} disponibles para implementar mapas en javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. El problema con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita.
+  %%Mapas offline
+  
+  Por tanto, se han investigado las alternativas opensource y gratuitas existentes. Las dos \dfnpl{api} principales en este sector son OpenLayers\cite{openlayers} y Leaflet\cite{leaflet}.
+  
+  OpenLayers es la alternativa más clásica de implementación de mapas opensource. Posee una gran cantidad de funcionalidades integradas como, por ejemplo, visualización de mapas 3D y permitir mostrar rápidamente grandes conjuntos de datos vectoriales.
+  
+  Leaflet es una librería javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como Openlayers, pero eso lo suple con la gran variedad de plugins que se pueden añadir.
+  
+  A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}.
+  %%Consulta BBDD osm

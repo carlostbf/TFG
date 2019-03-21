@@ -2,13 +2,13 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
-    INVESTIGAR LEAFLET CARRETERAS
-        Overpass?
-        YA FUNCIONA, AHORA QUEDA MIRAR CARRETERAS
-            REPASAR POR QUE DA ERROR CONSOLA
-    Redactar Estado del Arte en TEX
+    CAMBIAR DE LEAFLET A GMAPS
     HACER FORMULARIO PARA FILTROS EN WEB
+        repasar que este bien hecho
     INVESTIGAR JSON PARA CREAR FORMATOS DE CSV EN BBDD
+
+DIFICULTADES ENCONTRADAS
+    CAMBIAR A GOOGLE MAPS
 
 COMANDOS
     export APP_SETTINGS="config.DevelopmentConfig"
@@ -29,4 +29,4 @@ PREGUNTAS
         ver areas donde se encuentra telefono y descartar posibilidades
         carreteras en openstreet maps? leaflet roadmap
 
-
+    Como simular datos?

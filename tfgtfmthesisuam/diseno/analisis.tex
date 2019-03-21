@@ -1,27 +1,22 @@
 \paragraph{Requisitos funcionales}
 
 \begin{functional}
-        \item Permite definir el formato de los datos mediante una interfaz gráfica.
-        \begin{functional}
-                \item Automatizado?...\cite{leaflet}
-        \end{functional}
+        \item Permite definir el formato de los datos mediante un fichero Json.
     
         \item Permite  conocer las trayectorias de los terminales (mediante un algoritmo).
         \begin{functional}
         	\item Las trayectorias se mostrarán en un mapa.
-        	\item Se descartarán las ubicaciones irrelevantes.
+        	\item Se descartarán las ubicaciones irrelevantes. (A concretar!)
         \end{functional}
     	\item Permite conocer los tiempos en cada ubicación de la trayectoria.
         
-        %%\item Permite hacer consultas filtradas para el usuario.
-
-		\item Se hará uso de Flask.
-		\begin{functional}
+      \item Permite hacer consultas filtradas para el usuario mediante un formulario.
+      
 			\item La lógica de la aplicación debe estar programada en Python 3.
-			\item Se mostrará en una interfaz web programada en Javascript.
-		\end{functional}
+			
+      \item Se mostrará en una interfaz web programada en Javascript.
 
-		\item La base de datos usada será PostgreSQL.        
+    \item La base de datos usada será PostgreSQL.        
 \end{functional}
 
 \paragraph{Requisitos no funcionales}
@@ -32,7 +27,4 @@
                 \item La aplicación funciona correctamente en local.
                 \item Puede hacer consultas a Internet, siempre y cuando estas consultas no impliquen el envío de datos policiales.
         \end{nonfunctional}
-    
-
-        \item Los mapas se cargarán usando la API de Leaflet.
 \end{nonfunctional}
