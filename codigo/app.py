@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from flask_migrate import Migrate
 from models import db, Antenna
 import forms
 
@@ -19,12 +20,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 
 app.register_blueprint(forms.bp)
 db.init_app(app)
+migrate = Migrate(app, db)
 
-with app.app_context():
-    antenas = Antenna.query.limit(2).all()
-    first = Antenna.query.first()
-    for antena in antenas:
-        print(antena)
+# with app.app_context():
+#     antenas = Antenna.query.limit(2).all()
+#     first = Antenna.query.first()
+#     for antena in antenas:
+#         print(antena)
 
 
 @app.route('/')

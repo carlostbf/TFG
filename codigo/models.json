@@ -1,0 +1,23 @@
+{
+  "models":[
+    {
+      "fecha_inicio": "FECHA_INICIO",
+      "fecha_fin": "FECHA_FIN",
+      "duracion": "DURACION",
+
+      "tlf_o": "SENTIDO_O",
+      "cgi_o":"CGI_O",
+      "latitud_o": "LATITUD_O",
+      "longitud_o": "LONGITUD_O",
+
+      "tlf_d": "SENTIDO_D",
+      "cgi_d":"CGI_D",
+      "latitud_d": "LATITUD_D",
+      "longitud_d": "LONGITUD_D"
+    },
+    {
+      "tlf_o": "",
+      "tlf_d": ""
+    }
+  ]
+}

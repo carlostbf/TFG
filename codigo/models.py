@@ -1,6 +1,7 @@
 from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 
@@ -43,6 +44,22 @@ class Antenna(db.Model):
     created = db.Column(db.Numeric)
     updated = db.Column(db.Numeric)
     averageSignal = db.Column(db.Integer)
+
+
+class Telephone(db.Model):
+    fecha_inicio = db.Column(db.DateTime, primary_key=True)
+    fecha_fin = db.Column(db.DateTime)
+    duracion = db.Column(db.Float)
+
+    tlf_o = db.Column(db.Integer, primary_key=True)
+    cgi_o = db.Column(db.String(50))
+    latitud_o = db.Column(db.Float)
+    longitud_o = db.Column(db.Float)
+
+    tlf_d = db.Column(db.Integer, primary_key=True)
+    cgi_d = db.Column(db.String(50))
+    latitud_d = db.Column(db.Float)
+    longitud_d = db.Column(db.Float)
 
 
 class User(db.Model):
