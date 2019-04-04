@@ -9,15 +9,11 @@ TODO
 
         HACER FORMULARIO PARA FILTROS EN WEB
 
-        INVESTIGAR JSON PARA CREAR FORMATOS DE CSV EN BBDD
-
     MEMORIA
         Ampliar Estado del arte
         Dificultades encontradas
 
-DIFICULTADES ENCONTRADAS
-    CAMBIAR A GOOGLE MAPS
-        explicar razones
+
 
 
 COMANDOS
@@ -81,15 +77,16 @@ PREGUNTAS
             decidir tecnologias en diseño o estado arte?
                 diseño
             explayarme con explicaciones neo4J
+        DIFICULTADES ENCONTRADAS
+            CAMBIAR A GOOGLE MAPS
+                explicar razones
+            Simular Datos
         desarrollo
             detalles sobre como se ha implementado?
             diferencia con diseño?
                 codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
         integracion pruebas y resultados
             capturas de pantalla
-
-
-    en general, criterios para correccion?
 
 
 INFORMACIÓN SOBRE PLAZOS
@@ -116,3 +113,12 @@ DATOS
     TODO
         ignorar duplicated key
         study SQLalchemy datetime formats
+        Hacer lo mismo para vodafone
+
+PREGUNTAS PARA PAULA
+    primary key?
+    datos opencellid coinciden?
+    IMSI IMEI para ubicar a alguien? o solo tlf?
+    CGI del que llama?
+    DateInit + Duration = DateFin?
+    unificar formatos, cuales son comunes?

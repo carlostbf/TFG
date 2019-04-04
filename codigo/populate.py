@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import json
 import pandas as pd
 from numpy import genfromtxt
@@ -40,43 +41,71 @@ def load(csv_file, imodel):
     # for model in data['models']:
     #     print(model)
     #     print(data['models'][0])  # model
+
     model = data['models'][imodel]
-    #optimizable?
-    df = pd.read_csv(csv_file).loc[:, [model['fecha_inicio'],
-                                       model['fecha_fin'],
-                                       model['duracion'],
+    # optimizable?
+    # df = pd.read_csv(csv_file).loc[:, [model['fecha_inicio'],
+    #                                    model['fecha_fin'],
+    #                                    model['duracion'],
+    #
+    #                                    model['tlf_o'],
+    #                                    model['cgi_o'],
+    #                                    model['latitud_o'],
+    #                                    model['longitud_o'],
+    #
+    #                                    model['tlf_d'],
+    #                                    model['cgi_d'],
+    #                                    model['latitud_d'],
+    #                                    model['longitud_d']
+    #                                    ]
+    #      ]
 
-                                       model['tlf_o'],
-                                       model['cgi_o'],
-                                       model['latitud_o'],
-                                       model['longitud_o'],
+    df = pd.read_excel(csv_file).loc[:, [
+                                            model['fecha_inicio'],
+                                            model['duracion'],
 
-                                       model['tlf_d'],
-                                       model['cgi_d'],
-                                       model['latitud_d'],
-                                       model['longitud_d']
-                                       ]
+                                            model['tlf_o'],
+                                            model['lac'],
+                                            model['cellid'],
+
+                                            model['tlf_d']
+                                        ]
          ]
 
-    # print(df.head())
-    #optimizable?
+    print(df.head())
+
+    # optimizable?
+    # df.rename(columns={
+    #     model['fecha_inicio']: 'fecha_inicio',
+    #     model['fecha_fin']: 'fecha_fin',
+    #     model['duracion']: 'duracion',
+    #
+    #     model['tlf_o']: 'tlf_o',
+    #     model['cgi_o']: 'cgi_o',
+    #     model['latitud_o']: 'latitud_o',
+    #     model['longitud_o']: 'longitud_o',
+    #
+    #     model['tlf_d']: 'tlf_d',
+    #     model['cgi_d']: 'cgi_d',
+    #     model['latitud_d']: 'latitud_d',
+    #     model['longitud_d']: 'longitud_d',
+    #
+    # },
+    #     inplace=True)
+
     df.rename(columns={
         model['fecha_inicio']: 'fecha_inicio',
-        model['fecha_fin']: 'fecha_fin',
         model['duracion']: 'duracion',
 
         model['tlf_o']: 'tlf_o',
-        model['cgi_o']: 'cgi_o',
-        model['latitud_o']: 'latitud_o',
-        model['longitud_o']: 'longitud_o',
+        model['lac']: 'lac',
+        model['cellid']: 'cellid',
 
         model['tlf_d']: 'tlf_d',
-        model['cgi_d']: 'cgi_d',
-        model['latitud_d']: 'latitud_d',
-        model['longitud_d']: 'longitud_d',
 
     },
         inplace=True)
+
     # print(df.to_dict(orient="records"))
     with app.app_context():
         db.session.bulk_insert_mappings(Telephone, df.to_dict(orient="records"))
@@ -84,9 +113,10 @@ def load(csv_file, imodel):
 
 
 if __name__ == '__main__':
-    file_name = "modelo_MOVISTAR.csv"
+    file_name = "Llamadas entrantes.xlsx"
     with app.app_context():
         # db.drop_all()
         db.create_all()
     # populate(file_name="215.csv")
-    load(file_name, 0)
+
+    load(file_name, 1)

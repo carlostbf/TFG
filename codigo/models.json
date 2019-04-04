@@ -16,8 +16,21 @@
       "longitud_d": "LONGITUD_D"
     },
     {
-      "tlf_o": "",
-      "tlf_d": ""
+      "fecha_inicio": "Date",
+      "fecha_fin": "",
+      "duracion": "Duration",
+
+      "tlf_o": "CallingNumber",
+      "lac": "LAC",
+      "cellid": "CellID",
+      "cgi_o":"",
+      "latitud_o": "",
+      "longitud_o": "",
+
+      "tlf_d": "CalledNumber",
+      "cgi_d":"",
+      "latitud_d": "",
+      "longitud_d": ""
     }
   ]
 }
