@@ -11,7 +11,7 @@
 \documentclass[epsbased,copyright,final,printable,covers,extendedindex,firstnumbered,tfg,gnuplot,nonelo]{tfgtfmthesisuam}
 \usepackage[T1]{fontenc}
 \usepackage{selinput}
-\SelectInputMappings{%
+\SelectInputMappings{
 	aacute={á},
 	ntilde={ñ},
 	Euro={€}
@@ -22,7 +22,7 @@
 \title{Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa}
 %\subtitle{Si hace falta subtítulo}
 \author{Carlos Li Hu}
-\copyrightdate{X de Noviembre de 2019}
+\copyrightdate{20 de Junio de 2019}
 \begin{comment}
 	\dedication{A mi mujer y a mis hijos}
 	\famouscite{Lo peor es cuando has terminado un capítulo\\y la máquina de escribir no aplaude. \\[0.1em] \begin{flushright}Orson Welles\end{flushright}}
@@ -53,23 +53,14 @@
 
 \begin{document}
 
-\chapter{Introducción\label{CAP:INTRODUCCION}}{introduccion/introduccion}
-  \section{Motivación\label{SEC:MOTIVACION}}{introduccion/motivacion}
-  \section{Objetivos\label{SEC:OBJETIVOS}}{introduccion/objetivos}
-  \section{Organización de la memoria\label{SEC:ORGANIZACION}}{introduccion/organizacion}
+\include{introduccion/introduccion}
 
-\chapter{Estado del arte\label{CAP:ESTADOARTE}}{estadoarte/estadoarte}
+\include{estadoarte/estadoarte}
+\include{ad/ad}
+\include{desarrollo/desarrollo}
+\include{ipr/ipr}
+\include{conctrab/conctrab}
 
-
-\chapter{Diseño\label{CAP:DISEÑO}}{diseno/diseno}
-  \section{Análisis de Requisitos\label{SEC:ANALISIS}}{diseno/analisis}
-  \section{Dificultades Encontradas\label{SEC:DIFICULTAD}}{diseno/dificultad}
-\chapter{Desarrollo\label{CAP:DESARROLLO}}{desarrollo/desarrollo}
-
-\chapter{Integración, pruebas y resultados\label{CAP:IPR}}{ipr/ipr}
-\chapter{Conclusiones y trabajo futuro\label{CAP:CONCTRAB}}{conctrab/conctrab}
-   \section{Conclusiones\label{SEC:CONCLUSIONES}}{conctrab/conclusiones}
-   \section{Trabajo futuro\label{SEC:TRABAJO}}{conctrab/trabajo}
 \appendix
 
 \end{document}

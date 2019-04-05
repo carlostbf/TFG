@@ -7,5 +7,6 @@ sudo -u postgres psql
 sudo -u postgres createdb tfg -h localhost -p 5432
 
 #modificar parametros postgres
+. venv/bin/activate
 export APP_SETTINGS="config.DevelopmentConfig"
 python populate.py
