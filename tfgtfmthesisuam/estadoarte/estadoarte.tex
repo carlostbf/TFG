@@ -33,11 +33,10 @@
   
   \section{API de mapas}
   
-    Existen muchas \dfnpl{api} disponibles para implementar mapas en javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. El problema con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita.
-    %%Mapas offline
-    %Más completa y actualizada
-    %leaflet es dificil hacer lo de las carreteras
+    Existen muchas \dfnpl{api} disponibles para implementar mapas en javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
     
+    El problema con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a internet es necesaria.
+
     
     Por tanto, se han investigado las alternativas opensource y gratuitas existentes. Las dos \dfnpl{api} principales en este sector son OpenLayers\cite{openlayers} y Leaflet\cite{leaflet}.
     
@@ -46,9 +45,10 @@
     Leaflet es una librería javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como Openlayers, pero eso lo suple con la gran variedad de plugins que se pueden añadir.
     
     A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}.
+    %leaflet es dificil hacer lo de las carreteras
     %%Consulta BBDD osm
   
   \section{Librerías Python}
     Usamos SQLAlchemy
     Usamos Pandas
-    
+  %Esto lo voy a mover a diseño  

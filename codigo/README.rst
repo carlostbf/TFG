@@ -4,14 +4,11 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 TODO
     CODIGO
         GMAPS
-            nearest roads
-                array de puntos
+            nearest roads (array de puntos)
 
+        adaptar json a datos
         HACER FORMULARIO PARA FILTROS EN WEB
 
-    MEMORIA
-        Ampliar Estado del arte
-        Dificultades encontradas
 
 
 
@@ -49,22 +46,23 @@ PREGUNTAS
 
         i) Determinar patrón de comportamiento de todos los teléfonos detectados en un área determinada
             -dado area e instantes => mostrar telefonos y trayectorias
-            filtro descartar rutas carreteras (gente que pasa muy rapido por la zona)
+            filtro descartar rutas carreteras (gente que pasa muy rapido por la zona) (registro de llamadas)
             descartar por filtros de tiempo quien ha estado mas tiempo (me interesa por si estan haciendo algo ilegal).
+            teniendo en cuenta que no se apagan
+            puede haberlo apagado (no descartarlo?)
 
         ii) Determinar trayectorias y posibles coincidencias de localización de un teléfono específico
             dado telefono e instantes => encontrar su trayectoria
             pueden ser mas de x telefonos a la vez
 
+            ver a quienes llama el sospechoso
+            ver la red de llamadas a sospechosos
 
     Como simular datos?
         (tengo datos de antenas de opencellid)
         telefono + tiempos + (varias antenas asociadas en una misma zona)
             antenas + ventanas de tiempo + telefonos + areas de antenas
                 interpolacion probabilistica
-
-        en general no se como hacerlo realista
-            espero hasta 5 abril para datos como mucho
 
 
     memoria (registro y contenido)
@@ -82,6 +80,7 @@ PREGUNTAS
                 explicar razones
             Simular Datos
         desarrollo
+            versiones de herramientas
             detalles sobre como se ha implementado?
             diferencia con diseño?
                 codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
@@ -115,10 +114,14 @@ DATOS
         study SQLalchemy datetime formats
         Hacer lo mismo para vodafone
 
-PREGUNTAS PARA PAULA
     primary key?
-    datos opencellid coinciden?
-    IMSI IMEI para ubicar a alguien? o solo tlf?
-    CGI del que llama?
-    DateInit + Duration = DateFin?
+        mcc	net	area cell
+        CallingNumber CalledNumber Date
+
     unificar formatos, cuales son comunes?
+
+    datos opencellid coinciden? si
+    IMSI IMEI para ubicar a alguien? o solo tlf? solo tlf
+    CGI del que llama? si
+    DateInit + Duration = DateFin? correcto
+
