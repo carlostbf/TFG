@@ -10,93 +10,12 @@ TODO
         HACER FORMULARIO PARA FILTROS EN WEB
 
 
-
-
-
 COMANDOS
     export APP_SETTINGS="config.DevelopmentConfig"
     flask db init
     flask db migrate
     flask db upgrade
 
-EXTRAS
-    requirements.txt
-    .env para Variables de entorno automaticas
-    aplicación tiene que ser instalable? concentrarme en codigo
-        pip install?
-        script?
-
-    (geolocation permite, a partir de ip, obtener pubs más cercanos
-	integrar postgres en python)
-
-
-
-
-PREGUNTAS
-    algoritmo para trayectorias?(telefonos por antenas)
-        ver areas donde se encuentra telefono (algoritmo probabilistico?)
-            descartar posibilidades? con filtros
-
-        como son los filtros/consultas?
-            maps me da carretera mas cercana a un punto
-            distancias necesarias? las puedo calcular
-
-        trayectorias posibles
-            solo caminando? o tambien carreteras usadas?
-
-        i) Determinar patrón de comportamiento de todos los teléfonos detectados en un área determinada
-            -dado area e instantes => mostrar telefonos y trayectorias
-            filtro descartar rutas carreteras (gente que pasa muy rapido por la zona) (registro de llamadas)
-            descartar por filtros de tiempo quien ha estado mas tiempo (me interesa por si estan haciendo algo ilegal).
-            teniendo en cuenta que no se apagan
-            puede haberlo apagado (no descartarlo?)
-
-        ii) Determinar trayectorias y posibles coincidencias de localización de un teléfono específico
-            dado telefono e instantes => encontrar su trayectoria
-            pueden ser mas de x telefonos a la vez
-
-            ver a quienes llama el sospechoso
-            ver la red de llamadas a sospechosos
-
-    Como simular datos?
-        (tengo datos de antenas de opencellid)
-        telefono + tiempos + (varias antenas asociadas en una misma zona)
-            antenas + ventanas de tiempo + telefonos + areas de antenas
-                interpolacion probabilistica
-
-
-    memoria (registro y contenido)
-        objetivos?
-            descripcion informal (hace esto con esto y tatata)
-        requisitos
-            hay fichero, hace esto, etc
-        estado arte
-            pros y contras en estado arte
-            decidir tecnologias en diseño o estado arte?
-                diseño
-            explayarme con explicaciones neo4J
-        DIFICULTADES ENCONTRADAS
-            CAMBIAR A GOOGLE MAPS
-                explicar razones
-            Simular Datos
-        desarrollo
-            versiones de herramientas
-            detalles sobre como se ha implementado?
-            diferencia con diseño?
-                codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
-        integracion pruebas y resultados
-            capturas de pantalla
-
-
-INFORMACIÓN SOBRE PLAZOS
-    codigo
-        evaluado por ortigosa principalmente
-    memoria
-        evaluan mi trabajo, no es un manual de usuario
-
-    envio de memoria por capitulo cerrado
-    memoria final para ortigosa 15 dias antes
-    defiendo en julio
 
 DATOS
     ignorar columnas irrelevantes
@@ -124,4 +43,84 @@ DATOS
     IMSI IMEI para ubicar a alguien? o solo tlf? solo tlf
     CGI del que llama? si
     DateInit + Duration = DateFin? correcto
+
+    Como simular datos?
+        (tengo datos de antenas de opencellid)
+        telefono + tiempos + (varias antenas asociadas en una misma zona)
+            antenas + ventanas de tiempo + telefonos + areas de antenas
+                interpolacion probabilistica
+
+MEMORIA
+    objetivos <-------------------------------------------------
+        descripcion informal (hace esto con esto y tatata)
+    requisitos <-------------------------------------------------
+        hay fichero, hace esto, etc
+    estado arte
+        pros y contras de tecnologias en estado arte
+    diseño
+        decidir tecnologias
+    DIFICULTADES ENCONTRADAS <-------------------------------------------------
+        CAMBIAR A GOOGLE MAPS
+            explicar razones
+        Simular Datos
+    desarrollo <-------------------------------------------------
+        versiones de herramientas
+        detalles sobre como se ha implementado?
+        diferencia con diseño?
+            codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
+    integracion pruebas y resultados
+        setup inicial
+        explicar como usar aplicación
+        capturas de pantalla
+
+
+ALGORITMO
+    algoritmo para trayectorias?(telefonos por antenas)
+        ver areas donde se encuentra telefono (algoritmo probabilistico?)
+            descartar posibilidades? con filtros
+
+        como son los filtros/consultas?
+            maps me da carretera mas cercana a un punto
+            distancias necesarias? las puedo calcular
+
+        trayectorias posibles
+            solo caminando? o tambien carreteras usadas?
+
+        i) Determinar patrón de comportamiento de todos los teléfonos detectados en un área determinada
+            -dado area e instantes => mostrar telefonos y trayectorias
+            filtro descartar rutas carreteras (gente que pasa muy rapido por la zona) (registro de llamadas)
+            descartar por filtros de tiempo quien ha estado mas tiempo (me interesa por si estan haciendo algo ilegal).
+            teniendo en cuenta que no se apagan
+            puede haberlo apagado (no descartarlo?)
+
+        ii) Determinar trayectorias y posibles coincidencias de localización de un teléfono específico
+            dado telefono e instantes => encontrar su trayectoria
+            pueden ser mas de x telefonos a la vez
+
+            ver a quienes llama el sospechoso
+            ver la red de llamadas a sospechosos
+
+
+EXTRAS
+    requirements.txt
+    .env para Variables de entorno automaticas
+    aplicación tiene que ser instalable? concentrarme en codigo
+        pip install?
+        script?
+
+    (geolocation permite, a partir de ip, obtener pubs más cercanos
+	integrar postgres en python)
+
+
+INFORMACIÓN SOBRE PLAZOS
+    codigo
+        evaluado por ortigosa principalmente
+    memoria
+        evaluan mi trabajo, no es un manual de usuario
+
+    envio de memoria por capitulo cerrado
+    memoria final para ortigosa 15 dias antes
+    defiendo en julio
+
+
 

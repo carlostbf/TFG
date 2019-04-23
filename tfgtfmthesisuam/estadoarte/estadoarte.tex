@@ -3,26 +3,32 @@
   \newdefinition{framework}{framework}{frameworks}{Estructura conceptual y tecnológica de asistencia definida que sirve de base para la organización y desarrollo de software}
   \newacronym{bbdd}{BBDD}{Bases de Datos}
   \newacronym{bd}{BD}{Base de Datos}
+  \newacronym{bdr}{BDR}{Bases de Datos Relacionales}
+  \newacronym{bdo}{BDOG}{Bases de Datos Orientadas a Grafos}
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
-\chapter{Estado del arte\label{CAP:ESTADOARTE}}
+\chapter{Estado del Arte\label{CAP:ESTADOARTE}}
   En la actualidad, existen muchas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación describiremos los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
   
   \section{Bases de Datos}
-    Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bbdd} relacionales y las \ac{bbdd} orientadas a grafos.
+    Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bdr} y las \ac{bdo}.
     
-    Las \ac{bbdd} relacionales siguen el modelo relacional, que consiste en guardar los datos en tablas y relaciones. Mientras que las \ac{bbdd} orientadas a grafos guardan los datos en nodos, relacionados con otros nodos mediante aristas.
+    Las \ac{bdr} siguen el modelo relacional, que consiste en guardar los datos en tablas y relaciones. Mientras que las \ac{bdo} guardan los datos en nodos (también llamados vértices) relacionados con otros nodos mediante aristas (también llamadas relaciones). En este apartado se analizará principalmente a PostgreSQL\cite{postgres}.
     
-    En estos tipos destacan PostgreSQL\cite{postgres} como \ac{bd} relacional y Neo4J\cite{neo4j} como \ac{bd} orientada a grafos.
+    Las \ac{bdo} llevan mucho tiempo inventadas, pero fueron eclipsadas en su momento por las \ac{bdr}, las cuáles son más sencillas y por tanto más populares. Por ese mismo motivo, actualmente existen escasas herramientas de \ac{bdo}. En este apartado se analizará principalmente a Neo4J\cite{neo4j}.
     
-    PostgreSQL fue creada en 1989, mientras que Neo4J fue creada en 2007. Por tanto, PostgreSQL es una solución más clásica y tiene muchos más años de soporte, lo que lo hace más robusto y versátil.
+    PostgreSQL es una \ac{bdr} que fue creada en 1989 e implementada en C. Entre sus características más útiles se destaca su alta concurrencia, es decir, permite que mientras un proceso modifica una tabla, otros accedan a la misma sin necesidad de bloqueos, y así permitiendo a cada usuario obtener una visión consistente. Además permite la ejecución de funciones, procedimientos almacenados y triggers (también llamados disparadores).
+    Por estas razones, y por su longevidad en el mercado, es una herramienta más clásica con muchas funcionalidades y que tiene muchos más años de soporte, lo que la hace más robusta y versátil.
   
-    Por otra parte, Neo4J, por su naturaleza, puede ser más eficiente si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. A pesar de ello, está estudiado que el rendimiento de Neo4J para una gran cantidad de datos conectados densamente decae rápidamente. En cambio, PostgreSQL es más ligero y rápido en estos casos.
+    Por otra parte, Neo4J es una \ac{bdo} que fue creada en 2007 usando Java y se basa en el uso de "grafos de propiedad". Estos son un tipo de grafos dirigidos, con peso en las relaciones entre nodos, y que poseen etiquetas y propiedades en los nodos y relaciones entre ellos. Neo4J tiene mejor rendimiento que las \ac{bbdd} relacionales y las no relacionales. Esto es porque, aunque las consultas de datos aumenten exponencialmente, el rendimiento de Neo4j no desciende (frente a lo que sí sucede con las BD relacionales). Esto es debido a que las \ac{bdo} responden a las consultas actualizando el nodo y las relaciones de esa búsqueda y no todo el grafo completo y eso optimiza mucho el proceso.
+    Además, cabe destacar su flexibilidad y escalabilidad, pues cuando aumentan las necesidades, las posibilidades de añadir más nodos y relaciones a un grafo ya existente son enormes.
+    En general, por su naturaleza estas \ac{bbdd} destacan en eficiencia si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. 
+    
     %distancias
     %//modulo geolocalizacion
     
   \section{Framework}
-    A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita la creación de la aplicación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
+    A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
     
     Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en python son Django\cite{django} y Flask\cite{flask}.
     
