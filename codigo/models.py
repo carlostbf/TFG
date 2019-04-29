@@ -1,7 +1,6 @@
 from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 
@@ -30,39 +29,35 @@ db = SQLAlchemy()
 
 
 class Antenna(db.Model):
-    radio = db.Column(db.String(50))
-    mcc = db.Column(db.Integer, primary_key=True)
-    net = db.Column(db.Integer, primary_key=True)
-    area = db.Column(db.Integer, primary_key=True)
-    cell = db.Column(db.Integer, primary_key=True)
-    unit = db.Column(db.Integer)
+    # radio = db.Column(db.String(50))
+    mcc = db.Column(db.Integer, primary_key=True, default=214)
+    mnc = db.Column(db.Integer, primary_key=True)
+    lac = db.Column(db.Integer, primary_key=True)
+    cid = db.Column(db.Integer, primary_key=True)
+
+    # unit = db.Column(db.Integer)
     lon = db.Column(db.Float)
     lat = db.Column(db.Float)
     range = db.Column(db.Integer)
-    samples = db.Column(db.Integer)
-    changeable = db.Column(db.Boolean)
-    created = db.Column(db.Numeric)
-    updated = db.Column(db.Numeric)
-    averageSignal = db.Column(db.Integer)
+    # samples = db.Column(db.Integer)
+    # changeable = db.Column(db.Boolean)
+    # created = db.Column(db.Numeric)
+    # updated = db.Column(db.Numeric)
+    # averageSignal = db.Column(db.Integer)
 
 
 class Telephone(db.Model):
-    fecha_inicio = db.Column(db.DateTime, primary_key=True)
-    fecha_fin = db.Column(db.DateTime)
-    duracion = db.Column(db.Float)
+    tel_o = db.Column(db.BigInteger, primary_key=True)
+    tel_d = db.Column(db.BigInteger, primary_key=True)
 
-    tlf_o = db.Column(db.Integer, primary_key=True)
+    #foreign keys
+    mcc = db.Column(db.Integer, default=214)
+    mnc = db.Column(db.Integer)
     lac = db.Column(db.Integer)
-    cellid = db.Column(db.Integer)
-    cgi_o = db.Column(db.String(50))
-    latitud_o = db.Column(db.Float)
-    longitud_o = db.Column(db.Float)
+    cid = db.Column(db.Integer)
 
-    tlf_d = db.Column(db.Integer, primary_key=True)
-    cgi_d = db.Column(db.String(50))
-    latitud_d = db.Column(db.Float)
-    longitud_d = db.Column(db.Float)
-
+    date_init = db.Column(db.DateTime, primary_key=True)
+    duration = db.Column(db.Integer)
 
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

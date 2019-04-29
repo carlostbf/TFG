@@ -3,10 +3,13 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 
 TODO
     CODIGO
-        GMAPS
-            nearest roads (array de puntos)
+        (foreign key? simular antenas utiles)
 
-        adaptar json a datos
+        empezar a programar pintado de datos
+
+            pintar trayectoria numeros de tlf (colores?)
+
+            dado un area obtener telefonos cercanos
         HACER FORMULARIO PARA FILTROS EN WEB
 
 
@@ -32,10 +35,6 @@ DATOS
         ignorar duplicated key
         study SQLalchemy datetime formats
         Hacer lo mismo para vodafone
-
-    primary key?
-        mcc	net	area cell
-        CallingNumber CalledNumber Date
 
     unificar formatos, cuales son comunes?
 

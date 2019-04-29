@@ -7,7 +7,10 @@
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -26,13 +29,14 @@
     var apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
 
     function initMap() {
-      var sol = {lat: 60, lng: 24};
+      //coordenadas de sol
+      var sol = {lat: 40.4167278, lng: -3.7033387};
       map = new google.maps.Map(document.getElementById('map'), {
         center: sol,
-        zoom: 0,
+        zoom: 50,
       });
       var marker = new google.maps.Marker({position: sol, map: map});
-
+      //obtiene el array de puntos más cercanos a los que se consultan (correspondientemente)
       $.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
         function (data) {
           for (var i = 0; i < data.snappedPoints.length; i++) {
@@ -49,9 +53,9 @@
     }
   </script>
 
+
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ&callback=initMap"
           async defer></script>
-
 
   <form action="/query" method="post">
     <label for="mcc">mcc</label>

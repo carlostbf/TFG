@@ -1,36 +1,27 @@
 {
-  "models":[
+  "calls": [
     {
-      "fecha_inicio": "FECHA_INICIO",
-      "fecha_fin": "FECHA_FIN",
-      "duracion": "DURACION",
+      "tel_o": "CallingNumber",
+      "tel_d": "CalledNumber",
 
-      "tlf_o": "SENTIDO_O",
-      "cgi_o":"CGI_O",
-      "latitud_o": "LATITUD_O",
-      "longitud_o": "LONGITUD_O",
-
-      "tlf_d": "SENTIDO_D",
-      "cgi_d":"CGI_D",
-      "latitud_d": "LATITUD_D",
-      "longitud_d": "LONGITUD_D"
-    },
-    {
-      "fecha_inicio": "Date",
-      "fecha_fin": "",
-      "duracion": "Duration",
-
-      "tlf_o": "CallingNumber",
+      "mcc": "MCC",
+      "mnc": "MNC",
       "lac": "LAC",
-      "cellid": "CellID",
-      "cgi_o":"",
-      "latitud_o": "",
-      "longitud_o": "",
+      "cid": "CellID",
 
-      "tlf_d": "CalledNumber",
-      "cgi_d":"",
-      "latitud_d": "",
-      "longitud_d": ""
+      "date_init": "Date",
+      "duration": "Duration"
+    }
+  ],
+  "antennas": [
+    {
+      "mcc": "mcc",
+      "mnc": "net",
+      "lac": "area",
+      "cid": "cell",
+      "lon": "lon",
+      "lat": "lat",
+      "range": "range"
     }
   ]
 }
