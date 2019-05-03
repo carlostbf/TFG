@@ -3,12 +3,10 @@
     {
       "tel_o": "CallingNumber",
       "tel_d": "CalledNumber",
-
       "mcc": "MCC",
       "mnc": "MNC",
       "lac": "LAC",
       "cid": "CellID",
-
       "date_init": "Date",
       "duration": "Duration"
     }
@@ -22,6 +20,15 @@
       "lon": "lon",
       "lat": "lat",
       "range": "range"
+    },
+    {
+      "mcc": "MCC",
+      "mnc": "MNC",
+      "lac": "LAC",
+      "cid": "CELL ID",
+      "lon": "LON",
+      "lat": "LAT",
+      "range": "RANGE"
     }
   ]
 }

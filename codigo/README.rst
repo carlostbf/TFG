@@ -3,15 +3,22 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 
 TODO
     CODIGO
-        (foreign key? simular antenas utiles)
-
         empezar a programar pintado de datos
 
             pintar trayectoria numeros de tlf (colores?)
+                arreglar lo de los eventos (crearme muchas variables de mierda)
+                filtro por tiempo etc
+                mirar radios y pintar intersecciones
+                mostrar tiempos
+                grafo dirigido?
 
             dado un area obtener telefonos cercanos
         HACER FORMULARIO PARA FILTROS EN WEB
 
+    DATOS
+        modifico datos llamadas para adecuar a antenas? (antenas tienen que existir)
+            igual borrar datos de llamadas extra
+        o mejor me invento las antenas?
 
 COMANDOS
     export APP_SETTINGS="config.DevelopmentConfig"
@@ -71,7 +78,8 @@ MEMORIA
         setup inicial
         explicar como usar aplicación
         capturas de pantalla
-
+    trabajo futuro
+        bootstrap
 
 ALGORITMO
     algoritmo para trayectorias?(telefonos por antenas)

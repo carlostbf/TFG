@@ -27,9 +27,10 @@ db = SQLAlchemy()
 #             for column, value in self._to_dict().items()
 #         }
 
-
+# una antena puede tener varios numeros asociados
 class Antenna(db.Model):
     # radio = db.Column(db.String(50))
+
     mcc = db.Column(db.Integer, primary_key=True, default=214)
     mnc = db.Column(db.Integer, primary_key=True)
     lac = db.Column(db.Integer, primary_key=True)
@@ -44,13 +45,14 @@ class Antenna(db.Model):
     # created = db.Column(db.Numeric)
     # updated = db.Column(db.Numeric)
     # averageSignal = db.Column(db.Integer)
+    telephones = db.relationship('Telephone', lazy=True, backref='antenna')
 
 
 class Telephone(db.Model):
     tel_o = db.Column(db.BigInteger, primary_key=True)
     tel_d = db.Column(db.BigInteger, primary_key=True)
 
-    #foreign keys
+    # foreign key a antena
     mcc = db.Column(db.Integer, default=214)
     mnc = db.Column(db.Integer)
     lac = db.Column(db.Integer)
@@ -59,6 +61,10 @@ class Telephone(db.Model):
     date_init = db.Column(db.DateTime, primary_key=True)
     duration = db.Column(db.Integer)
 
+    __table_args__ = (
+        db.ForeignKeyConstraint(['mcc', 'mnc', 'lac', 'cid'],
+                                ['antenna.mcc', 'antenna.mnc', 'antenna.lac', 'antenna.cid']),
+    )
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     username = db.Column(db.String(80), unique=True, nullable=False)

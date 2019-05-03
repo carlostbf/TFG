@@ -69,7 +69,7 @@ def load_ant(file_name, imodel):
         model['lat'],
         model['range']
     ]
-    df = pd.read_csv(file_name, usecols=cols)
+    df = pd.read_excel(file_name, usecols=cols)
 
     # unificamos los nombres de las columnas
     df.rename(columns={
@@ -94,6 +94,6 @@ if __name__ == '__main__':
     with app.app_context():
         # db.drop_all()
         db.create_all()
-
+    load_ant("antenas.xlsx", 1)
     load_tel(file_name, 0)
-    load_ant("215.csv", 0)
+

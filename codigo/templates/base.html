@@ -8,9 +8,9 @@
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
   <script
-  src="https://code.jquery.com/jquery-3.4.0.min.js"
-  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-  crossorigin="anonymous"></script>
+    src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,14 +30,24 @@
 
     function initMap() {
       //coordenadas de sol
-      var sol = {lat: 40.4167278, lng: -3.7033387};
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: sol,
-        zoom: 50,
-      });
-      var marker = new google.maps.Marker({position: sol, map: map});
+      var sol = {lat: 0, lng: -180};
+      //centramos el mapa
+      {% if calls is defined %}
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: {{ calls[0].Antenna.lat }}, lng: {{ calls[0].Antenna.lon }}},
+          zoom: 10,
+        });
+      {% else %}
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: sol,
+          zoom: 3,
+        });
+        //var marker = new google.maps.Marker({position: sol, map: map});
+      {% endif %}
+
+
       //obtiene el array de puntos más cercanos a los que se consultan (correspondientemente)
-      $.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
+      /*$.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
         function (data) {
           for (var i = 0; i < data.snappedPoints.length; i++) {
             var latlng = new google.maps.LatLng(
@@ -49,7 +59,44 @@
             });
           }
         }
-      );
+      );*/
+
+
+      //pintamos trayectoria
+      var flightPlanCoordinates = [];
+      var markers = [];
+      {% for call in calls %}
+        var coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
+        flightPlanCoordinates.push(coordinates);
+        var contentString = 'Hello World';
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        /*var marker = new google.maps.Marker({
+          position: coordinates,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });*/
+        markers.push(new google.maps.Marker({
+          position: coordinates,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        }));
+        markers[markers.length - 1].addListener('click', function () {
+          infowindow.open(map, markers[markers.length - 1]);
+        });
+      {% endfor %}
+
+      var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      flightPath.setMap(map);
+
     }
   </script>
 
@@ -58,6 +105,7 @@
           async defer></script>
 
   <form action="/query" method="post">
+    <!--
     <label for="mcc">mcc</label>
     <input name="mcc" id="mcc" required>
 
@@ -69,6 +117,12 @@
 
     <label for="cell">cell</label>
     <input name="cell" id="cell" required>
+    -->
+    <label for="tel_o">tel_o</label>
+    <input name="tel_o" id="tel_o" required>
+
+    <label for="tel_d">tel_d</label>
+    <input name="tel_d" id="tel_d" required>
 
     <input type="submit" value="Query">
   </form>
