@@ -5,20 +5,12 @@ TODO
     CODIGO
         empezar a programar pintado de datos
 
-            pintar trayectoria numeros de tlf (colores?)
-                arreglar lo de los eventos (crearme muchas variables de mierda)
+            pintar trayectoria numeros de tlf
+                (ahora mismo es por antenas)
                 filtro por tiempo etc
-                mirar radios y pintar intersecciones
-                mostrar tiempos
-                grafo dirigido?
 
             dado un area obtener telefonos cercanos
-        HACER FORMULARIO PARA FILTROS EN WEB
-
-    DATOS
-        modifico datos llamadas para adecuar a antenas? (antenas tienen que existir)
-            igual borrar datos de llamadas extra
-        o mejor me invento las antenas?
+                filtros de distancia postgres?
 
 COMANDOS
     export APP_SETTINGS="config.DevelopmentConfig"

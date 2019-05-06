@@ -15,7 +15,7 @@
 
 <body>
 <nav>
-  <h1><a href="{{ url_for('index') }}">Mapa {{ lat }}, {{ lon }}</a></h1>
+  <h1><a href="{{ url_for('index') }}">Mapa</a></h1>
 </nav>
 
 <section class="content">
@@ -24,13 +24,47 @@
   </header>
   {% block content %}{% endblock %}
   <div id="map"></div>
+  <form action="/query" method="post">
+    <label for="tel_o">tel_o</label>
+    <input name="tel_o" id="tel_o" required>
+
+    <label for="tel_d">tel_d</label>
+    <input name="tel_d" id="tel_d" required>
+
+    <!--<label for="date_init">date_init</label>
+    <input name="date_init" id="date_init" required>
+
+    <label for="date_end">date_init</label>
+    <input name="date_end" id="date_end" required>-->
+
+
+
+    <input type="submit" value="Query">
+  </form>
+
+  <form action="/query2" method="post">
+    <label for="lat">tel_o</label>
+    <input name="lat" id="lat" required>
+
+    <label for="lon">tel_d</label>
+    <input name="lon" id="lon" required>
+
+    <label for="range">tel_d</label>
+    <input name="range" id="range" required>
+
+    <input type="submit" value="Query2">
+  </form>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
   <script>
-    var map;
-    var apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
+    let map;
+    const apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
 
     function initMap() {
       //coordenadas de sol
-      var sol = {lat: 0, lng: -180};
+      let sol = {lat: 0, lng: -180};
       //centramos el mapa
       {% if calls is defined %}
         map = new google.maps.Map(document.getElementById('map'), {
@@ -42,18 +76,17 @@
           center: sol,
           zoom: 3,
         });
-        //var marker = new google.maps.Marker({position: sol, map: map});
       {% endif %}
 
 
       //obtiene el array de puntos más cercanos a los que se consultan (correspondientemente)
       /*$.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
         function (data) {
-          for (var i = 0; i < data.snappedPoints.length; i++) {
-            var latlng = new google.maps.LatLng(
+          for (let i = 0; i < data.snappedPoints.length; i++) {
+            let latlng = new google.maps.LatLng(
               data.snappedPoints[i].location.latitude,
               data.snappedPoints[i].location.longitude);
-            var marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
               position: latlng,
               map: map
             });
@@ -63,38 +96,62 @@
 
 
       //pintamos trayectoria
-      var flightPlanCoordinates = [];
-      var markers = [];
+      let flightPlanCoordinates = [];
+
+      let coordinates, circle;
+      let infowindow;
+      let marker;
+      let infowindows = [];
+      let markers = [];
+      // Define a symbol using a predefined path (an arrow)
+      // supplied by the Google Maps JavaScript API.
+      let lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+      };
       {% for call in calls %}
-        var coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
+        coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
         flightPlanCoordinates.push(coordinates);
-        var contentString = 'Hello World';
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
-        /*var marker = new google.maps.Marker({
-          position: coordinates,
-          map: map,
-          title: 'Uluru (Ayers Rock)'
-        });*/
+
+        // Creamos los popups
+        infowindows.push(new google.maps.InfoWindow({
+          content: 'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}'
+        }));
         markers.push(new google.maps.Marker({
           position: coordinates,
           map: map,
           title: 'Uluru (Ayers Rock)'
         }));
-        markers[markers.length - 1].addListener('click', function () {
-          infowindow.open(map, markers[markers.length - 1]);
+        // Add the circle for this city to the map.
+        circle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: coordinates,
+          radius: {{ call.Antenna.range }}
         });
       {% endfor %}
+      // Activamos los popups
+      for (let i = 0; i < markers.length; i++) {
+        markers[i].addListener("click", function () {
+          infowindows[i].open(map, markers[i]);
+        })
+      }
 
-      var flightPath = new google.maps.Polyline({
+      // Pintamos las trayectorias
+      let flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
+        icons: [{
+          icon: lineSymbol,
+          offset: '100%'
+        }],
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 2
       });
-
       flightPath.setMap(map);
 
     }
@@ -104,30 +161,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ&callback=initMap"
           async defer></script>
 
-  <form action="/query" method="post">
-    <!--
-    <label for="mcc">mcc</label>
-    <input name="mcc" id="mcc" required>
 
-    <label for="net">net</label>
-    <input name="net" id="net" required>
-
-    <label for="area">area</label>
-    <input name="area" id="area" required>
-
-    <label for="cell">cell</label>
-    <input name="cell" id="cell" required>
-    -->
-    <label for="tel_o">tel_o</label>
-    <input name="tel_o" id="tel_o" required>
-
-    <label for="tel_d">tel_d</label>
-    <input name="tel_d" id="tel_d" required>
-
-    <input type="submit" value="Query">
-  </form>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
 </section>
 </body>
