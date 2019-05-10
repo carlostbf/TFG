@@ -1,5 +1,6 @@
 from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
+from geoalchemy2.types import Geometry
 
 db = SQLAlchemy()
 
@@ -29,22 +30,15 @@ db = SQLAlchemy()
 
 # una antena puede tener varios numeros asociados
 class Antenna(db.Model):
-    # radio = db.Column(db.String(50))
-
     mcc = db.Column(db.Integer, primary_key=True, default=214)
     mnc = db.Column(db.Integer, primary_key=True)
     lac = db.Column(db.Integer, primary_key=True)
     cid = db.Column(db.Integer, primary_key=True)
 
-    # unit = db.Column(db.Integer)
     lon = db.Column(db.Float)
     lat = db.Column(db.Float)
     range = db.Column(db.Integer)
-    # samples = db.Column(db.Integer)
-    # changeable = db.Column(db.Boolean)
-    # created = db.Column(db.Numeric)
-    # updated = db.Column(db.Numeric)
-    # averageSignal = db.Column(db.Integer)
+
     telephones = db.relationship('Telephone', lazy=True, backref='antenna')
 
 
@@ -65,6 +59,16 @@ class Telephone(db.Model):
         db.ForeignKeyConstraint(['mcc', 'mnc', 'lac', 'cid'],
                                 ['antenna.mcc', 'antenna.mnc', 'antenna.lac', 'antenna.cid']),
     )
+
+
+class Point(db.Model):
+    """represents an x/y coordinate location."""
+
+    __tablename__ = 'point'
+
+    id = db.Column(db.Integer, primary_key=True)
+    geom = db.Column(Geometry(geometry_type='POINT', srid=4326))
+
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     username = db.Column(db.String(80), unique=True, nullable=False)

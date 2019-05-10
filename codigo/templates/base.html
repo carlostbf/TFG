@@ -38,7 +38,6 @@
     <input name="date_end" id="date_end" required>-->
 
 
-
     <input type="submit" value="Query">
   </form>
 
@@ -49,9 +48,14 @@
     <label for="lon">tel_d</label>
     <input name="lon" id="lon" required>
 
-    <label for="range">tel_d</label>
+    <label for="range">range</label>
     <input name="range" id="range" required>
 
+    <!--<label for="date_init">date_init</label>
+    <input name="date_init" id="date_init" required>
+
+    <label for="date_end">date_init</label>
+    <input name="date_end" id="date_end" required>-->
     <input type="submit" value="Query2">
   </form>
   {% for message in get_flashed_messages() %}
@@ -119,15 +123,15 @@
         markers.push(new google.maps.Marker({
           position: coordinates,
           map: map,
-          title: 'Uluru (Ayers Rock)'
+          title: 'Ubicación'
         }));
         // Add the circle for this city to the map.
         circle = new google.maps.Circle({
           strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
+          strokeOpacity: 0.1,
           strokeWeight: 2,
           fillColor: '#FF0000',
-          fillOpacity: 0.35,
+          fillOpacity: 0.1,
           map: map,
           center: coordinates,
           radius: {{ call.Antenna.range }}

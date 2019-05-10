@@ -11,6 +11,10 @@ TODO
 
             dado un area obtener telefonos cercanos
                 filtros de distancia postgres?
+                    PostGis
+                    GeoAlchemy 2
+                        programar
+        programar poder introducir fichero de datos y formatos
 
 COMANDOS
     export APP_SETTINGS="config.DevelopmentConfig"
@@ -22,25 +26,14 @@ COMANDOS
 DATOS
     ignorar columnas irrelevantes
     intentar unificar ficheros en uns sola tabla
+        ahora mismo son 2
+
     cuando populo?
         cargado acumulado
         detectar repetidos
-    uso datos de opencellid??
-        si siempre que se pueda
-    formatos??
-        dates asumir algo y luego cambiarlo en el descriptor
-        predefinidos
-    TODO
-        ignorar duplicated key
-        study SQLalchemy datetime formats
-        Hacer lo mismo para vodafone
 
-    unificar formatos, cuales son comunes?
 
-    datos opencellid coinciden? si
-    IMSI IMEI para ubicar a alguien? o solo tlf? solo tlf
-    CGI del que llama? si
-    DateInit + Duration = DateFin? correcto
+
 
     Como simular datos?
         (tengo datos de antenas de opencellid)
