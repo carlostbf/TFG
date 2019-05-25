@@ -1,32 +1,10 @@
 from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
+from sqlalchemy import func
 
 db = SQLAlchemy()
 
-
-# class BaseModel(db.Model):
-#     """Base data model for all objects"""
-#     __abstract__ = True
-#
-#     def __init__(self, *args):
-#         super().__init__(*args)
-#
-#     def __repr__(self):
-#         """Define a base way to print models"""
-#         return '%s(%s)' % (self.__class__.__name__, {
-#             column: value
-#             for column, value in self._to_dict().items()
-#         })
-#
-#     def json(self):
-#         """
-#                 Define a base way to jsonify models, dealing with datetime objects
-#         """
-#         return {
-#             column: value if not isinstance(value, datetime.date) else value.strftime('%Y-%m-%d')
-#             for column, value in self._to_dict().items()
-#         }
 
 # una antena puede tener varios numeros asociados
 class Antenna(db.Model):
@@ -38,8 +16,26 @@ class Antenna(db.Model):
     lon = db.Column(db.Float)
     lat = db.Column(db.Float)
     range = db.Column(db.Integer)
+    point = db.Column(Geometry(geometry_type="POINT"))
 
     telephones = db.relationship('Telephone', lazy=True, backref='antenna')
+
+    def __repr__(self):
+        return "<antenna {cid} ({lat}, {lon})>".format(
+            cid=self.cid, lat=self.lat, lon=self.lon)
+
+    @classmethod
+    def update_geometries(cls):
+        """Using each city's longitude and latitude, add geometry data to db."""
+
+        ants = Antenna.query.all()
+
+        for ant in ants:
+            point = 'POINT({} {})'.format(ant.lon, ant.lat)
+            ant.point = point
+
+        db.session.commit()
+
 
 
 class Telephone(db.Model):
@@ -68,11 +64,3 @@ class Point(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     geom = db.Column(Geometry(geometry_type='POINT', srid=4326))
-
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(80), unique=True, nullable=False)
-#     email = db.Column(db.String(120), unique=True, nullable=False)
-#
-#     def __repr__(self):
-#         return '<User %r>' % self.username

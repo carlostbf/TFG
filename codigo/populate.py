@@ -3,7 +3,8 @@ import sys
 import json
 import pandas as pd
 from app import app
-from models import db, Antenna, Telephone
+from models import db, Antenna, Telephone, Point
+from sqlalchemy import func
 
 db.init_app(app)
 
@@ -85,6 +86,7 @@ def load_ant(file_name, imodel):
     with app.app_context():
         db.session.bulk_insert_mappings(Antenna, df.to_dict(orient="records"))
         db.session.commit()
+        Antenna.update_geometries()
 
     return
 
@@ -94,6 +96,6 @@ if __name__ == '__main__':
     with app.app_context():
         # db.drop_all()
         db.create_all()
-    load_ant("antenas.xlsx", 1)
-    load_tel(file_name, 0)
+        load_ant("antenas.xlsx", 1)
+        load_tel("llamadas.xlsx", 0)
 

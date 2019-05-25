@@ -53,6 +53,7 @@ def get_path2():
         error = None
 
         # TODO algoritmo distancias
+        # print(Point.query.filter(func.ST_Distance_Sphere(Point.geom, Point.query.first().geom) < 100000000000000).all())
 
         Antenna.query.join(Antenna.telephones).filter().order_by(Telephone.date_init).all()
         #Antenna.query.join(Antenna.telephones).filter_by().order_by(Telephone.date_init).all()

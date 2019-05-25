@@ -3,11 +3,11 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 
 TODO
     CODIGO
-        empezar a programar pintado de datos
+        MAPAS
 
-            pintar trayectoria numeros de tlf
+            pintar trayectoria por numeros de tlf
                 (ahora mismo es por antenas)
-                filtro por tiempo etc
+                añadir filtro por tiempo
 
             dado un area obtener telefonos cercanos
                 filtros de distancia postgres?
@@ -16,18 +16,8 @@ TODO
                         programar
         programar poder introducir fichero de datos y formatos
 
-COMANDOS
-    export APP_SETTINGS="config.DevelopmentConfig"
-    flask db init
-    flask db migrate
-    flask db upgrade
-
 
 DATOS
-    ignorar columnas irrelevantes
-    intentar unificar ficheros en uns sola tabla
-        ahora mismo son 2
-
     cuando populo?
         cargado acumulado
         detectar repetidos
@@ -114,5 +104,11 @@ INFORMACIÓN SOBRE PLAZOS
     memoria final para ortigosa 15 dias antes
     defiendo en julio
 
+
+COMANDOS
+    export APP_SETTINGS="config.DevelopmentConfig"
+    flask db init
+    flask db migrate
+    flask db upgrade
 
 
