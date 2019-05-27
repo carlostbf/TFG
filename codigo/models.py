@@ -55,12 +55,3 @@ class Telephone(db.Model):
         db.ForeignKeyConstraint(['mcc', 'mnc', 'lac', 'cid'],
                                 ['antenna.mcc', 'antenna.mnc', 'antenna.lac', 'antenna.cid']),
     )
-
-
-class Point(db.Model):
-    """represents an x/y coordinate location."""
-
-    __tablename__ = 'point'
-
-    id = db.Column(db.Integer, primary_key=True)
-    geom = db.Column(Geometry(geometry_type='POINT', srid=4326))

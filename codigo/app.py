@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template
 from flask_migrate import Migrate
-from models import db, Antenna, Point
+from models import db, Antenna
 
 import forms
 from geoalchemy2.elements import WKTElement

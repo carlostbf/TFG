@@ -5,7 +5,10 @@ from flask import (
 )
 
 from models import Antenna, Telephone
-from geopy.distance import geodesic
+from sqlalchemy import func
+from geoalchemy2.elements import WKTElement
+
+# from geopy.distance import geodesic
 
 bp = Blueprint('forms', __name__)
 
@@ -53,11 +56,15 @@ def get_path2():
         error = None
 
         # TODO algoritmo distancias
-        # print(Point.query.filter(func.ST_Distance_Sphere(Point.geom, Point.query.first().geom) < 100000000000000).all())
-
-        Antenna.query.join(Antenna.telephones).filter().order_by(Telephone.date_init).all()
-        #Antenna.query.join(Antenna.telephones).filter_by().order_by(Telephone.date_init).all()
-
+        # Point.query.filter(func.ST_Distance_Sphere(Point.geom, Point.query.first().geom) < 100000000000000).all()
+        pt = WKTElement('POINT({0} {1})'.format(lon, lat))
+        # TODO varios telefonos en misma antena
+        tels = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration).filter(
+            func.ST_Distance_Sphere(Antenna.point, pt) < range + Antenna.range).order_by(Telephone.date_init).all()
+        print(tels)
+        print(len(tels))
+        # Antenna.query.join(Antenna.telephones).filter().order_by(Telephone.date_init).all()
+        # Antenna.query.join(Antenna.telephones).filter_by().order_by(Telephone.date_init).all()
 
         # if call is None:
         #     error = 'Telefonos inexistente'
@@ -72,10 +79,9 @@ def get_path2():
         #     print(call.Antenna.cid)
         #     print(call.Antenna.lat)
 
-    return render_template('base.html', calls=calls)
+    return render_template('base.html', tels=tels, lat=lat, lon=lon)
 
-
-def distance(lon1, lat1, lon2, lat2):
-    point1 = (lat1, lon1)
-    point2 = (lat2, lon2)
-    return geodesic(point1, point2).m
+# def distance(lon1, lat1, lon2, lat2):
+#     point1 = (lat1, lon1)
+#     point2 = (lat2, lon2)
+#     return geodesic(point1, point2).m

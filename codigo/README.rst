@@ -4,17 +4,18 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 TODO
     CODIGO
         MAPAS
-
             pintar trayectoria por numeros de tlf
                 (ahora mismo es por antenas)
                 añadir filtro por tiempo
 
             dado un area obtener telefonos cercanos
-                filtros de distancia postgres?
-                    PostGis
-                    GeoAlchemy 2
-                        programar
+
+            ARREGLAR VARIOS TLF EN LA MISMA UBICACIÓN
         programar poder introducir fichero de datos y formatos
+
+DUDAS
+    No sé si puedo hacer filtro carreteras
+        necesito mejores datos
 
 
 DATOS
