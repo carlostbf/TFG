@@ -9,28 +9,36 @@ TODO
                 añadir filtro por tiempo
 
             dado un area obtener telefonos cercanos
+                pintar trayectorias?
 
-            ARREGLAR VARIOS TLF EN LA MISMA UBICACIÓN
         programar poder introducir fichero de datos y formatos
 
 DUDAS
+    interfaz cargado datos
+        la tengo que hacer?
+
+    pintar trayectoria por numeros de tlf
+        filtro para tlf_o y tlf_d (debería ser solo tlf)
+        solo uso ubicación de antenas
+        añadir filtro de tiempo
+
+    dado un area obtener telefonos cercanos
+        pintar trayectorias de cada movil
+            como debería hacerlo?
+        ahora mismo es buscar antenas que tienen rango de alcance solapado con rango del filtro
+
+
     No sé si puedo hacer filtro carreteras
         necesito mejores datos
+        ademas tendría que calcular velocidades
+        Snap to roads
 
+    dejar el código bonito comentado y bien modulado
 
-DATOS
-    cuando populo?
-        cargado acumulado
-        detectar repetidos
+    MEMORIA
+        contar como montar todo la aplicación?
+        presentación la hago despues de entrega?
 
-
-
-
-    Como simular datos?
-        (tengo datos de antenas de opencellid)
-        telefono + tiempos + (varias antenas asociadas en una misma zona)
-            antenas + ventanas de tiempo + telefonos + areas de antenas
-                interpolacion probabilistica
 
 MEMORIA
     objetivos <-------------------------------------------------

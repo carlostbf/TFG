@@ -28,7 +28,8 @@ def get_path():  # TODO arreglar comentarios
         error = None
 
         # TODO falta modificar join para que contenga date_init
-        calls = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration).filter_by(
+        calls = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
+                                                                   Telephone.tel_o, Telephone.tel_d).filter_by(
             tel_o=tel_o, tel_d=tel_d).order_by(Telephone.date_init).all()
 
         # if call is None:
@@ -59,7 +60,8 @@ def get_path2():
         # Point.query.filter(func.ST_Distance_Sphere(Point.geom, Point.query.first().geom) < 100000000000000).all()
         pt = WKTElement('POINT({0} {1})'.format(lon, lat))
         # TODO varios telefonos en misma antena
-        tels = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration).filter(
+        tels = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
+                                                                  Telephone.tel_o, Telephone.tel_d).filter(
             func.ST_Distance_Sphere(Antenna.point, pt) < range + Antenna.range).order_by(Telephone.date_init).all()
         print(tels)
         print(len(tels))
@@ -79,7 +81,7 @@ def get_path2():
         #     print(call.Antenna.cid)
         #     print(call.Antenna.lat)
 
-    return render_template('base.html', tels=tels, lat=lat, lon=lon)
+    return render_template('base.html', tels=tels, lat=lat, lon=lon, range=range)
 
 # def distance(lon1, lat1, lon2, lat2):
 #     point1 = (lat1, lon1)

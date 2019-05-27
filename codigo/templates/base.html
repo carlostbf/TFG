@@ -20,7 +20,7 @@
 
 <section class="content">
   <header>
-    {% block header %}Hola{% endblock %}
+    {% block header %}Cabecera{% endblock %}
   </header>
   {% block content %}{% endblock %}
   <div id="map"></div>
@@ -63,19 +63,198 @@
   {% endfor %}
 
   <script>
+    /*Esta función se encarga de insertar un value en el hashmap<object,value>
+    * Internamente compara el object para ver si ya existía otro obj con los mismos parámetros
+    * Devuelve true si se ha insertado un objeto nuevo*/
+    function MapInsertObject(map, object, value) {
+      for (const obj of map.keys()) {
+        /*Caso en que ya existía otro objeto con los mismos parámetros*/
+        if (JSON.stringify(obj) === JSON.stringify(object)) {
+          map.set(obj, map.get(obj) + value);
+          return false;
+        }
+      }
+      //si no estaba en el hashmap
+      map.set(object, value);
+      return true;
+    }
+
     let map;
     const apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
 
     function initMap() {
-      //coordenadas de sol
+      //coordenadas por defecto
       let sol = {lat: 0, lng: -180};
       //centramos el mapa
-      {% if calls is defined %}
+      let flightPlanCoordinates = [];
+
+      let coordinates, circle;
+      let ranges = [];
+      let infowindows = [];
+      let markers = [];
+
+      let contents = new Map(); //Empty Map
+      let content;
+      // Define a symbol using a predefined path (an arrow)
+      // supplied by the Google Maps JavaScript API.
+      let lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+      };
+      {% if calls is defined %} //Caso query por teléfono
+        // centramos mapa usando el primer resultado
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: {{ calls[0].Antenna.lat }}, lng: {{ calls[0].Antenna.lon }}},
           zoom: 10,
         });
-      {% else %}
+
+        {% for call in calls %}
+          coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
+          content = 'tel_o: {{ call.tel_o }} tel_d: {{ call.tel_d }}<br>' +
+            'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';
+
+          if (MapInsertObject(contents, coordinates, content) === true) {
+            ranges.push({{ call.Antenna.range }});
+          }
+          flightPlanCoordinates.push(coordinates);
+
+        {% endfor %}
+        let i = 0;
+        for (const [key, value] of contents) {
+
+          infowindows.push(new google.maps.InfoWindow({
+            content: value
+          }));
+
+          markers.push(new google.maps.Marker({
+            position: key,
+            map: map,
+            title: 'Ubicación'
+          }));
+          // Add the circle for this point to the map.
+          circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.1,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.1,
+            map: map,
+            center: key,
+            radius: ranges[i]
+          });
+          i++;
+        }
+        // Activamos los popups
+        for (let i = 0; i < markers.length; i++) {
+          markers[i].addListener("click", function () {
+            infowindows[i].open(map, markers[i]);
+          });
+        }
+
+        // Pintamos las trayectorias
+        let flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          icons: [{
+            icon: lineSymbol,
+            offset: '100%'
+          }],
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        flightPath.setMap(map);
+
+
+
+      {% elif tels is defined %} //Caso query por latitud longitud
+        //centramos en la ubicación filtrada
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: {{ lat }}, lng: {{ lon }}},
+          zoom: 10,
+        });
+
+        {% for tel in tels %}
+          coordinates = {lat: {{ tel.Antenna.lat }}, lng: {{ tel.Antenna.lon }}};
+          content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
+            'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}<br><br>';
+          if (MapInsertObject(contents, coordinates, content) === true) {
+            ranges.push({{ tel.Antenna.range }});
+          }
+
+          flightPlanCoordinates.push(coordinates);
+          // Creamos los popups
+          /*infowindows.push(new google.maps.InfoWindow({
+            content: 'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}'
+          }));
+          markers.push(new google.maps.Marker({
+            position: coordinates,
+            map: map,
+            title: 'Ubicación'
+          }));
+          // Add the circle for this city to the map.
+          circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.1,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.1,
+            map: map,
+            center: coordinates,
+            radius: {{ tel.Antenna.range }}
+          });*/
+        {% endfor %}
+        let i = 0;
+        for (const [key, value] of contents) {
+
+          infowindows.push(new google.maps.InfoWindow({
+            content: value
+          }));
+
+          markers.push(new google.maps.Marker({
+            position: key,
+            map: map,
+            title: 'Ubicación'
+          }));
+          // Add the circle for this point to the map.
+          circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.1,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.1,
+            map: map,
+            center: key,
+            radius: ranges[i]
+          });
+          i++;
+        }
+        infowindows.push(new google.maps.InfoWindow({
+          content: 'Ubicación a mirar'
+        }));
+        markers.push(new google.maps.Marker({
+          position: {lat: {{ lat }}, lng: {{ lon }}},
+          map: map,
+          title: 'Ubicación actual'
+        }));
+        circle = new google.maps.Circle({
+          strokeColor: '#0F0000',
+          strokeOpacity: 0.1,
+          strokeWeight: 2,
+          fillColor: '#0F0000',
+          fillOpacity: 0.1,
+          map: map,
+          center: {lat: {{ lat }}, lng: {{ lon }}},
+          radius: {{ range }}
+        });
+        // Activamos los popups
+        for (let i = 0; i < markers.length; i++) {
+          markers[i].addListener("click", function () {
+            infowindows[i].open(map, markers[i]);
+          })
+        }
+
+
+      {% else %} /*mapa por defecto si no hay queries*/
         map = new google.maps.Map(document.getElementById('map'), {
           center: sol,
           zoom: 3,
@@ -98,65 +277,6 @@
         }
       );*/
 
-
-      //pintamos trayectoria
-      let flightPlanCoordinates = [];
-
-      let coordinates, circle;
-      let infowindow;
-      let marker;
-      let infowindows = [];
-      let markers = [];
-      // Define a symbol using a predefined path (an arrow)
-      // supplied by the Google Maps JavaScript API.
-      let lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-      };
-      {% for call in calls %}
-        coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
-        flightPlanCoordinates.push(coordinates);
-
-        // Creamos los popups
-        infowindows.push(new google.maps.InfoWindow({
-          content: 'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}'
-        }));
-        markers.push(new google.maps.Marker({
-          position: coordinates,
-          map: map,
-          title: 'Ubicación'
-        }));
-        // Add the circle for this city to the map.
-        circle = new google.maps.Circle({
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.1,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.1,
-          map: map,
-          center: coordinates,
-          radius: {{ call.Antenna.range }}
-        });
-      {% endfor %}
-      // Activamos los popups
-      for (let i = 0; i < markers.length; i++) {
-        markers[i].addListener("click", function () {
-          infowindows[i].open(map, markers[i]);
-        })
-      }
-
-      // Pintamos las trayectorias
-      let flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        icons: [{
-          icon: lineSymbol,
-          offset: '100%'
-        }],
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
-      flightPath.setMap(map);
 
     }
   </script>
