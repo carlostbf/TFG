@@ -8,14 +8,13 @@
     La BD que usaremos será PostgreSQL. Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos.
     
     Para crear los formatos de los datos de la BD hemos tenido de referencia datos reales proporcionados, y hemos simulado un modelo básico que contiene todos los campos que hemos visto comunes y necesarios.
-    %Antenas y llamadas?
+    %modelo ER
     Los formatos de los datos de antenas los hemos sacado de OpenCellid \cite{opencellid}
     %detallar campos
     Para definir los campos de las llamadas, se ha accedido a datos de compañías telefónicas privadas, y se han comparado para encontrar los campos comunes y necesarios.
     %detallar campos
     
-    Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
-    Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
+
     
     
   \subsection{Framework}
@@ -29,3 +28,11 @@
     Debido a la sensibilidad y privacidad de los datos que manejamos, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. %%como??
   %Diagrama casos uso
   %Diagramas para explicar codigo
+    Debido a que los datos tienen formatos completamente distintos, para insertar los datos en la BD, se ha programado un módulo en Python.
+    Los datos proporcionados vienen principalmente en 3 tipos de ficheros distintos.
+    \begin{itemize}
+      %Detallar formatos datos y como se definen
+      \item Un fichero JSON donde se definen los formatos de los otros 2 ficheros.
+      \item Un fichero excel que contiene los datos de las antenas.
+      \item Un fichero excel que contiene los datos de las llamadas realizadas.
+    \end{itemize}

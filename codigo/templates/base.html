@@ -25,17 +25,14 @@
   {% block content %}{% endblock %}
   <div id="map"></div>
   <form action="/query" method="post">
-    <label for="tel_o">tel_o</label>
-    <input name="tel_o" id="tel_o" required>
+    <label for="tel">Teléfono Objetivo</label>
+    <input name="tel" id="tel" required>
 
-    <label for="tel_d">tel_d</label>
-    <input name="tel_d" id="tel_d" required>
+    <label for="date_init">Fecha de inicio</label>
+    <input name="date_init" id="date_init" type="date">
 
-    <!--<label for="date_init">date_init</label>
-    <input name="date_init" id="date_init" required>
-
-    <label for="date_end">date_init</label>
-    <input name="date_end" id="date_end" required>-->
+    <label for="date_end">Fecha de fin</label>
+    <input name="date_end" id="date_end" type="date">
 
 
     <input type="submit" value="Query">
@@ -100,7 +97,7 @@
       let lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
       };
-      {% if calls is defined %} //Caso query por teléfono
+      {% if calls is defined and calls|length %} //Caso query por teléfono
         // centramos mapa usando el primer resultado
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: {{ calls[0].Antenna.lat }}, lng: {{ calls[0].Antenna.lon }}},
@@ -115,7 +112,7 @@
           if (MapInsertObject(contents, coordinates, content) === true) {
             ranges.push({{ call.Antenna.range }});
           }
-          flightPlanCoordinates.push(coordinates);
+          /*flightPlanCoordinates.push(coordinates);*/
 
         {% endfor %}
         let i = 0;
@@ -151,7 +148,7 @@
         }
 
         // Pintamos las trayectorias
-        let flightPath = new google.maps.Polyline({
+        /*let flightPath = new google.maps.Polyline({
           path: flightPlanCoordinates,
           icons: [{
             icon: lineSymbol,
@@ -162,11 +159,11 @@
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
-        flightPath.setMap(map);
+        flightPath.setMap(map);*/
 
 
 
-      {% elif tels is defined %} //Caso query por latitud longitud
+      {% elif tels is defined and tels|length  %} //Caso query por latitud longitud
         //centramos en la ubicación filtrada
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: {{ lat }}, lng: {{ lon }}},
@@ -229,7 +226,7 @@
           i++;
         }
         infowindows.push(new google.maps.InfoWindow({
-          content: 'Ubicación a mirar'
+          content: 'Ubicación a mirar:<br>lat: {{ lat }}, lng: {{ lon }}'
         }));
         markers.push(new google.maps.Marker({
           position: {lat: {{ lat }}, lng: {{ lon }}},

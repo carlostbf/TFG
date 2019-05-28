@@ -31,12 +31,11 @@ with app.app_context():
     # for antena in antenas:
     #     print(antena)
 
-
-def get_nearest(lat, lon):
-    # find the nearest point to the input coordinates
-    # convert the input coordinates to a WKT point and query for nearest point
-    pt = WKTElement('POINT({0} {1})'.format(lon, lat), srid=4326)
-    return Point.query.order_by(Point.geom.distance_box(pt)).first()
+# def get_nearest(lat, lon):
+#     # find the nearest point to the input coordinates
+#     # convert the input coordinates to a WKT point and query for nearest point
+#     pt = WKTElement('POINT({0} {1})'.format(lon, lat), srid=4326)
+#     return Point.query.order_by(Point.geom.distance_box(pt)).first()
 
 
 @app.route('/')

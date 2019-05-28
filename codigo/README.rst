@@ -6,38 +6,58 @@ TODO
         MAPAS
             pintar trayectoria por numeros de tlf
                 (ahora mismo es por antenas)
-                añadir filtro por tiempo
+                añadir filtro por fechas
+
+                filtros de mas de x minutos
+                    slider de tiempo para mostrar telefonos que han estado con objetivo en esos intervalos
+                dado 1 numero telefono lista de zonas donde estuvo
+                del resto telefonos cuales han compartido más de una ubicación con el objetivo
 
             dado un area obtener telefonos cercanos
-                pintar trayectorias?
+                pintar trayectorias? NO
+                filtro tiempo estancia
 
-        programar poder introducir fichero de datos y formatos
+                pinchar en areas y muestra telefonos
+                muestro datos telefonos en una tabla aparte
+                tabla pincho numero tlf y pinta de nuevo el mapa con datos ese telefono
+                (seleccionar telefono en tabla y mostrar ubicacion asociada)
+    ANTENAS
+        consideramos los ids de antenas únicos y datos estáticos
+        verifica que antenas existen y coinciden
+        ON CONFLICT
+        ignorar las que ya tengo
+
+    DATOS
+        mirar si nuevos datos coinciden con anteriores
+        AFTERWARDS
+            programar poder introducir fichero de datos y formatos
+
+            filtro carreteras
+                necesito mejores datos
+                ademas tendría que calcular velocidades
+                Snap to roads
+                trabajo futuro
+
 
 DUDAS
-    interfaz cargado datos
-        la tengo que hacer?
 
     pintar trayectoria por numeros de tlf
-        filtro para tlf_o y tlf_d (debería ser solo tlf)
-        solo uso ubicación de antenas
+        filtro para tlf_o y tlf_d (debería ser solo tlf) si
+        solo uso ubicación de antenas (sí)
         añadir filtro de tiempo
 
-    dado un area obtener telefonos cercanos
-        pintar trayectorias de cada movil
-            como debería hacerlo?
-        ahora mismo es buscar antenas que tienen rango de alcance solapado con rango del filtro
-
-
-    No sé si puedo hacer filtro carreteras
-        necesito mejores datos
-        ademas tendría que calcular velocidades
-        Snap to roads
 
     dejar el código bonito comentado y bien modulado
 
     MEMORIA
         contar como montar todo la aplicación?
         presentación la hago despues de entrega?
+
+
+
+
+
+
 
 
 MEMORIA
@@ -109,9 +129,15 @@ INFORMACIÓN SOBRE PLAZOS
     memoria
         evaluan mi trabajo, no es un manual de usuario
 
-    envio de memoria por capitulo cerrado
-    memoria final para ortigosa 15 dias antes
+    (envio de memoria por capitulo cerrado)
     defiendo en julio
+
+    concentrarme en interfaz
+    memoria
+    luego acabo codigo
+
+    domingo 16 fecha ultimo dia que me da feedback
+    jueves 13 sería fecha limite de memoria
 
 
 COMANDOS

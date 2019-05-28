@@ -3,8 +3,7 @@ import sys
 import json
 import pandas as pd
 from app import app
-from models import db, Antenna, Telephone, Point
-from sqlalchemy import func
+from models import db, Antenna, Telephone
 
 db.init_app(app)
 
@@ -98,4 +97,3 @@ if __name__ == '__main__':
         db.create_all()
         load_ant("antenas.xlsx", 1)
         load_tel("llamadas.xlsx", 0)
-

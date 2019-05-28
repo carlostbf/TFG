@@ -1,14 +1,12 @@
-import functools
+import datetime
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
 from models import Antenna, Telephone
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from geoalchemy2.elements import WKTElement
-
-# from geopy.distance import geodesic
 
 bp = Blueprint('forms', __name__)
 
@@ -23,14 +21,20 @@ def get_path():  # TODO arreglar comentarios
     :raise 403: if the current user isn't the author
     """
     if request.method == 'POST':
-        tel_o = request.form['tel_o']
-        tel_d = request.form['tel_d']
+        tel = request.form['tel']
+        date_init = request.form['date_init']
+        date_end = request.form['date_end']
         error = None
 
-        # TODO falta modificar join para que contenga date_init
+        if date_init == '':
+            date_init = datetime.datetime.min
+        if date_end == '':
+            date_end = datetime.datetime.max
+
         calls = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
-                                                                   Telephone.tel_o, Telephone.tel_d).filter_by(
-            tel_o=tel_o, tel_d=tel_d).order_by(Telephone.date_init).all()
+                                                                   Telephone.tel_o, Telephone.tel_d).filter(
+            date_init <= Telephone.date_init, Telephone.date_init <= date_end).filter(
+            or_(Telephone.tel_o == tel, Telephone.tel_d == tel)).order_by(Telephone.date_init).all()
 
         # if call is None:
         #     error = 'Telefonos inexistente'
@@ -57,33 +61,10 @@ def get_path2():
         error = None
 
         # TODO algoritmo distancias
-        # Point.query.filter(func.ST_Distance_Sphere(Point.geom, Point.query.first().geom) < 100000000000000).all()
+
         pt = WKTElement('POINT({0} {1})'.format(lon, lat))
-        # TODO varios telefonos en misma antena
         tels = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
                                                                   Telephone.tel_o, Telephone.tel_d).filter(
             func.ST_Distance_Sphere(Antenna.point, pt) < range + Antenna.range).order_by(Telephone.date_init).all()
-        print(tels)
-        print(len(tels))
-        # Antenna.query.join(Antenna.telephones).filter().order_by(Telephone.date_init).all()
-        # Antenna.query.join(Antenna.telephones).filter_by().order_by(Telephone.date_init).all()
-
-        # if call is None:
-        #     error = 'Telefonos inexistente'
-        #     flash(error)
-        #     return render_template('base.html', lat=40.4167278, lon=-3.7033387)
-
-        # print(len(calls))
-        # for call in calls:
-        #     print(call)
-        #     print(call.date_init)
-        #     print(call.duration)
-        #     print(call.Antenna.cid)
-        #     print(call.Antenna.lat)
 
     return render_template('base.html', tels=tels, lat=lat, lon=lon, range=range)
-
-# def distance(lon1, lat1, lon2, lat2):
-#     point1 = (lat1, lon1)
-#     point2 = (lat2, lon2)
-#     return geodesic(point1, point2).m

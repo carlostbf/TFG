@@ -12,4 +12,11 @@
       \item PostGIS 2.5
     \end{itemize}
   \section{Implementación}
-  
+    \subsection{Base de Datos}
+      Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
+      Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
+    \subsection{Inserción de datos en BD}
+      Primero se leen los formatos de los datos de un fichero JSON.
+      %mostrar formatos
+      A continuación se leen los datos de los ficheros excel con la librería de Panda usando el mapeo designado en el JSON.
+      Y finalmente se introducen los datos en la tabla y columnas correspondientes.
