@@ -5,9 +5,6 @@ TODO
     CODIGO
         MAPAS
             pintar trayectoria por numeros de tlf
-                (ahora mismo es por antenas)
-                añadir filtro por fechas
-
                 filtros de mas de x minutos
                     slider de tiempo para mostrar telefonos que han estado con objetivo en esos intervalos
                 dado 1 numero telefono lista de zonas donde estuvo
@@ -21,15 +18,9 @@ TODO
                 muestro datos telefonos en una tabla aparte
                 tabla pincho numero tlf y pinta de nuevo el mapa con datos ese telefono
                 (seleccionar telefono en tabla y mostrar ubicacion asociada)
-    ANTENAS
-        consideramos los ids de antenas únicos y datos estáticos
-        verifica que antenas existen y coinciden
-        ON CONFLICT
-        ignorar las que ya tengo
 
-    DATOS
-        mirar si nuevos datos coinciden con anteriores
-        AFTERWARDS
+    AFTERWARDS
+        DATOS
             programar poder introducir fichero de datos y formatos
 
             filtro carreteras
@@ -38,6 +29,7 @@ TODO
                 Snap to roads
                 trabajo futuro
 
+            verificar que datos repetidos coinciden
 
 DUDAS
 
@@ -118,9 +110,6 @@ EXTRAS
     aplicación tiene que ser instalable? concentrarme en codigo
         pip install?
         script?
-
-    (geolocation permite, a partir de ip, obtener pubs más cercanos
-	integrar postgres en python)
 
 
 INFORMACIÓN SOBRE PLAZOS

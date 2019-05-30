@@ -30,7 +30,6 @@ def load_tel(file_name, imodel):
     df = pd.read_excel(file_name, usecols=cols)
 
     # unificamos los nombres de las columnas
-    # df.columns=[]
     df.rename(columns={
         model['tel_o']: 'tel_o',
         model['tel_d']: 'tel_d',
@@ -44,9 +43,17 @@ def load_tel(file_name, imodel):
         model['duration']: 'duration'
     }, inplace=True)
 
-    # print(df.to_dict(orient="records"))
+    # comprobamos telefonos repetidas para no insertarlas
+    records = df.to_dict(orient="records")
+    print("TELEFONOS REPETIDOS")
+    for rec in list(records):
+        # tel = Telephone.query.get({"tel_o": rec['tel_o'], "tel_d": rec['tel_d'], "date_init": rec['date_init']})
+        tel = Telephone.query.get((rec['tel_o'], rec['tel_d'], rec['date_init']))
+        if tel is not None:
+            print(tel)
+            records.remove(rec)
     with app.app_context():
-        db.session.bulk_insert_mappings(Telephone, df.to_dict(orient="records"))
+        db.session.bulk_insert_mappings(Telephone, records)
         db.session.commit()
 
     return
@@ -82,8 +89,16 @@ def load_ant(file_name, imodel):
         model['lat']: "lat",
         model['range']: "range"
     }, inplace=True)
+    # comprobamos antenas repetidas para no insertarlas
+    records = df.to_dict(orient="records")
+    print("ANTENAS REPETIDAS")
+    for rec in list(records):
+        ant = Antenna.query.get((rec['mcc'], rec['mnc'], rec['lac'], rec['cid']))
+        if ant is not None:
+            print(ant)
+            records.remove(rec)
     with app.app_context():
-        db.session.bulk_insert_mappings(Antenna, df.to_dict(orient="records"))
+        db.session.bulk_insert_mappings(Antenna, records)
         db.session.commit()
         Antenna.update_geometries()
 

@@ -1,15 +1,15 @@
 import os
 from flask import Flask, render_template
 from flask_migrate import Migrate
-from models import db, Antenna
+from models import db
 
 import forms
-from geoalchemy2.elements import WKTElement
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Aquí se configura la BD
 POSTGRES = {
     'user': 'tfg_user',
     'pw': 'tfg_pw',
@@ -26,16 +26,6 @@ migrate = Migrate(app, db)
 
 with app.app_context():
     db.create_all()
-    # antenas = Antenna.query.limit(2).all()
-    # first = Antenna.query.first()
-    # for antena in antenas:
-    #     print(antena)
-
-# def get_nearest(lat, lon):
-#     # find the nearest point to the input coordinates
-#     # convert the input coordinates to a WKT point and query for nearest point
-#     pt = WKTElement('POINT({0} {1})'.format(lon, lat), srid=4326)
-#     return Point.query.order_by(Point.geom.distance_box(pt)).first()
 
 
 @app.route('/')

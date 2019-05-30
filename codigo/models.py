@@ -21,8 +21,8 @@ class Antenna(db.Model):
     telephones = db.relationship('Telephone', lazy=True, backref='antenna')
 
     def __repr__(self):
-        return "<antenna {cid} ({lat}, {lon})>".format(
-            cid=self.cid, lat=self.lat, lon=self.lon)
+        return "<antenna {mcc} {mnc} {lac} {cid} ({lat}, {lon})>".format(
+            mcc=self.mcc, mnc=self.mnc, lac=self.lac, cid=self.cid, lat=self.lat, lon=self.lon)
 
     @classmethod
     def update_geometries(cls):
@@ -35,7 +35,6 @@ class Antenna(db.Model):
             ant.point = point
 
         db.session.commit()
-
 
 
 class Telephone(db.Model):
