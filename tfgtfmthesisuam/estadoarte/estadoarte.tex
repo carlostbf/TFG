@@ -28,7 +28,7 @@
     Ambas BBDD permiten realizar consultas relacionadas con objetos geográficos.    
     PostgreSQL lo puede hacer mediante una extensión espacial llamada PostGIS\cite{postgis}. Esta herramienta permite crear objetos geográficos, y a su vez realizar consultas SQL sobre estos objetos. En nuestro caso, nos interesa la funcionalidad de distancia entre coordenadas geográficas.
     
-    Por otra parte, Neo4J tiene ya integrada esta funcionalidad geográfica y espacial. Permitiéndole realizar la misma funcionalidad pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
+    Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
     
   \section{Framework}
     A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
@@ -44,7 +44,7 @@
   
     Existen muchas \dfnpl{api} disponibles para implementar mapas en javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
     
-    El problema con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a internet es necesaria.
+    El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a internet es necesaria.
 
     
     Por tanto, se han investigado las alternativas opensource y gratuitas existentes. Las dos \dfnpl{api} principales en este sector son OpenLayers\cite{openlayers} y Leaflet\cite{leaflet}.
@@ -61,4 +61,4 @@
   
   Para empezar necesitaremos los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid \cite{opencellid}. Esta BBDD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
   
-  Por otra parte necesitaríamos datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que no se los comparten entre sí.
+  Por otra parte necesitaríamos datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que no se comparten entre sí.

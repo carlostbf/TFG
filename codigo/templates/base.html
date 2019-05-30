@@ -19,46 +19,57 @@
 </nav>
 
 <section class="content">
-  <header>
-    {% block header %}Cabecera{% endblock %}
-  </header>
+  <!--<header>
+    {% block header %}{% endblock %}
+  </header>-->
   {% block content %}{% endblock %}
-  <div id="map"></div>
-  <form action="/query" method="post">
-    <label for="tel">Teléfono Objetivo</label>
-    <input name="tel" id="tel" required>
+  <div id="left-panel">
+    <div id="map"></div>
+    <form action="/query" method="post">
+      <label for="tel">Teléfono Objetivo</label>
+      <input name="tel" id="tel" required>
 
-    <label for="date_init">Fecha de inicio</label>
-    <input name="date_init" id="date_init" type="date">
+      <label for="date_init">Fecha de inicio</label>
+      <input name="date_init" id="date_init" type="date">
 
-    <label for="date_end">Fecha de fin</label>
-    <input name="date_end" id="date_end" type="date">
+      <label for="date_end">Fecha de fin</label>
+      <input name="date_end" id="date_end" type="date">
 
 
-    <input type="submit" value="Query">
-  </form>
+      <input type="submit" value="Query">
+    </form>
 
-  <form action="/query2" method="post">
-    <label for="lat">latitud</label>
-    <input name="lat" id="lat" required>
+    <form action="/query2" method="post">
+      <label for="lat">latitud</label>
+      <input name="lat" id="lat" required>
 
-    <label for="lon">longitud</label>
-    <input name="lon" id="lon" required>
+      <label for="lon">longitud</label>
+      <input name="lon" id="lon" required>
 
-    <label for="range">range</label>
-    <input name="range" id="range" required>
+      <label for="range">range</label>
+      <input name="range" id="range" required>
 
-    <!--<label for="date_init">date_init</label>
-    <input name="date_init" id="date_init" required>
+      <label for="date_init">Fecha de inicio</label>
+      <input name="date_init" id="date_init" type="date">
 
-    <label for="date_end">date_init</label>
-    <input name="date_end" id="date_end" required>-->
-    <input type="submit" value="Query2">
-  </form>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
+      <label for="date_end">Fecha de fin</label>
+      <input name="date_end" id="date_end" type="date">
+      <input type="submit" value="Query2">
+    </form>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+  </div>
+  <div id="right-panel">
+    <table id="data">
+      <tr>
+        <th>Teléfono Origen</th>
+        <th>Teléfono Destino</th>
+        <th>Fecha</th>
+      </tr>
+    </table>
 
+  </div>
   <script>
     /*Esta función se encarga de insertar un value en el hashmap<object,value>
     * Internamente compara el object para ver si ya existía otro obj con los mismos parámetros
@@ -83,13 +94,13 @@
       //coordenadas por defecto
       let sol = {lat: 0, lng: -180};
       //centramos el mapa
-      let flightPlanCoordinates = [];
+      //let flightPlanCoordinates = [];
 
       let coordinates, circle;
       let ranges = [];
       let infowindows = [];
       let markers = [];
-
+      let text = [];
       let contents = new Map(); //Empty Map
       let content;
       // Define a symbol using a predefined path (an arrow)
@@ -163,6 +174,8 @@
 
 
 
+
+
       {% elif tels is defined and tels|length  %} //Caso query por latitud longitud
         //centramos en la ubicación filtrada
         map = new google.maps.Map(document.getElementById('map'), {
@@ -172,41 +185,23 @@
 
         {% for tel in tels %}
           coordinates = {lat: {{ tel.Antenna.lat }}, lng: {{ tel.Antenna.lon }}};
-          content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
-            'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}<br><br>';
+          /*content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
+            'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}<br><br>';*/
+          content = '<tr><td>{{ tel.tel_o }}</td><td>{{ tel.tel_d }}</td><td>{{ tel.date_init }}</td></tr>';
+
+
           if (MapInsertObject(contents, coordinates, content) === true) {
             ranges.push({{ tel.Antenna.range }});
           }
 
-          flightPlanCoordinates.push(coordinates);
-          // Creamos los popups
-          /*infowindows.push(new google.maps.InfoWindow({
-            content: 'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}'
-          }));
-          markers.push(new google.maps.Marker({
-            position: coordinates,
-            map: map,
-            title: 'Ubicación'
-          }));
-          // Add the circle for this city to the map.
-          circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.1,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.1,
-            map: map,
-            center: coordinates,
-            radius: {{ tel.Antenna.range }}
-          });*/
         {% endfor %}
         let i = 0;
         for (const [key, value] of contents) {
 
-          infowindows.push(new google.maps.InfoWindow({
+          /*infowindows.push(new google.maps.InfoWindow({
             content: value
-          }));
-
+          }));*/
+          text.push(value);
           markers.push(new google.maps.Marker({
             position: key,
             map: map,
@@ -225,14 +220,19 @@
           });
           i++;
         }
-        infowindows.push(new google.maps.InfoWindow({
+        /*infowindows.push(new google.maps.InfoWindow({
           content: 'Ubicación a mirar:<br>lat: {{ lat }}, lng: {{ lon }}'
-        }));
-        markers.push(new google.maps.Marker({
+        }));*/
+        /*markers.push(new google.maps.Marker({
           position: {lat: {{ lat }}, lng: {{ lon }}},
           map: map,
           title: 'Ubicación actual'
-        }));
+        }));*/
+        let marker = new google.maps.Marker({
+          position: {lat: {{ lat }}, lng: {{ lon }}},
+          map: map,
+          title: 'Ubicación actual'
+        });
         circle = new google.maps.Circle({
           strokeColor: '#0F0000',
           strokeOpacity: 0.1,
@@ -246,7 +246,13 @@
         // Activamos los popups
         for (let i = 0; i < markers.length; i++) {
           markers[i].addListener("click", function () {
-            infowindows[i].open(map, markers[i]);
+            //infowindows[i].open(map, markers[i]);
+            document.getElementById("data").innerHTML = '      <tr>\n' +
+              '        <th>Teléfono Origen</th>\n' +
+              '        <th>Teléfono Destino</th>\n' +
+              '        <th>Fecha</th>\n' +
+              '      </tr>' +
+              text[i];
           })
         }
 

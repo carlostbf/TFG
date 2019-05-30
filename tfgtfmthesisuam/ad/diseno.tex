@@ -1,15 +1,15 @@
-  \newdefinition{orm}{ORM}{ORMs}{O  Object-Relational mapping es una técnica de programación para convertir datos entre el sistema de tipos utilizado en un lenguaje de programación orientado a objetos y la utilización de una base de datos relacional}
+  \newdefinition{orm}{ORM}{ORMs}{Object-Relational mapping es una técnica de programación para convertir datos entre el sistema de tipos utilizado en un lenguaje de programación orientado a objetos y la utilización de una base de datos relacional}
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \section{Diseño\label{SEC:DISENO}}
-  Tras la evaluación de las diferentes herramientas en el estado del arte, aquí asignamos las que usaremos finalmente, junto al criterio que hemos seguido a la hora de hacerlo.
+  Tras la evaluación de las diferentes herramientas en el estado del arte, aquí se asignan las que se usarán finalmente, junto al criterio que hemos seguido a la hora de decidirlo.
   
   \subsection{Base de Datos}
-    La BD que usaremos será PostgreSQL. Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos.
+    La BD que se usará será PostgreSQL. Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos.
     
-    Para crear los formatos de los datos de la BD hemos tenido de referencia datos reales proporcionados, y hemos simulado un modelo básico que contiene todos los campos que hemos visto comunes y necesarios.
+    Para crear los formatos de los datos de la BD se ha tenido de referencia datos reales proporcionados, y se ha simulado un modelo básico que contiene todos los campos comunes y necesarios.
     %modelo ER
-    Los formatos de los datos de antenas los hemos sacado de OpenCellid \cite{opencellid}
+    Los formatos de los datos de antenas se han obtenido de OpenCellid \cite{opencellid}
     %detallar campos
     Para definir los campos de las llamadas, se ha accedido a datos de compañías telefónicas privadas, y se han comparado para encontrar los campos comunes y necesarios.
     %detallar campos
@@ -18,17 +18,17 @@
     
     
   \subsection{Framework}
-    Debido a que la envergadura del proyecto no es muy grande, el framework que se utilizará será Flask, pues es más sencillo que Django, y proporciona prácticamente las mismas herramientas. Por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado.
+    La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambos proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de implementar.
 
   \subsection{API de mapas}
-    Finalmente se ha decidido usar la \dfn{api} de Google Maps\cite{gmaps} a pesar de que su uso conlleve un gasto mensual. Esto es porque, tras probar las diferentes alternativas, se ha comprobado que esta \dfn{api} es la única que tiene un módulo de Roads para detectar carreteras cercanas que funciona aceptablemente y que tiene un soporte y una documentación más cuidada.
-    
+    Finalmente se ha decidido usar la \dfn{api} de Google Maps\cite{gmaps} a pesar de que su uso conlleve un gasto mensual. Esto es porque, tras probar las diferentes alternativas, se ha comprobado que esta \dfn{api} proporciona muchas más funcionalidades interesantes que las demás no tienen. Como por ejemplo, un módulo de Roads para detectar carreteras cercanas.
+    Además su documentación y mantenimiento está bien actualizado, y por tanto, esto la hace idónea para aumentar su escalabilidad.
     
   \subsection{Datos}
-    Debido a la sensibilidad y privacidad de los datos que manejamos, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. %%como??
+    Debido a la sensibilidad y privacidad de los datos que se manejan, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. %%como??
   %Diagrama casos uso
   %Diagramas para explicar codigo
-    Debido a que los datos tienen formatos completamente distintos, para insertar los datos en la BD, se ha programado un módulo en Python.
+    Debido a que los datos tienen formatos completamente distintos dependiendo de la compañía que las provea, para insertar los datos en la BD, se ha programado un módulo en Python.
     Los datos proporcionados vienen principalmente en 3 tipos de ficheros distintos.
     \begin{itemize}
       %Detallar formatos datos y como se definen
@@ -36,3 +36,4 @@
       \item Un fichero excel que contiene los datos de las antenas.
       \item Un fichero excel que contiene los datos de las llamadas realizadas.
     \end{itemize}
+    En la implementación, se realizará un análisis más detallado del algoritmo de inserción de datos.

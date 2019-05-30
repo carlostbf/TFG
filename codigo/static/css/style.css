@@ -1,11 +1,11 @@
 html {
     font-family: sans-serif;
     background: #eee;
-    padding: 1rem;
+    /*padding: 0.5rem;*/
 }
 
 body {
-    max-width: 960px;
+    /*max-width: 960px;*/
     margin: 0 auto;
     background: white;
 }
@@ -30,6 +30,7 @@ nav {
     display: flex;
     align-items: center;
     padding: 0 0.5rem;
+    height: 15%;
 }
 
 nav h1 {
@@ -53,7 +54,21 @@ nav ul li a, nav ul li span, header .action {
     display: block;
     padding: 0.5rem;
 }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 .content {
     padding: 0 1rem 1rem;
 }
@@ -131,6 +146,16 @@ input.danger {
 input[type=submit] {
     align-self: start;
     min-width: 10em;
+}
+
+#left-panel {
+    float: left;
+    width: 50%;
+}
+
+#right-panel {
+    float: right;
+    width: 50%;
 }
 
 #map {

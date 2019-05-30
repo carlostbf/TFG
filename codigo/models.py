@@ -1,12 +1,9 @@
-from sqlalchemy.dialects.postgresql import JSON
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2.types import Geometry
-from sqlalchemy import func
 
 db = SQLAlchemy()
 
 
-# una antena puede tener varios numeros asociados
 class Antenna(db.Model):
     mcc = db.Column(db.Integer, primary_key=True, default=214)
     mnc = db.Column(db.Integer, primary_key=True)
@@ -18,6 +15,7 @@ class Antenna(db.Model):
     range = db.Column(db.Integer)
     point = db.Column(Geometry(geometry_type="POINT"))
 
+    # una antena puede tener varios numeros asociados
     telephones = db.relationship('Telephone', lazy=True, backref='antenna')
 
     def __repr__(self):
@@ -26,7 +24,8 @@ class Antenna(db.Model):
 
     @classmethod
     def update_geometries(cls):
-        """Using each city's longitude and latitude, add geometry data to db."""
+        """Esta función rellena la columna point con los datos proporcionados
+            por la latitud y longitud una vez han sido rellenados"""
 
         ants = Antenna.query.all()
 
@@ -41,7 +40,6 @@ class Telephone(db.Model):
     tel_o = db.Column(db.BigInteger, primary_key=True)
     tel_d = db.Column(db.BigInteger, primary_key=True)
 
-    # foreign key a antena
     mcc = db.Column(db.Integer, default=214)
     mnc = db.Column(db.Integer)
     lac = db.Column(db.Integer)
@@ -50,6 +48,7 @@ class Telephone(db.Model):
     date_init = db.Column(db.DateTime, primary_key=True)
     duration = db.Column(db.Integer)
 
+    # foreign key al primary key de Antenna
     __table_args__ = (
         db.ForeignKeyConstraint(['mcc', 'mnc', 'lac', 'cid'],
                                 ['antenna.mcc', 'antenna.mnc', 'antenna.lac', 'antenna.cid']),

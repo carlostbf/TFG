@@ -17,6 +17,7 @@ TODO
                 pinchar en areas y muestra telefonos
                 muestro datos telefonos en una tabla aparte
                 tabla pincho numero tlf y pinta de nuevo el mapa con datos ese telefono
+                    LINKS A FORMS? O COMO?
                 (seleccionar telefono en tabla y mostrar ubicacion asociada)
 
     AFTERWARDS

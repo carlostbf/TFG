@@ -30,7 +30,6 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    # return render_template('base.html', antenas=antenas, lat=40.4167278, lon=-3.7033387)
     return render_template('base.html')
 
 
