@@ -10,25 +10,7 @@
 \chapter{Estado del Arte\label{CAP:ESTADOARTE}}
   En la actualidad, existen muchas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación describiremos los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
   
-  \section{Bases de Datos}
-    Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bdr} y las \ac{bdo}.
-    
-    Las \ac{bdr} siguen el modelo relacional, que consiste en guardar los datos en tablas y relaciones. Mientras que las \ac{bdo} guardan los datos en nodos (también llamados vértices) relacionados con otros nodos mediante aristas (también llamadas relaciones). En este apartado se analizará principalmente a PostgreSQL\cite{postgres}.
-    
-    Las \ac{bdo} llevan mucho tiempo inventadas, pero fueron eclipsadas en su momento por las \ac{bdr}, las cuáles son más sencillas y por tanto más populares. Por ese mismo motivo, actualmente existen escasas herramientas de \ac{bdo}. En este apartado se analizará principalmente a Neo4J\cite{neo4j}.
-    
-    PostgreSQL es una \ac{bdr} que fue creada en 1989 e implementada en C. Entre sus características más útiles se destaca su alta concurrencia, es decir, permite que mientras un proceso modifica una tabla, otros accedan a la misma sin necesidad de bloqueos, y así permitiendo a cada usuario obtener una visión consistente. Además permite la ejecución de funciones, procedimientos almacenados y triggers (también llamados disparadores).
-    Por estas razones, y por su longevidad en el mercado, es una herramienta más clásica con muchas funcionalidades y que tiene muchos más años de soporte, lo que la hace más robusta y versátil.
-  
-    Por otra parte, Neo4J es una \ac{bdo} que fue creada en 2007 usando Java y se basa en el uso de "grafos de propiedad". Estos son un tipo de grafos dirigidos, con peso en las relaciones entre nodos, y que poseen etiquetas y propiedades en los nodos y relaciones entre ellos. Neo4J tiene mejor rendimiento que las \ac{bbdd} relacionales y las no relacionales. Esto es porque, aunque las consultas de datos aumenten exponencialmente, el rendimiento de Neo4j no desciende (frente a lo que sí sucede con las BD relacionales). Esto es debido a que las \ac{bdo} responden a las consultas actualizando el nodo y las relaciones de esa búsqueda y no todo el grafo completo y eso optimiza mucho el proceso.
-    Además, cabe destacar su flexibilidad y escalabilidad, pues cuando aumentan las necesidades, las posibilidades de añadir más nodos y relaciones a un grafo ya existente son enormes.
-    En general, por su naturaleza estas \ac{bbdd} destacan en eficiencia si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. 
-    
-    %Profundizar? Distancias
-    Ambas BBDD permiten realizar consultas relacionadas con objetos geográficos.    
-    PostgreSQL lo puede hacer mediante una extensión espacial llamada PostGIS\cite{postgis}. Esta herramienta permite crear objetos geográficos, y a su vez realizar consultas SQL sobre estos objetos. En nuestro caso, nos interesa la funcionalidad de distancia entre coordenadas geográficas.
-    
-    Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
+
     
   \section{Framework}
     A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
@@ -56,9 +38,30 @@
     A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}.
     %leaflet es dificil hacer lo de las carreteras
     %%Consulta BBDD osm
+  
+  \section{Bases de Datos}
+    Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bdr} y las \ac{bdo}.
+    
+    Las \ac{bdr} siguen el modelo relacional, que consiste en guardar los datos en tablas y relaciones. Mientras que las \ac{bdo} guardan los datos en nodos (también llamados vértices) relacionados con otros nodos mediante aristas (también llamadas relaciones). En este apartado se analizará principalmente a PostgreSQL\cite{postgres}.
+    
+    Las \ac{bdo} llevan mucho tiempo inventadas, pero fueron eclipsadas en su momento por las \ac{bdr}, las cuáles son más sencillas y por tanto más populares. Por ese mismo motivo, actualmente existen escasas herramientas de \ac{bdo}. En este apartado se analizará principalmente a Neo4J\cite{neo4j}.
+    
+    PostgreSQL es una \ac{bdr} que fue creada en 1989 e implementada en C. Entre sus características más útiles se destaca su alta concurrencia, es decir, permite que mientras un proceso modifica una tabla, otros accedan a la misma sin necesidad de bloqueos, y así permitiendo a cada usuario obtener una visión consistente. Además permite la ejecución de funciones, procedimientos almacenados y triggers (también llamados disparadores).
+    Por estas razones, y por su longevidad en el mercado, es una herramienta más clásica con muchas funcionalidades y que tiene muchos más años de soporte, lo que la hace más robusta y versátil.
+    
+    Por otra parte, Neo4J es una \ac{bdo} que fue creada en 2007 usando Java y se basa en el uso de "grafos de propiedad". Estos son un tipo de grafos dirigidos, con peso en las relaciones entre nodos, y que poseen etiquetas y propiedades en los nodos y relaciones entre ellos. Neo4J tiene mejor rendimiento que las \ac{bbdd} relacionales y las no relacionales. Esto es porque, aunque las consultas de datos aumenten exponencialmente, el rendimiento de Neo4j no desciende (frente a lo que sí sucede con las BD relacionales). Esto es debido a que las \ac{bdo} responden a las consultas actualizando el nodo y las relaciones de esa búsqueda y no todo el grafo completo y eso optimiza mucho el proceso.
+    Además, cabe destacar su flexibilidad y escalabilidad, pues cuando aumentan las necesidades, las posibilidades de añadir más nodos y relaciones a un grafo ya existente son enormes.
+    En general, por su naturaleza estas \ac{bbdd} destacan en eficiencia si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. 
+    
+    %Profundizar? Distancias
+    Ambas BBDD permiten realizar consultas relacionadas con objetos geográficos.    
+    PostgreSQL lo puede hacer mediante una extensión espacial llamada PostGIS\cite{postgis}. Esta herramienta permite crear objetos geográficos, y a su vez realizar consultas SQL sobre estos objetos. En nuestro caso, nos interesa la funcionalidad de distancia entre coordenadas geográficas.
+    
+    Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
+    
   \section{Datos}
-  Para probar la aplicación necesitaremos dos fuentes de datos principales.
-  
-  Para empezar necesitaremos los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid \cite{opencellid}. Esta BBDD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
-  
-  Por otra parte necesitaríamos datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que no se comparten entre sí.
+    Para probar la aplicación necesitaremos dos fuentes de datos principales.
+    
+    Para empezar necesitaremos los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid \cite{opencellid}. Esta BBDD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
+    
+    Por otra parte necesitaríamos datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que no se comparten entre sí.

@@ -1,34 +1,39 @@
 \section{Análisis de Requisitos\label{SEC:ANALISIS}}
+  A continuación se detallarán los requisitos funcionales y no funcionales que tiene que cumplir la aplicación.
   \paragraph{Requisitos funcionales}
   
   \begin{functional}
-    \item Permite definir el formato de los datos mediante un fichero Json.
-    \item Permite insertar los datos desde un fichero excel.
-
+    \item Permitir definir el formato de los datos mediante un fichero JSON.
+    \item Permitir insertar los datos desde un fichero excel con el formato definido en el fichero JSON.
+    
+    \item Permitir filtrar los terminales en una ubicación del mapa y los momentos en los que han estado allí, dados:
     \begin{functional}
-      \item Las trayectorias se mostrarán en un mapa.
-      \item Se descartarán las ubicaciones irrelevantes. (A concretar!)
+      \item sus coordenadas en latitud y longitud.
+      \item un radio de búsqueda.
+      \item un intervalo de tiempo entre 2 fechas.
+    \end{functional} 
+    \item Permitir filtrar las ubicaciones, los instantes de tiempo y la trayectoria seguida por un teléfono objetivo dados:
+    \begin{functional}
+      \item El número de teléfono objetivo.
+      \item un intervalo de tiempo entre 2 fechas.
+    \end{functional} 
+    \item Se descartarán las ubicaciones irrelevantes. (A concretar!)!! %Filtro de tiempo
+    \item Tener una interfaz gráfica compuesta por:
+    \begin{functional}
+      \item Un mapa interactivo para visualizar los resultados
+      \item Un formulario web para realizar los distintos filtros de búsqueda.
     \end{functional}
-    \item Implementar un algoritmo para seguir la trayectoria de un teléfono sospechoso.
-    
-    \item Permitir conocer los tiempos en cada ubicación de la trayectoria.
-    
-    \item Permite hacer consultas filtradas para el usuario mediante un formulario web.
-    
-    %colocado aqui? mover como me convenga
-    \item La lógica de la aplicación debe estar programada en Python 3.
-    
-    \item Se mostrará en una interfaz web programada en Javascript.
-    
-    \item La base de datos usada será PostgreSQL.        
   \end{functional}
   
   \paragraph{Requisitos no funcionales}
   
   \begin{nonfunctional}
-    \item El programa está aislado de internet.
+    \item La lógica de la aplicación debe estar programada en Python 3.
+    \item Se mostrará en una interfaz web programada en Javascript.
+    
+    \item La aplicación está aislada de internet.
     \begin{nonfunctional}
       \item La aplicación funciona correctamente en local.
-      \item Puede hacer consultas a Internet, siempre y cuando estas consultas no impliquen el envío de datos policiales.
+      \item Pero permite realizar consultas en Internet, siempre y cuando estas no impliquen el envío de datos policiales.
     \end{nonfunctional}
   \end{nonfunctional}

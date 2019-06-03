@@ -12,14 +12,16 @@
       \item PostGIS 2.5
     \end{itemize}
   \section{Implementación}
-    \subsection{Base de Datos}
-      Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
-      Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
+    Tal y como detallamos en el capítulo \ref{CAP:AD}, las herramientas que usaremos son las siguientes. A continuación destacaremos las características más interesantes que surgen de traducir del diseño al desarrollo.
     \subsection{Flask}
       Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask}. El esquema ha quedado así:
-      ...
-    \subsection{Google Maps}
-        
+      ...        
+    \subsection{Google Maps API}
+    
+    \subsection{Base de Datos PostgreSQL}
+      Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
+      Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
+  
     \subsection{Inserción de datos en BD}
       Primero se leen los formatos de los datos de un fichero JSON.
       %mostrar formatos

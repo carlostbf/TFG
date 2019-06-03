@@ -50,13 +50,13 @@
       <input name="date_end" id="date_end" type="hidden">
 
 
-      <label for="lat">latitud</label>
+      <label for="lat">Latitud</label>
       <input name="lat" id="lat" value="{{ lat }}" required>
 
-      <label for="lon">longitud</label>
+      <label for="lon">Longitud</label>
       <input name="lon" id="lon" value="{{ lon }}" required>
 
-      <label for="range">radio</label>
+      <label for="range">Radio (en metros)</label>
       <input name="range" id="range" value="{{ radio }}" required>
 
       <input type="submit" value="Query2">
@@ -72,7 +72,6 @@
     {% endfor %}
   </div>
   <div class="right-panel">
-    <!--TODO: Hacer tabla scrollable-->
     <table id="data">
       <tr>
         <th>Teléfono Origen</th>
@@ -83,7 +82,7 @@
 
   </div>
   <script>
-    function getCurrentDate() {
+    /*function getCurrentDate() {
       let currentDate = new Date();
 
       let date = currentDate.getDate();
@@ -91,7 +90,7 @@
       let year = currentDate.getFullYear();
 
       return date + "-" + (month + 1) + "-" + year;
-    }
+    }*/
 
     /*Esta función se encarga de insertar un value en el hashmap<object,value>
     * Internamente compara el object para ver si ya existía otro obj con los mismos parámetros
@@ -116,24 +115,21 @@
       //coordenadas por defecto
       let sol = {lat: 0, lng: -180};
       let zoom = 15;
-      let flightPlanCoordinates = [];
+      let pathCoordinates = [], circles = [], ranges = [], infowindows = [], markers = [];
+
 
       let coordinates;
-      let circles = [];
-      let ranges = [];
-      let infowindows = [];
-      let lastOpenedInfoWindow;
-      let markers = [];
-      let text = [];
-      let contents = new Map(); //Empty Map
       let content;
+      let contents = new Map(); //Empty Map
+      let text = [];
+      let lastOpenedInfoWindow;
 
       let lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
       };
 
 
-      {% if calls is defined and calls|length %} //Caso query por teléfono
+      {% if calls is defined and calls|length %} //Caso query por teléfono objetivo
         // centramos mapa usando el primer resultado
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: {{ calls[0].Antenna.lat }}, lng: {{ calls[0].Antenna.lon }}},
@@ -142,22 +138,42 @@
 
         {% for call in calls %}
           coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
-          content = 'tel_o: {{ call.tel_o }} tel_d: {{ call.tel_d }}<br>' +
-            'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';
+          /*content = 'tel_o: {{ call.tel_o }} tel_d: {{ call.tel_d }}<br>' +
+            'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';*/
+          content = '<tr>' +
+            '<td>' +
+            '<form action="/query" method="post">' +
+            '<input name="tel" type="hidden" value="{{ call.tel_o }}"/>' +
+            '<input name="date_init"  type="hidden" value="{{ date_init }}">' +
+            '<input name="date_end" type="hidden" value="{{ date_end }}">' +
+            '<a href="#" onclick="this.parentNode.submit();">{{ call.tel_o }}</a>' +
+            '</form>' +
+            '</td>' +
 
+            '<td>' +
+            '<form action="/query" method="post">' +
+            '<input name="tel" type="hidden" value="{{ call.tel_d }}"/>' +
+            '<input name="date_init"  type="hidden" value="{{ date_init }}">' +
+            '<input name="date_end" type="hidden" value="{{ date_end }}">' +
+            '<a href="#" onclick="this.parentNode.submit();">{{ call.tel_d }}</a>' +
+            '</form>' +
+            '</td>' +
+
+            '<td>{{ call.date_init }}</td>' +
+            '</tr>';
           if (MapInsertObject(contents, coordinates, content) === true) {
             ranges.push({{ call.Antenna.range }});
           }
-          flightPlanCoordinates.push(coordinates);
+          pathCoordinates.push(coordinates);
 
         {% endfor %}
         let i = 0;
         for (const [key, value] of contents) {
 
           infowindows.push(new google.maps.InfoWindow({
-            content: value
+            content: 'latidud: ' + key.lat + ' longitud: ' + key.lng
           }));
-
+          text.push(value);
           markers.push(new google.maps.Marker({
             position: key,
             map: map,
@@ -179,13 +195,26 @@
         // Activamos los popups
         for (let i = 0; i < markers.length; i++) {
           markers[i].addListener("click", function () {
+            //abrir marker cerrando el anterior
+            if (lastOpenedInfoWindow) {
+              lastOpenedInfoWindow.close();
+            }
             infowindows[i].open(map, markers[i]);
-          });
+            lastOpenedInfoWindow = infowindows[i];
+
+            document.getElementById("data").innerHTML = '<tr>' +
+              '<th>Teléfono Origen</th>' +
+              '<th>Teléfono Destino</th>' +
+              '<th>Fecha</th>' +
+              '</tr>' +
+              text[i];
+            //TODO: cambiar colores de circulos?
+          })
         }
 
         // Pintamos las trayectorias
         let flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
+          path: pathCoordinates,
           icons: [{
             icon: lineSymbol,
             offset: '100%'

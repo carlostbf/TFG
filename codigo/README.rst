@@ -3,7 +3,6 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 
 TODO
     PENSAR TODAS LAS INTERACCIONES DE LA PÁGINA WEB
-    MODIFICAR CALLS IGUAL QUE TELS
     filtro de tiempo en ambos casos?
     CODIGO
         MAPAS
@@ -20,7 +19,7 @@ TODO
 
     AFTERWARDS
         DATOS
-            programar poder introducir fichero de datos y formatos
+            programar poder introducir fichero de datos y formatos (si no, quitar de requisitos)
 
             filtro carreteras
                 necesito mejores datos
@@ -53,19 +52,19 @@ DUDAS
 
 
 MEMORIA
-    objetivos <-------------------------------------------------
+    objetivos       (HECHO)
         descripcion informal (hace esto con esto y tatata)
-    requisitos <-------------------------------------------------
+    requisitos      (HECHO)
         hay fichero, hace esto, etc
-    estado arte
+    estado arte     (HECHO)
         pros y contras de tecnologias en estado arte
     diseño
         decidir tecnologias
-    DIFICULTADES ENCONTRADAS <-------------------------------------------------
+    DIFICULTADES ENCONTRADAS
         CAMBIAR A GOOGLE MAPS
             explicar razones
         Simular Datos
-    desarrollo <-------------------------------------------------
+    desarrollo
         versiones de herramientas
         detalles sobre como se ha implementado?
         diferencia con diseño?
