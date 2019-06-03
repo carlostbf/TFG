@@ -54,21 +54,48 @@ nav ul li a, nav ul li span, header .action {
     display: block;
     padding: 0.5rem;
 }
+
 table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    height: 10px
 }
 
 td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+    background-color: #dddddd;
 }
+
+hr {
+    width: 99%;
+    border: 2px solid;
+}
+
+input.danger {
+    color: #cc2f2e;
+}
+
+input[type=submit] {
+    align-self: start;
+    min-width: 10em;
+}
+
+thead, tbody {
+    display: block;
+}
+
+tbody {
+    height: 800px; /* Just for the demo          */
+    overflow-y: auto; /* Trigger vertical scroll    */
+    overflow-x: hidden; /* Hide the horizontal scroll */
+}
+
 .content {
     padding: 0 1rem 1rem;
 }
@@ -139,24 +166,21 @@ tr:nth-child(even) {
     resize: vertical;
 }
 
-input.danger {
-    color: #cc2f2e;
-}
-
-input[type=submit] {
-    align-self: start;
-    min-width: 10em;
-}
-
-#left-panel {
+.left-panel {
     float: left;
     width: 50%;
 }
 
-#right-panel {
+.right-panel {
     float: right;
     width: 50%;
 }
+
+/*.left-left-panel {
+    float: left;
+    width: 25%;
+}*/
+
 
 #map {
     height: 300px;

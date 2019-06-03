@@ -27,9 +27,11 @@
       %Explicar el mapeo
       El mapeo ha sido diseñado tal y como aparece en la figura \ref{FIG:JSON}. Esencialmente hay 2 listas de objetos, una para los distintos modelos de fichero para la tabla de llamadas y otra para la de la tabla de antenas.
       Cada objeto está formado por pares clave valor, en este caso la clave se refiere a la columna de la tabla y el valor es el nombre que tiene asociado en el fichero de datos a insertar.
+      
       \begin{figure}[Contenido del fichero models.json]{FIG:JSON}{Contenido del fichero models.json}
         \image{3cm}{}{json}
       \end{figure}
+
       %Para organizar las subfiguras se pueden utilizar saltos de párrafo, saltos de línea u, horizontalmente con los comandos \quad, \qquad o \hspace*{espacio}.
       Antes de insertar los datos se hace una comprobación por si hay claves primarias duplicadas. En tal caso, se imprimen por pantalla las filas conflictivas y se insertan el resto de datos. 
       Y finalmente se introducen los datos en la tabla y columnas correspondientes.

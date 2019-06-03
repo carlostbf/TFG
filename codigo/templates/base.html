@@ -23,25 +23,33 @@
     {% block header %}{% endblock %}
   </header>-->
   {% block content %}{% endblock %}
-  <div id="left-panel">
+  <div class="left-panel">
     <div id="map"></div>
-    <form action="/query" method="post">
-      <label for="tel">Teléfono Objetivo</label>
-      <input name="tel" id="tel" value="{{ tel }}" required>
-
+    <form name="form1" action="/query" method="post">
       <label for="date_init">Fecha de inicio</label>
-      <input name="date_init" id="date_init" type="datetime" value="{% if date_init is defined %}{{ date_init }}
-        {% else %}2000-01-01 00:00:00 {% endif %}">
+      <input name="date_init" id="date_init" type="datetime" onblur="document.form2.date_init.value = this.value;"
+             value="{% if date_init is defined %}{{ date_init }}{% else %}2000-01-01 00:00:00{% endif %}">
 
       <label for="date_end">Fecha de fin</label>
-      <input name="date_end" id="date_end" type="datetime" value="{% if date_end is defined %}{{ date_end }}
-             {% else %}2020-01-01 00:00:00{% endif %}">
+      <input name="date_end" id="date_end" type="datetime" onblur="document.form2.date_end.value = this.value;"
+             value="{% if date_end is defined %}{{ date_end }}{% else %}2020-01-01 00:00:00{% endif %}">
+
+      <hr/>
+      <hr/>
+
+      <label for="tel">Teléfono Objetivo</label>
+      <input name="tel" id="tel" value="{{ tel }}" required>
 
 
       <input type="submit" value="Query">
     </form>
+    <hr/>
+    <form name="form2" action="/query2" method="post">
 
-    <form action="/query2" method="post">
+      <input name="date_init" id="date_init" type="hidden">
+      <input name="date_end" id="date_end" type="hidden">
+
+
       <label for="lat">latitud</label>
       <input name="lat" id="lat" value="{{ lat }}" required>
 
@@ -51,20 +59,19 @@
       <label for="range">radio</label>
       <input name="range" id="range" value="{{ radio }}" required>
 
-      <label for="date_init">Fecha de inicio</label>
-      <input name="date_init" id="date_init" type="datetime" value="{% if date_init is defined %}{{ date_init }}
-        {% else %}2000-01-01 00:00:00 {% endif %}">
-
-      <label for="date_end">Fecha de fin</label>
-      <input name="date_end" id="date_end" type="datetime" value="{% if date_end is defined %}{{ date_end }}
-             {% else %}2020-01-01 00:00:00{% endif %}">
       <input type="submit" value="Query2">
     </form>
+    <script>
+      //Con esta función hacemos que ambos forms compartan los input de fecha
+      document.form2.date_init.value = document.form1.date_init.value;
+      document.form2.date_end.value = document.form1.date_end.value;
+    </script>
+
     {% for message in get_flashed_messages() %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
   </div>
-  <div id="right-panel">
+  <div class="right-panel">
     <!--TODO: Hacer tabla scrollable-->
     <table id="data">
       <tr>
