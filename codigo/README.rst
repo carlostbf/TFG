@@ -2,6 +2,9 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
+    PENSAR TODAS LAS INTERACCIONES DE LA PÁGINA WEB
+    MODIFICAR CALLS IGUAL QUE TELS
+    filtro de tiempo en ambos casos?
     CODIGO
         MAPAS
             pintar trayectoria por numeros de tlf
@@ -12,12 +15,7 @@ TODO
 
             dado un area obtener telefonos cercanos
                 pintar trayectorias? NO
-                filtro tiempo estancia
-
-                pinchar en areas y muestra telefonos
-                muestro datos telefonos en una tabla aparte
-                tabla pincho numero tlf y pinta de nuevo el mapa con datos ese telefono
-                    LINKS A FORMS? O COMO?
+                filtro tiempo estancia (cuanto tiempo ha estado allí) 0-2h?
                 (seleccionar telefono en tabla y mostrar ubicacion asociada)
 
     AFTERWARDS
@@ -31,6 +29,7 @@ TODO
                 trabajo futuro
 
             verificar que datos repetidos coinciden
+            mejorar interfaz datetime
 
 DUDAS
 

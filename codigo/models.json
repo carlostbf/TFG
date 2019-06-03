@@ -13,15 +13,6 @@
   ],
   "antennas": [
     {
-      "mcc": "mcc",
-      "mnc": "net",
-      "lac": "area",
-      "cid": "cell",
-      "lon": "lon",
-      "lat": "lat",
-      "range": "range"
-    },
-    {
       "mcc": "MCC",
       "mnc": "MNC",
       "lac": "LAC",
@@ -29,6 +20,15 @@
       "lon": "LON",
       "lat": "LAT",
       "range": "RANGE"
+    },
+    {
+      "mcc": "mcc",
+      "mnc": "net",
+      "lac": "area",
+      "cid": "cell",
+      "lon": "lon",
+      "lat": "lat",
+      "range": "range"
     }
   ]
 }
