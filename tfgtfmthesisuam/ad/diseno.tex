@@ -1,44 +1,57 @@
   \newdefinition{orm}{ORM}{ORMs}{Object-Relational mapping es una técnica de programación para convertir datos entre el sistema de tipos utilizado en un lenguaje de programación orientado a objetos y la utilización de una base de datos relacional}
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \newdefinition{mvc}{MVC}{MVCs}{Modelo-Vista-Controlador es un patrón de arquitectura de software, que separa los datos de una aplicación, la interfaz de usuario, y la lógica de control en tres componentes distintos}
   
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Diseño\label{SEC:DISENO}}
   Tras la evaluación de las diferentes herramientas en el capítulo \ref{CAP:ESTADOARTE}, aquí se asignan las que se usarán finalmente junto al criterio que se ha seguido a la hora de decidirlo. Además se detallará un esquema de la estructura que seguirán los distintos componentes.
   
   
   \subsection{Framework}
     La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambos proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de desarrollar.
-    %TODO ESQUEMA
+    
+    El esquema que sigue es la estándar de una arquitectura \dfn{mvc} en Flask. Por tanto, en el capítulo \ref{CAP:DESARROLLO} se realizará un análisis más detallado del esquema.
 
-  \subsection{API de mapas}
+  \subsection{API de mapas e Interfaz  Web}
     Finalmente se ha decidido usar la \dfn{api} de Google Maps\cite{gmaps} a pesar de que su uso conlleve un gasto mensual. Esto es porque, tras probar las diferentes alternativas, se ha comprobado que esta \dfn{api} proporciona muchas más funcionalidades interesantes que las demás no tienen. Como por ejemplo, un módulo de Roads para detectar carreteras cercanas.
-    Además su documentación y mapas son regularmente actualizadod, y por tanto, todo esto la hace idónea para mejorar su escalabilidad y mantenimiento.
-    %TODO ESQUEMA
+    Además su documentación y mapas son regularmente actualizados, y por tanto, todo esto la hace idónea de cara a su escalabilidad y mantenimiento futuros.
+
+    Este módulo forma parte de la interfaz web de la aplicación, pues se usa la API mediante Javascript. Su utilidad consiste principalmente en representar gráficamente los resultados de las consultas realizadas mediante un formulario web.
+    
+    Principalmente, tendremos 2 formularios distintos:
+    \begin{itemize}
+      \item En el primero, dados un intervalo de tiempo entre una fecha inicial y una fecha final, y dado un teléfono objetivo, representará en el mapa todas las ubicaciones donde se ha realizado una llamada que involucre a ese teléfono.
+      
+      \item En el segundo, dado un intervalo de tiempo entre una fecha inicial y una fecha final, una ubicación, y un rango de búsqueda, muestra todos las llamadas de teléfono que se han realizado en ese área. 
+    \end{itemize}
     
   \subsection{Base de Datos}
     Ambas BBDD descritas en el capítulo anterior proporcionan la misma funcionalidad de consultas geoespaciales.
     Por tanto, la BD que se usará finalmente es PostgreSQL (\ac{bdr}). Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos y por tanto, no es necesario recurrir a \ac{bdo}, las cuáles tienen una estructura más complicada. 
-    %TODO terminar
-    Para crear los formatos de los datos de la BD se ha tenido de referencia datos reales proporcionados, y se ha simulado un modelo básico que contiene todos los campos comunes y necesarios.
-    %modelo ER
-    Los formatos de los datos de antenas se han obtenido de OpenCellid \cite{opencellid}
-    %detallar campos
-    Para definir los campos de las llamadas, se ha accedido a datos de compañías telefónicas privadas, y se han comparado para encontrar los campos comunes y necesarios.
-    %detallar campos
+
+    Los formatos de los datos de antenas se han obtenido basándose en los formatos de datos encontrados en OpenCellid\cite{opencellid}.
+    Mientras que para crear los formatos de los ficheros de llamadas, se han tenido de referencia datos reales proporcionados por distintas compañías telefónicas privadas.
+    
+    Finalmente se ha simulado un modelo básico que contiene todos los campos comunes y necesarios para la aplicación como vemos en el diagrama Entidad-Relación de \ref{FIG:ER}.
+    
+    Como vemos en la imagen, la entidad Antenna se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
+    
+    La entidad Telephone que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
+    
+    \begin{figure}[Diagrama Entidad-Relación]{FIG:ER}{Diagrama Entidad-Relación}
+      \image{}{}{ER}
+    \end{figure}
        
        
   \subsection{Datos}
-    Debido a la sensibilidad y privacidad de los datos que se manejan, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. 
-    %TODO
-    %%como??
-    %Diagrama casos uso
-    %Diagramas para explicar codigo
-    Debido a que los datos tienen formatos completamente distintos dependiendo de la compañía que las provea, para insertar los datos en la BD, se ha programado un módulo en Python.
-    Los datos proporcionados vienen principalmente en 3 tipos de ficheros distintos.
+    Debido a la sensibilidad y privacidad de los datos que se manejan, ha sido imposible conseguir datos reales de llamadas telefónicas para probar la aplicación. Por tanto, lo que se ha decidido ha sido simularlos junto a los datos de antenas, de esta forma se garantiza la consistencia de estos, es decir, las antenas, sus ubicaciones, y los teléfonos que realizan llamadas en esas antenas son falsos, pero tienen sentido entre sí. 
+
+    Debido a que los datos tienen formatos completamente distintos dependiendo de la compañía que las provea, para insertar los datos en la BD, se ha de programar un módulo en Python.
+    Los datos proporcionados vendrán principalmente en 3 tipos de ficheros distintos.
     
     \begin{itemize}
-      %Detallar formatos datos y como se definen
-      \item Un fichero JSON donde se definen los formatos de los otros 2 ficheros.
-      \item Un fichero excel que contiene los datos de las antenas.
+      \item Un fichero JSON donde se definen los formatos de los otros 2 ficheros, es decir, se detallarán los nombres de las columnas correspondientes para cada modelo de datos.
+      \item Un fichero excel que contiene los datos de las antenas telefónicas.
       \item Un fichero excel que contiene los datos de las llamadas realizadas.
     \end{itemize}
-    En la implementación, se realizará un análisis más detallado del algoritmo de inserción de datos.
+    En el capítulo \ref{CAP:DESARROLLO}, se realizará un análisis más detallado del formato de estos ficheros y del algoritmo de inserción de datos.

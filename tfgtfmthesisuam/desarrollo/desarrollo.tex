@@ -1,39 +1,64 @@
+\newdefinition{bins}{bulk insert}{bulk inserts}{Proceso provisto por el sistema de manejo de base de datos para cargar multiples filas de datos en una tabla}
+
 \chapter{Desarrollo\label{CAP:DESARROLLO}}
   \section{Versiones de Librerías}
-    Al desarrollar esta aplicación, se ha optado por usar las versiones más recientes de cada librería en el momento. A continuación listamos las versiones:
-    \begin{itemize}
-      \item Python 3.7.2
-      \item Flask 1.0.2
-      \item Flask-SQLAlchemy 2.3.2
-      \item PostgreSQL 11.2
-      \item Jinja2 2.10
-      \item SQLAlchemy 1.3.0 
-      \item GeoAlchemy2 0.6.2
-      \item PostGIS 2.5
-    \end{itemize}
+    Al desarrollar esta aplicación, se ha optado por usar las versiones más recientes de cada librería en el momento. A continuación mostramos una tabla con esa información:
+
+    \begin{table}[Tabla de versiones de librerías]{TB:LIB}{Esta es una tabla donde detallamos las versiones de las librerías usadas.}
+      \begin{tabular}{cccc}
+        \hline
+        \textbf{Librería} & \textbf{Versión} \\
+        \hline \hline
+        Python & 3.7.2 \\
+        PostgreSQL & 11.2 \\
+        Flask & 1.0.2 \\
+        Jinja2 & 2.10 \\
+        SQLAlchemy & 1.3.0 \\ 
+        Flask-SQLAlchemy & 2.3.2 \\
+        PostGIS & 2.5 \\
+        GeoAlchemy2 & 0.6.2 \\
+        Pandas & 0.24.2 \\
+        \hline
+      \end{tabular}
+    \end{table}
   \section{Implementación}
-    Tal y como detallamos en el capítulo \ref{CAP:AD}, las herramientas que usaremos son las siguientes. A continuación destacaremos las características más interesantes que surgen de traducir del diseño al desarrollo.
+    %TODO editar?
+    En el capítulo \ref{CAP:AD} elegimos las herramientas que se usarán, y un esquema del diseño que se seguirá. A continuación destacaremos las características más interesantes que surgen de traducir del diseño al desarrollo.
     \subsection{Flask}
-      Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask}. El esquema ha quedado así:
-      ...        
-    \subsection{Google Maps API}
-    
+      Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask} y se ha modulado como dicta el estándar de diseño. El esquema de los ficheros que lo componen ha quedado así:
+      \dirtree{%
+        .1 /.
+        .2 static.
+        .3 css.
+        .4 style.css.
+        .2 templates.
+        .3 base.html.
+        .2 app.py.
+        .2 forms.py.
+        .2 models.py.
+        .2 manage.py.
+        .2 populate.py.
+      }
+    %TODO Explicar estructura
+    \subsection{Google Maps API e Interfaz Web}
+    %TODO base.html
     \subsection{Base de Datos PostgreSQL}
       Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
       Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
-  
+      
+      %TODO models.py
     \subsection{Inserción de datos en BD}
-      Primero se leen los formatos de los datos de un fichero JSON.
-      %mostrar formatos
-      A continuación se leen los datos de los ficheros excel con la librería de Panda usando el mapeo designado en el JSON.
-      %Explicar el mapeo
+      La inserción de datos se hace con el código que encontramos en el fichero populate.py. A continuación la describiremos, pues la metodología no es trivial, y requiere de explicaciones.
+      
+      Primero se leen los formatos de los datos a insertar usando el mapeo definido en un fichero JSON.
       El mapeo ha sido diseñado tal y como aparece en la figura \ref{FIG:JSON}. Esencialmente hay 2 listas de objetos, una para los distintos modelos de fichero para la tabla de llamadas y otra para la de la tabla de antenas.
-      Cada objeto está formado por pares clave valor, en este caso la clave se refiere a la columna de la tabla y el valor es el nombre que tiene asociado en el fichero de datos a insertar.
+      Cada objeto está formado por pares clave-valor, en este caso la clave se refiere a la columna de la tabla en el modelo en PostgreSQL, y el valor es el nombre que tiene asociada la columna correspondiente en el fichero de datos a insertar.
       
       \begin{figure}[Contenido del fichero models.json]{FIG:JSON}{Contenido del fichero models.json}
         \image{3cm}{}{json}
       \end{figure}
-
-      %Para organizar las subfiguras se pueden utilizar saltos de párrafo, saltos de línea u, horizontalmente con los comandos \quad, \qquad o \hspace*{espacio}.
-      Antes de insertar los datos se hace una comprobación por si hay claves primarias duplicadas. En tal caso, se imprimen por pantalla las filas conflictivas y se insertan el resto de datos. 
-      Y finalmente se introducen los datos en la tabla y columnas correspondientes.
+    
+      A continuación se leen los datos de los ficheros excel con la librería de Pandas y usando el mapeo designado en el fichero JSON.
+      %Igual lo cambio?
+      Cabe destacar, que antes de insertar los datos se hace una comprobación por si hay claves primarias duplicadas. En tal caso, se imprimen por pantalla las filas conflictivas y se insertan el resto de datos.
+      Sabiendo que los datos a insertar no tienen claves duplicadas, se realiza un \dfn{bins} pues es más rápido que la inserción fila a fila.
