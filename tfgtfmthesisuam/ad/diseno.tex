@@ -6,17 +6,18 @@
   
   
   \subsection{Framework}
-    La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambos proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de implementar.
-
+    La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambos proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de desarrollar.
+    %TODO ESQUEMA
 
   \subsection{API de mapas}
     Finalmente se ha decidido usar la \dfn{api} de Google Maps\cite{gmaps} a pesar de que su uso conlleve un gasto mensual. Esto es porque, tras probar las diferentes alternativas, se ha comprobado que esta \dfn{api} proporciona muchas más funcionalidades interesantes que las demás no tienen. Como por ejemplo, un módulo de Roads para detectar carreteras cercanas.
-    Además su documentación y mantenimiento está bien actualizado, y por tanto, esto la hace idónea para aumentar su escalabilidad.
-    
+    Además su documentación y mapas son regularmente actualizadod, y por tanto, todo esto la hace idónea para mejorar su escalabilidad y mantenimiento.
+    %TODO ESQUEMA
     
   \subsection{Base de Datos}
-    La BD que se usará será PostgreSQL. Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos.
-    
+    Ambas BBDD descritas en el capítulo anterior proporcionan la misma funcionalidad de consultas geoespaciales.
+    Por tanto, la BD que se usará finalmente es PostgreSQL (\ac{bdr}). Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos y por tanto, no es necesario recurrir a \ac{bdo}, las cuáles tienen una estructura más complicada. 
+    %TODO terminar
     Para crear los formatos de los datos de la BD se ha tenido de referencia datos reales proporcionados, y se ha simulado un modelo básico que contiene todos los campos comunes y necesarios.
     %modelo ER
     Los formatos de los datos de antenas se han obtenido de OpenCellid \cite{opencellid}
@@ -26,7 +27,9 @@
        
        
   \subsection{Datos}
-    Debido a la sensibilidad y privacidad de los datos que se manejan, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. %%como??
+    Debido a la sensibilidad y privacidad de los datos que se manejan, ha sido imposible conseguir datos reales para probar la aplicación, por lo que se ha decidido simularlos de forma que sean consistentes. 
+    %TODO
+    %%como??
     %Diagrama casos uso
     %Diagramas para explicar codigo
     Debido a que los datos tienen formatos completamente distintos dependiendo de la compañía que las provea, para insertar los datos en la BD, se ha programado un módulo en Python.

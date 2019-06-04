@@ -3,7 +3,7 @@ Detección de patrones y trayectorias a partir de información temporal y geoesp
 
 TODO
     PENSAR TODAS LAS INTERACCIONES DE LA PÁGINA WEB
-    filtro de tiempo en ambos casos?
+    filtro de tiempo en ambos casos? 2 sliders independientes
     CODIGO
         MAPAS
             pintar trayectoria por numeros de tlf
@@ -58,7 +58,7 @@ MEMORIA
         hay fichero, hace esto, etc
     estado arte     (HECHO)
         pros y contras de tecnologias en estado arte
-    diseño
+    diseño (CASI)
         decidir tecnologias
     DIFICULTADES ENCONTRADAS
         CAMBIAR A GOOGLE MAPS
