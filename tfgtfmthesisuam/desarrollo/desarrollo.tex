@@ -21,9 +21,12 @@
         \hline
       \end{tabular}
     \end{table}
+  
+  
   \section{Implementación}
     %TODO editar?
     En el capítulo \ref{CAP:AD} elegimos las herramientas que se usarán, y un esquema del diseño que se seguirá. A continuación destacaremos las características más interesantes que surgen de traducir del diseño al desarrollo.
+    
     \subsection{Flask}
       Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask} y se ha modulado como dicta el estándar de diseño. El esquema de los ficheros que lo componen ha quedado así:
       \dirtree{%
@@ -69,7 +72,7 @@
       Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
       Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
       
-      El modelo de datos, que encontramos en el fichero models.py, es esencialmente el descrito en el diseño en la figura \ref{FIG:ER}.
+      El modelo de datos, que encontramos en el fichero models.py, es esencialmente el descrito en la sección \ref{SEC:DISENO} de diseño, en la figura \ref{FIG:ER}.
     
     
     \subsection{Inserción de datos en BD\label{SS:IDAT}}

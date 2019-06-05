@@ -1,13 +1,21 @@
 \section{Dificultades Encontradas\label{SEC:DIFICULTAD}}
   \subsection{API de mapas}
-    Durante la implementación del módulo de mapas, se optó en un principio por tratar de usar librerías y maptiles opensource. Más concretamente, usamos la librería de Leaflet junto a los maptiles proporcionados por OpenStreetMap.
-    El problema surgió cuando comprobamos que con esta API contenía una funcionalidad muy rudimentaria y poco usada para la búsqueda de carreteras cercanas a un punto en el mapa. Esta funcionalidad está provista por la API de overpass de OpenStreetMap. Esta API resulta ser rudimentaria 
-    Por ese motivo, se tuvo que buscar una alternativa que tuviera esta funcionalidad. Esa alternativa acabó siendo la API de Google Maps, que como explicamos, es de pago, pero es la más completa y usada del mercado.
-    Tiene sus desventajas, pues no permite descargarse los mapas offline, y tiene que mantenerse conectado a la red para cargar los maptiles.
-    %overpass
-   \subsection{Simulado de datos}
-    Para empezar, se ha comprobado que los datos que poseen las distintas compañías sobre antenas y teléfonos tienen formatos completamente distintos, siendo muy difícil unificar la lectura de ficheros en una misma tabla de la BD.
-    Además, debido a la sensibilidad de los datos que se manejan, no hemos podido probar la aplicación con datos reales captados de repetidores de antenas verdaderos. Por ese motivo, ha resultado muy difícil simular casos realistas para comprobar que la aplicación funciona correctamente. Al final se han simulado datos con unos formatos que se han considerado básicos y que todos los ficheros deberían tener como mínimo.
-    %datos han sido dificiles de simular
+    Durante la implementación del módulo de mapas, se optó en un principio por tratar de usar librerías y mapas opensource. Más concretamente, se usó la librería de Leaflet junto a los mapas proporcionados por OpenStreetMap.
     
-   
+    El problema surgió cuando se comprobó que los mapas estaban poco actualizados y contenían pocos datos útiles para consultas, entre ellos, datos de carreteras cercanas. Además, esta librería tenía funcionalidades mucho más limitadas que las de Google Maps.
+    
+    Por ese motivo, y para mejorar la escalabilidad en caso de querer ampliar la aplicación en un futuro, se pasó a la API de Google Maps como detallamos previamente. 
+    Aunque se mencionó en el capítulo \ref{CAP:ESTADOARTE} que esta API es de pago tras un número de transacciones y que no permite su uso offline, también es la más completa y usada del mercado y se comprobó que el uso que se le daba no llegaba a superar el umbral de transacciones, por lo que se puede usar sin complicaciones económicas.
+    
+    
+   \subsection{Simulado de datos}
+    Para empezar, como se mencionó en el capítulo \ref{CAP:ESTADOARTE}, los datos que poseen las distintas compañías sobre antenas y teléfonos tienen formatos completamente distintos, siendo muy difícil unificar la lectura de ficheros en las mismas tablas de la BD.
+    Además, debido a la sensibilidad de los datos que se manejan, las compañías no han podido proveernos de datos reales para probar la aplicación. 
+    Por ese motivo, sin una fuente de datos reales de la que partir, ha resultado inviable simular casos realistas para comprobar que la aplicación funciona correctamente. 
+    
+    Por tanto, al final se han pedido datos simulados al personal de la Guardia Civil. Estos datos contienen unos formatos muy básicos y son de un muestreo bastante reducido, del orden de sólo 5 ubicaciones distintas para las antenas y sólo 50 llamadas realizadas entre esas 5 ubicaciones.
+    
+    Pero a pesar de que ya se tenga un muestreo del que partir, se desconoce el algoritmo que han utilizado para simular estos datos (pues en su momento, consideraron que desvelarlo podría desembocar en que se pudieran deducir los datos originales). Por este motivo, ampliar el muestreo por nuestra parte podría contaminarlo y volverlo menos realista.
+    Por tanto, se ha decidido utilizar los datos proporcionados por la Guardia Civil sin alterarlos.
+    
+    

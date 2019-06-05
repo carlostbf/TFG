@@ -1,18 +1,23 @@
 \chapter{Conclusiones y trabajo futuro\label{CAP:CONCTRAB}}
   \section{Conclusiones\label{SEC:CONCLUSIONES}}
     TODO
+    %Qué hemos hecho
+    %utilidad
   \section{Trabajo futuro\label{SEC:TRABAJO}}
-    A continuación se detallarán las distintas consideraciones que se tendrán en cuenta de cara a mejorar el trabajo ya hecho y ampliar su funcionalidad y alcance:
+    A continuación se detallarán las distintas consideraciones que se podrían tener en cuenta de cara a mejorar el trabajo ya hecho y ampliar su funcionalidad y alcance:
     
     \begin{itemize}
-      \item Reconocimiento automático de formatos de ficheros de datos.
+      \item \textbf{Reconocimiento automático de formatos de ficheros de datos.}
+      
       Actualmente para definir los formatos de los ficheros de datos de antenas y llamadas telefónicas se realiza mediante un fichero JSON. 
       Sería interesante realizar un algoritmo que identificara automáticamente columnas de los ficheros relevantes en base a la cabecera de las columnas o al formato de los datos.
       
-      \item Filtrar teléfonos en base a las carreteras cercanas. 
+      \item \textbf{Filtrar teléfonos en base a las carreteras cercanas. }
+      
       La API de Maps tiene funcionalidades que permiten identificar carreteras cercanas (Véase Snap to Roads \cite{snaproad}). De esta manera se podrían filtrar llamadas que se realicen a alta velocidad siguiendo una carretera.
       
-      \item Triangulación de trayectorias de terminales.
+      \item \textbf{Triangulación de trayectorias de terminales.}
+      
       Con los datos simulados actuales, sólo se puede estimar la ubicación de un terminal por áreas alrededor de las antenas a las que se conecta.
       Pero con un muestreo de datos reales suficiente sería posible estimar la ubicación de un terminal de forma más exacta mirando sus instantes de tiempo y las intersecciones entre los rangos de las distintas antenas. 
     \end{itemize}

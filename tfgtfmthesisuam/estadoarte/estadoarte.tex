@@ -9,14 +9,13 @@
   
 \chapter{Estado del Arte\label{CAP:ESTADOARTE}}
   En la actualidad, existen muchas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación describiremos los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
-  
 
-    
+
   \section{Framework}
     A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
     
     Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en python son Django\cite{django} y Flask\cite{flask}.
-    
+
     Ambos proporcionan una estructura a la aplicación, siendo la de Django más restrictiva y estandarizada. A pesar de ello, Django proporciona muchas herramientas de desarrollo integradas.
     
     Mientras tanto, Flask se caracteriza por su flexibilidad y simpleza. Proporciona menos herramientas de desarrollo, pero se puede solucionar fácilmente mediante la inclusión de plugins.
@@ -36,6 +35,7 @@
     Leaflet es una librería javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como Openlayers, pero lo suple con la gran variedad de plugins que se le pueden añadir.
     
     A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}. Además, la funcionalidad que incluyen es más limitada, por ejemplo, Google Maps es la única que permite consultar carreteras cercanas a ubicaciones y trazar sus trayectorias fácilmente.
+  
   
   \section{Bases de Datos}
     Se pueden enumerar numerosos tipos de \ac{bbdd} dependiendo de la estructura que utilizan para almacenar sus datos. Los dos principales a considerar para esta aplicación son las \ac{bdr} y las \ac{bdo}.
