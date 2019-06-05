@@ -39,15 +39,40 @@
         .2 manage.py.
         .2 populate.py.
       }
-    %TODO Explicar estructura
+      Esencialmente sigue una arquitectura de diseño \dfn{mvc} tal y como vemos en la imagen \ref{FIG:MVC}.
+      
+      \begin{figure}[Diagrama Modelo-Vista-Controlador]{FIG:MVC}{Diagrama Modelo-Vista-Controlador}
+        \image{5cm}{}{MVC}
+      \end{figure}
+      
+      En el directorio principal se encuentra una carpeta static, donde se guarda el css de la página, y una carpeta templates, donde se encuentra  base.html donde se tiene toda la interfaz gráfica de la aplicación con Javascript. Estos componentes conforman la vista. 
+       
+      En el directorio principal también se tiene el resto de los módulos en Python. Para empezar, se encuentra el models.py, que conforma el modelo del sistema, pues almacena los modelos de la base de datos.
+      
+      Por la parte de controlador, se tiene el forms.py, que hace de intermediario entre las peticiones del usuario y la base de datos, el manage.py para ealizar migraciones de base de datos en caso de que sea necesario, y finalmente el app.py, el programa principal que se ejecuta para activar el servidor.
+      
+      Aparte del modelo \dfn{mvc}, hay un fichero populate.py, un script que se encarga de la inserción de datos en la BD, tal y como se explica en la subsección \ref{SS:IDAT}.
+      
+      
     \subsection{Google Maps API e Interfaz Web}
-    %TODO base.html
+      Toda la interfaz web (incluído el mapa de Google Maps) se puede encontrar principalmente en el fichero base.html.
+      El aspecto que tiene la página web es el que vemos en la imagen
+      %TODO
+      %\ref{FIG:IW}.
+      %\begin{figure}[Interfaz Web de la aplicación]{FIG:IW}{Interfaz Web de la aplicación}
+      %  \image{}{}{IW}
+      %\end{figure}
+      La funcionalidad de la interfaz web se examinará más a fondo en el capítulo \ref{CAP:IPR}.
+      
+      
     \subsection{Base de Datos PostgreSQL}
       Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
       Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
       
-      %TODO models.py
-    \subsection{Inserción de datos en BD}
+      El modelo de datos, que encontramos en el fichero models.py, es esencialmente el descrito en el diseño en la figura \ref{FIG:ER}.
+    
+    
+    \subsection{Inserción de datos en BD\label{SS:IDAT}}
       La inserción de datos se hace con el código que encontramos en el fichero populate.py. A continuación la describiremos, pues la metodología no es trivial, y requiere de explicaciones.
       
       Primero se leen los formatos de los datos a insertar usando el mapeo definido en un fichero JSON.
