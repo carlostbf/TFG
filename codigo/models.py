@@ -53,3 +53,4 @@ class Telephone(db.Model):
         db.ForeignKeyConstraint(['mcc', 'mnc', 'lac', 'cid'],
                                 ['antenna.mcc', 'antenna.mnc', 'antenna.lac', 'antenna.cid']),
     )
+    # TODO __repr__

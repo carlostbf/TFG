@@ -56,7 +56,10 @@
 
       <label for="range">Radio (en metros)</label>
       <input name="range" id="range" value="{{ radio }}" required>
-
+      <div class="slidecontainer">
+        <input name="slider" type="range" min="0" max="60" value="0" class="slider" id="slider">
+        <p>Valor: <span id="demo"></span> minutos</p>
+      </div>
       <input type="submit" value="Query2">
     </form>
     <script>
@@ -74,12 +77,36 @@
       }
 
       document.form1.date_init.value =
-        "{% if date_init is defined %}{{ date_init }}{% else %}2000-01-01 00:00:00{% endif %}";
+        {% if date_init is defined %}
+          "{{ date_init }}";
+        {% else %}
+          "2000-01-01 00:00:00";
+        {% endif %}
       document.form1.date_end.value =
-        {% if date_end is defined %}"{{ date_end }}"{% else %}getCurrentDate(){% endif %};
+        {% if date_end is defined %}
+          "{{ date_end }}";
+        {% else %}
+          getCurrentDate();
+        {% endif %}
+
       //Con esta función hacemos que ambos forms compartan los input de fecha
       document.form2.date_init.value = document.form1.date_init.value;
       document.form2.date_end.value = document.form1.date_end.value;
+
+      //Para actualizar el valor que aparece con el slider
+      let slider = document.getElementById("slider");
+      let output = document.getElementById("demo");
+      slider.value =
+      {% if slider is defined %}
+        {{ slider }};
+      {% else %}
+        0;
+      {% endif %}
+      output.innerHTML = slider.value;
+
+      slider.oninput = function () {
+        output.innerHTML = this.value;
+      }
     </script>
 
     {% for message in get_flashed_messages() %}
@@ -306,11 +333,11 @@
           }));
           i++;
         }
-        new google.maps.Marker({
+        /*new google.maps.Marker({
           position: {lat: {{ lat }}, lng: {{ lon }}},
           map: map,
           title: 'Ubicación actual'
-        });
+        });*/
         circles.push(new google.maps.Circle({
           strokeColor: '#0F0000',
           strokeOpacity: 0.1,
