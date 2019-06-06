@@ -37,7 +37,7 @@
 
       <label for="tel">Teléfono Objetivo</label>
       <input name="tel" id="tel" value="{{ tel }}" required>
-
+      <input type="checkbox" name="resto" value="resto">Mostrar el resto de teléfonos
 
       <input type="submit" value="Query">
     </form>
@@ -148,7 +148,7 @@
 
     function initMap() {
       //coordenadas por defecto
-      let sol = {lat: 0, lng: -180};
+      let centro = {lat: 8, lng: 38};
       let zoom = 15;
       let pathCoordinates = [], circles = [], ranges = [], infowindows = [], markers = [];
 
@@ -175,7 +175,12 @@
           coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
           /*content = 'tel_o: {{ call.tel_o }} tel_d: {{ call.tel_d }}<br>' +
             'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';*/
-          content = '<tr>' +
+          content =
+            {% if tel|int() == call.tel_o|int() %}
+              '<tr bgcolor="yellow">' +
+            {% else %}
+              '<tr>' +
+            {% endif %}
             '<td>' +
             '<form action="/query" method="post">' +
             '<input name="tel" type="hidden" value="{{ call.tel_o }}"/>' +
@@ -273,7 +278,11 @@
           center: {lat: {{ lat }}, lng: {{ lon }}},
           zoom: zoom,
         });
-
+        new google.maps.Marker({
+          position: {lat: {{ lat }}, lng: {{ lon }}},
+          map: map,
+          title: 'Ubicación actual'
+        });
         {% for tel in tels %}
           coordinates = {lat: {{ tel.Antenna.lat }}, lng: {{ tel.Antenna.lon }}};
           /*content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
@@ -333,11 +342,7 @@
           }));
           i++;
         }
-        /*new google.maps.Marker({
-          position: {lat: {{ lat }}, lng: {{ lon }}},
-          map: map,
-          title: 'Ubicación actual'
-        });*/
+
         circles.push(new google.maps.Circle({
           strokeColor: '#0F0000',
           strokeOpacity: 0.1,
@@ -372,8 +377,8 @@
 
       {% else %} /*mapa por defecto si no hay queries*/
         map = new google.maps.Map(document.getElementById('map'), {
-          center: sol,
-          zoom: 3,
+          center: centro,
+          zoom: 5,
         });
       {% endif %}
 

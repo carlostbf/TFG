@@ -23,10 +23,10 @@ def get_path():
 
     :return: calls: Contiene todos los datos de antenas y del teléfono objetivo
     """
-    # if request.method == 'POST':
     tel = request.form['tel']
     date_init = request.form['date_init']
     date_end = request.form['date_end']
+    resto = request.form.get('resto')
     error = None
 
     if date_init == '':
@@ -34,12 +34,42 @@ def get_path():
     if date_end == '':
         date_end = datetime.max
 
-    calls = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
-                                                               Telephone.tel_o, Telephone.tel_d).filter(
-        date_init <= Telephone.date_init, Telephone.date_init <= date_end).filter(
-        or_(Telephone.tel_o == tel, Telephone.tel_d == tel)).order_by(Telephone.date_init).all()
+    telephone_alias = aliased(Telephone)
+    antenna_alias = aliased(Antenna)
+    # dif = (func.max(telephone_alias.date_init) - func.min(telephone_alias.date_init)).label("dif")
 
+    # llamadas realizadas por tel entre date_init y date_end
+    stmt1 = Antenna.query.join(Antenna.telephones). \
+        add_columns(Telephone.date_init, Telephone.duration, Telephone.tel_o, Telephone.tel_d). \
+        filter(date_init <= Telephone.date_init, Telephone.date_init <= date_end). \
+        filter(Telephone.tel_o == tel). \
+        order_by(Telephone.date_init)
+
+    # nuevo codigo
+    # como stmt1, pero con todos los tels distintos de tel
+    stmt2 = Antenna.query.join(Antenna.telephones). \
+        add_columns(Telephone.date_init, Telephone.duration, Telephone.tel_o, Telephone.tel_d). \
+        filter(date_init <= Telephone.date_init, Telephone.date_init <= date_end). \
+        filter(Telephone.tel_o != tel)
+    # todas las coordenadas donde llama tel
+    stmt3 = db.session.query(antenna_alias.lon, antenna_alias.lat).distinct(). \
+        join(telephone_alias, antenna_alias.telephones). \
+        filter(date_init <= telephone_alias.date_init, telephone_alias.date_init <= date_end). \
+        filter(telephone_alias.tel_o == tel)
+
+    # telefonos distintos de tel, que estan en las coordenadas de stmt3
+    stmt4 = stmt2.filter(tuple_(Antenna.lon, Antenna.lat).in_(stmt3))
+    # stmt1 y stmt4
+
+    # stmt5 = db.session.query(stmt1, stmt4). \
+    #     filter(stmt1.c.date_init - stmt4.c.date_init < timedelta(minutes=5))
+    # print(stmt5.all())
+    if resto:
+        calls = stmt1.union(stmt4).order_by(Telephone.date_init).all()
+    else:
+        calls = stmt1.all()
     # VER TELÉFONOS QUE HAN REALIZADO LLAMADAS CASI AL MISMO TIEMPO QUE OBJETIVO EN MISMO LUGAR
+
     return render_template('base.html', calls=calls, tel=tel, date_init=date_init, date_end=date_end)
 
 
@@ -73,27 +103,29 @@ def get_path2():
 
     pt = WKTElement('POINT({0} {1})'.format(lon, lat))
     # Consulta para encontrar llamadas en la ubicación (sin filtros de tiempo de estancia)
-    stmt1 = Antenna.query.join(Antenna.telephones).add_columns(Telephone.date_init, Telephone.duration,
-                                                               Telephone.tel_o, Telephone.tel_d).filter(
-        date_init <= Telephone.date_init, Telephone.date_init <= date_end).filter(
-        func.ST_Distance_Sphere(Antenna.point, pt) < radio + Antenna.range).order_by(Telephone.date_init)
+    stmt1 = Antenna.query.join(Antenna.telephones). \
+        add_columns(Telephone.date_init, Telephone.duration, Telephone.tel_o, Telephone.tel_d). \
+        filter(date_init <= Telephone.date_init, Telephone.date_init <= date_end). \
+        filter(func.ST_Distance_Sphere(Antenna.point, pt) < radio + Antenna.range). \
+        order_by(Telephone.date_init)
     # tels = stmt1.all()
 
     telephone_alias = aliased(Telephone)
     antenna_alias = aliased(Antenna)
     dif = (func.max(telephone_alias.date_init) - func.min(telephone_alias.date_init)).label("dif")
+
     # Consulta para encontrar todos los teléfonos que cumplen estancia superior a X minutos
     # en una ubicación en el periodo fijado
-    stmt2 = db.session.query(telephone_alias.tel_o, antenna_alias.lon, antenna_alias.lat).join(
-        telephone_alias, antenna_alias.telephones).filter(
-        date_init <= telephone_alias.date_init, telephone_alias.date_init <= date_end).group_by(
-        telephone_alias.tel_o, antenna_alias.lon,
-        antenna_alias.lat).having(
-        dif >= timedelta(minutes=slider))
+    stmt2 = db.session.query(telephone_alias.tel_o, antenna_alias.lon, antenna_alias.lat). \
+        join(telephone_alias, antenna_alias.telephones). \
+        filter(date_init <= telephone_alias.date_init, telephone_alias.date_init <= date_end). \
+        group_by(telephone_alias.tel_o, antenna_alias.lon, antenna_alias.lat). \
+        having(dif >= timedelta(minutes=slider))
 
     # VER TELÉFONOS QUE SE HAN QUEDADO QUIETOS EN EL LUGAR
     # coger tels con mismo tel_o y ver si ha hecho llamadas con distancia en tiempo de más de X mins
     tels = stmt1.filter(tuple_(Telephone.tel_o, Antenna.lon, Antenna.lat).in_(stmt2)).all()
+    print(stmt1.filter(tuple_(Telephone.tel_o, Antenna.lon, Antenna.lat).in_(stmt2)))
     # print(stmt1)
     # print(len(stmt1.all()))
     # print(stmt2)

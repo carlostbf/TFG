@@ -2,8 +2,6 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
-    PENSAR TODAS LAS INTERACCIONES DE LA PÁGINA WEB
-    filtro de tiempo en ambos casos? 2 sliders independientes
     CODIGO
         MAPAS
             pintar trayectoria por numeros de tlf
@@ -16,6 +14,8 @@ TODO
                 pintar trayectorias? NO
                 filtro tiempo estancia (cuanto tiempo ha estado allí) 0-2h?
                 (seleccionar telefono en tabla y mostrar ubicacion asociada)
+        mejorar aspecto aplicación
+        comentar codigo
 
     AFTERWARDS
         DATOS
@@ -28,27 +28,23 @@ TODO
                 trabajo futuro
 
             verificar que datos repetidos coinciden
-            mejorar interfaz datetime
-
+        trayectorias movidas para que se vean
 DUDAS
 
     pintar trayectoria por numeros de tlf
-        filtro para tlf_o y tlf_d (debería ser solo tlf) si
-        solo uso ubicación de antenas (sí)
-        añadir filtro de tiempo
+        diferenciar casos
+            y colores
 
-
-    dejar el código bonito comentado y bien modulado
+    comentar mejor sqlalchemy
+    jitter
 
     MEMORIA
         contar como montar todo la aplicación?
+            como ejecutar?
+                si pero en el código
+
         presentación la hago despues de entrega?
-
-
-
-
-
-
+            pregunto a Eloy
 
 
 MEMORIA
@@ -57,16 +53,9 @@ MEMORIA
     requisitos      (HECHO)
         hay fichero, hace esto, etc
     estado arte     (HECHO)
-        pros y contras de tecnologias en estado arte
-    diseño (CASI)
-        decidir tecnologias
-    DIFICULTADES ENCONTRADAS
-        CAMBIAR A GOOGLE MAPS
-            explicar razones
-        Simular Datos
+    diseño (HECHO)
+    DIFICULTADES ENCONTRADAS (HECHO)
     desarrollo
-        versiones de herramientas
-        detalles sobre como se ha implementado?
         diferencia con diseño?
             codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
     integracion pruebas y resultados
