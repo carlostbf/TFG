@@ -25,43 +25,51 @@
   {% block content %}{% endblock %}
   <div class="left-panel">
     <div id="map"></div>
-    <form name="form1" action="/query" method="post">
-      <label for="date_init">Fecha de inicio</label>
-      <input name="date_init" id="date_init" type="datetime" onblur="document.form2.date_init.value = this.value;">
+    <div class="left-panel">
+      <form name="form1" action="/query" method="post">
+        <label for="date_init">Fecha de inicio</label>
+        <input name="date_init" id="date_init" type="datetime" onblur="document.form2.date_init.value = this.value;">
 
-      <label for="date_end">Fecha de fin</label>
-      <input name="date_end" id="date_end" type="datetime" onblur="document.form2.date_end.value = this.value;">
+        <label for="date_end">Fecha de fin</label>
+        <input name="date_end" id="date_end" type="datetime" onblur="document.form2.date_end.value = this.value;">
 
-      <hr/>
-      <hr/>
-
-      <label for="tel">Teléfono Objetivo</label>
-      <input name="tel" id="tel" value="{{ tel }}" required>
-      <input type="checkbox" name="resto" value="resto">Mostrar el resto de teléfonos
-
-      <input type="submit" value="Query">
-    </form>
-    <hr/>
-    <form name="form2" action="/query2" method="post">
-
-      <input name="date_init" id="date_init" type="hidden">
-      <input name="date_end" id="date_end" type="hidden">
+        <hr>
 
 
-      <label for="lat">Latitud</label>
-      <input name="lat" id="lat" value="{{ lat }}" required>
+        <label for="tel" style="padding-top:16px;">Teléfono Objetivo</label>
+        <input name="tel" id="tel" value="{{ tel }}" required>
+        <input type="checkbox" name="resto" value="resto">Mostrar el resto de teléfonos en la zona<br><br>
 
-      <label for="lon">Longitud</label>
-      <input name="lon" id="lon" value="{{ lon }}" required>
+        <input type="submit" value="Query">
 
-      <label for="range">Radio (en metros)</label>
-      <input name="range" id="range" value="{{ radio }}" required>
-      <div class="slidecontainer">
-        <input name="slider" type="range" min="0" max="60" value="0" class="slider" id="slider">
-        <p>Valor: <span id="demo"></span> minutos</p>
-      </div>
-      <input type="submit" value="Query2">
-    </form>
+      </form>
+    </div>
+
+    <div class="right-panel">
+      <hr style="margin-top:145px;">
+
+
+      <form name="form2" action="/query2" method="post" style="padding-top:8px;">
+
+        <input name="date_init" id="date_init" type="hidden">
+        <input name="date_end" id="date_end" type="hidden">
+
+
+        <label for="lat">Latitud</label>
+        <input name="lat" id="lat" value="{{ lat }}" required>
+
+        <label for="lon">Longitud</label>
+        <input name="lon" id="lon" value="{{ lon }}" required>
+
+        <label for="range">Radio (en metros)</label>
+        <input name="range" id="range" value="{{ radio }}" required>
+        <div class="slidecontainer">
+          <input name="slider" type="range" min="0" max="60" value="0" class="slider" id="slider">
+          <p style="float:right;">Valor: <span id="demo"></span> minutos</p>
+        </div>
+        <input type="submit" value="Query2">
+      </form>
+    </div>
     <script>
       function getCurrentDate() {
         let currentDate = new Date();
@@ -177,7 +185,7 @@
             'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';*/
           content =
             {% if tel|int() == call.tel_o|int() %}
-              '<tr bgcolor="yellow">' +
+              '<tr style="background-color: hsl({{ tel }}, 75%, 90%);">' +
             {% else %}
               '<tr>' +
             {% endif %}
@@ -288,7 +296,8 @@
           /*content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
             'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}<br><br>';*/
 
-          content = '<tr>' +
+          content =
+            '<tr style="background-color: hsl({{ tel.tel_o }}, 75%, 90%);">' +
             '<td>' +
             '<form action="/query" method="post">' +
             '<input name="tel" type="hidden" value="{{ tel.tel_o }}"/>' +

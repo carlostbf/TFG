@@ -91,9 +91,10 @@ thead, tbody {
 }
 
 tbody {
-    height: 800px; /* Just for the demo          */
+    height: 750px; /* Just for the demo          */
     overflow-y: auto; /* Trigger vertical scroll    */
     overflow-x: hidden; /* Hide the horizontal scroll */
+    padding-left: 25px;
 }
 
 .content {
@@ -116,6 +117,10 @@ tbody {
     padding: 1em;
     background: #cae6f6;
     border: 1px solid #377ba8;
+}
+
+.slider {
+    float: left;
 }
 
 .post > header {

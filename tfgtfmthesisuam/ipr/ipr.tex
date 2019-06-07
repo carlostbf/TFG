@@ -1,2 +1,47 @@
 \chapter{Integración, pruebas y resultados\label{CAP:IPR}}
-  TODO
+  En este apartado se procede a mostrar la interfaz gráfica de la aplicación y a mostrar su funcionalidad principal con los datos simulados de los que se disponen.
+  
+  \begin{figure}[Interfaz Web de la aplicación]{FIG:IW}{Interfaz Web de la aplicación}
+    \image{}{}{IW}
+  \end{figure}
+  
+  En \ref{FIG:IW} podemos ver el aspecto que tiene la página principal, como vemos contiene 2 paneles. 
+  En el panel izquierdo tenemos el mapa y los 2 formularios para aplicar los filtros. Ambos formularios comparten los input de "Fecha de inicio" y "Fecha de fin" (en formato de fecha UTC) y sirven para filtrar las llamadas en un intervalo fijado.
+  
+  El primer formulario consiste en una búsqueda de las ubicaciones donde ha estado un teléfono sospechoso realizando llamadas. Se ha añadido un filtro que si se marca, muestra también los teléfonos que han estado en esa misma ubicación.
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+  El segundo formulario consiste en la búsqueda en una ubicación mediante latitud y longitud y un radio en metros de búsqueda de todas las llamadas realizadas en ese área.
+  Admite un slider para filtrar para cada ubicación, los dispositivos que hayan permanecido en ese área más de M minutos.
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+  
+  En el panel derecho tenemos la tabla donde se visualizarán en detalle los datos de las llamadas en las ubicaciones pintadas en el mapa.
+  
+  A continuación mostramos una secuencia completa de uso de la aplicación.
+  Lo normal es empezar buscando sospechosos en una zona del mapa. Imaginemos que sólo sabemos que se ha cometido un crimen en una zona del mapa en algún momento del día.
+  Por tanto, empezamos usando el segundo formulario, rellenando los datos de la siguiente manera.
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+  Como vemos en el resultado, con estos filtros, hay 2 antenas cuyos rangos de alcance solapan con nuestro área de búsqueda. Por tanto, es muy probable que el sospechoso haya realizado llamadas conectándose a alguna de las 2 antenas.
+  
+  En general es interesante filtrar los teléfonos que no han realizado varias llamadas en un intervalo pequeño de tiempo en el mismo lugar, pues es posible que simplemente hayan pasado por la zona en coche. Por tanto aplicando el filtro para un tiempo de estancia mínimo, conseguimos eliminar sospechosos en la zona.
+  
+  Ahora, lo interesante sería mirar el registro de llamadas individual de cada teléfono. Por tanto, simplemente podemos pinchar en el teléfono objetivo que nos interese, que es equivalente a escribirlo en el primer formulario manualmente. En caso de que el teléfono objetivo no resulte interesante, se puede ir hacia atrás en el navegador, y se cargan los filtros anteriores.
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+  Como vemos en la imagen, se pinta la trayectoria seguida por el teléfono objetivo, además se mantiene la funcionalidad de mostrar los datos al clickar en una posición. 
+  En esta consulta es interesante poder ver los teléfonos que han realizado llamadas en la misma ubicación que el objetivo, por tanto se puede activar el checkbox y volver a enviar la consulta. 
+  \begin{figure}[]{FIG:}{}
+    \image{}{}{}
+  \end{figure}
+  Como vemos el resultado tiene las mismas columnas que la consulta anterior, pero ahora hay filas de llamadas de otros teléfonos. 
+  Al estar ordenadas las filas por fecba de llamada, es muy sencillo ver teléfonos que hayan realizado llamadas en el mismo lugar y a tiempos cercanos a los del objetivo, por lo que se pueden asumir otros sospechosos que hayan realizado el crimen junto al objetivo.
