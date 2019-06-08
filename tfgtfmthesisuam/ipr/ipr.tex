@@ -19,7 +19,7 @@
     En el panel derecho tenemos la tabla donde se visualizarán en detalle los datos de las llamadas en las ubicaciones pintadas en el mapa. Los datos consisten en un \textit{Teléfono Origen} que llama a un \textit{Teléfono Destino} en una cierta \textit{Fecha} y con una \textit{Duración} de llamada en segundos.
     
   \section{Ejemplo de uso}
-    Primero, es importante fijar el contexto habitual para el uso de la aplicación. Este suele ser saber que un crimen se ha cometido en una cierta ubicación en un intervalo de tiempo de un mismo día. Por tanto, el objetivo de la aplicación es establecer posibles sospechosos a partir de su número de teléfono.
+    Primero, es importante fijar un contexto habitual para el uso de la aplicación. En este caso, se va a asumir la situación en que un crimen se ha cometido en una cierta ubicación en un intervalo de tiempo de menos de 24 horas. Por tanto, el objetivo de la aplicación es establecer posibles sospechosos a partir de su número de teléfono.
     A continuación se muestra una secuencia completa de uso de la aplicación para este problema.
     
     En primer lugar, se empieza fijando las fechas entre las que se ha cometido el crimen. A continuación, se usa el segundo formulario, pues se sabe una ubicación en coordenadas de latitud y longitud donde ha ocurrido el crimen, y se establece un radio de búsqueda. De momento no realizamos el filtro por tiempo de estancia, pues no interesa descartar casos aún. Por tanto, el formulario queda rellenado tal y como aparece en \ref{FIG:IW-Q1}.
@@ -53,7 +53,7 @@
     
     A continuación, lo interesante es examinar las llamadas individuales de cada teléfono y las ubicaciones en las que las ha realizado. Por tanto, se puede rellenar el primer formulario con el \textit{Teléfono Objetivo}, o equivalentemente, se puede clicar en las tablas de datos anteriores el teléfono a investigar.
     
-    Supongamos en este caso, que se sabe que el crimen se realizó por la mañana y no por la tarde-noche. En tal caso, el \textit{Teléfono Objetivo} que se investigará será el que aparece en la tabla \ref{SBFIG:IW-Q2-4}. Por lo que procedemos a realizar ese filtro con el primer formulario, obteniendo los resultados en la figura \ref{FIG:IW-Q3}. 
+    Supongamos en este caso, que se sabe que el crimen se realizó por la mañana y no por la tarde o noche. En tal caso, el \textit{Teléfono Objetivo} que se investigará será el que aparece en la tabla \ref{SBFIG:IW-Q2-4}. Por lo que procedemos a realizar ese filtro con el primer formulario, obteniendo los resultados en la figura \ref{FIG:IW-Q3}. 
     
     \begin{figure}[Consulta por filtro de \textit{Teléfono Objetivo}]{FIG:IW-Q3}
       {Consulta por filtro de \textit{Teléfono Objetivo}. En la figura \ref{SBFIG:IW-Q3-1} tenemos el primer formulario rellenado, y en \ref{SBFIG:IW-Q3-2} mostramos el resultado en el mapa. Siguiendo el orden de la flecha, pinchando en la ubicación inferior del mapa se muestran los datos en la tabla \ref{SBFIG:IW-Q1-3}. En cambio, si se pincha en la ubicación superior se obtiene la tabla \ref{SBFIG:IW-Q1-4}}
@@ -67,7 +67,7 @@
     \end{figure}
   
     Como vemos en la figura, se pinta la trayectoria seguida por el teléfono objetivo, y además se mantiene la funcionalidad de mostrar los datos al clicar en una posición. 
-    Podemos concluir que el sospechoso ha estado toda la mañana en la misma ubicación, y que en algún momento de la noche ha estado de nuevo en una ubicación cercana. No podemos saber si ha permanecido allí todo el día, o si ha vuelto posteriormente.
+    Podemos concluir que el sospechoso ha estado toda la mañana en la misma ubicación, y que en algún momento de la noche ha estado de nuevo en una ubicación cercana. No podemos determinar si ha permanecido allí todo el día, o si ha vuelto posteriormente.
     
     Ahora, supongamos que sabemos que el sospechoso ha tenido ayuda de un cómplice para realizar el crimen. Por tanto, en esta consulta es interesante poder ver los teléfonos que han realizado llamadas en la misma ubicación que el objetivo en instantes de tiempo cercanos a los que ha realizado el objetivo, por tanto se puede activar el checkbox y volver a enviar la consulta, obteniendo los resultados de la figura \ref{FIG:IW-Q4}. 
     
@@ -82,5 +82,5 @@
       \subfigure[SBFIG:IW-Q4-4]{Tabla de datos de ubicación superior}{\image{3cm}{}{IW-Q4-4}}
     \end{figure}
     
-    Como vemos el resultado tiene las mismas columnas que la consulta anterior, pero ahora hay filas de llamadas de otros teléfonos. 
-    Al estar ordenadas las filas por fecha de llamada, es muy sencillo ver teléfonos que hayan realizado llamadas en el mismo lugar y a tiempos cercanos a los del objetivo, al menos en la imagen \ref{SBFIG:IW-Q4-4} por lo que se pueden asumir otros sospechosos que hayan realizado el crimen junto al objetivo. Y en tal caso, se procedería a investigar las llamadas realizadas por esos nuevos sospechosos, y así hasta que se tengan identificados todos los sospechosos participantes del crimen.
+    Como vemos el resultado tiene las mismas filas que la consulta anterior, pero ahora hay también filas de llamadas de otros teléfonos.
+    Al estar ordenadas las filas por fecha de llamada, es muy sencillo ver teléfonos que hayan realizado llamadas en el mismo lugar y a tiempos cercanos a los del objetivo, al menos en la imagen \ref{SBFIG:IW-Q4-4} por lo que se pueden asumir otros sospechosos que hayan realizado el crimen junto al sospechoso principal. Y en tal caso, se procedería a investigar las llamadas realizadas por esos nuevos posibles cómplices, y así hasta que se tengan identificados todos los sospechosos participantes del crimen.

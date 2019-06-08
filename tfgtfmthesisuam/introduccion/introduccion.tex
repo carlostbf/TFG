@@ -1,32 +1,39 @@
 \chapter{Introducción\label{CAP:INTRODUCCION}}
+  
   \section{Motivación\label{SEC:MOTIVACION}}
-    Las fuerzas y cuerpos de seguridad muchas veces disponen únicamente de información sobre el teléfono de una víctima o desaparecido para comenzar la investigación. El objetivo de este trabajo es proveer a un analista de reconocimiento automático de ciertas situaciones a partir de la información provista por las operadoras telefónicas. En particular, se debe ser capaz de:
-    \begin{itemize}
-    \item Determinar el patrón de comportamiento de todos los teléfonos detectados en un área determinada
-    \item Determinar trayectorias y posibles coincidencias de localización de un teléfono específico.
-    \end{itemize}
+    A diario, se cometen crímenes en ubicaciones recónditas y pasan desapercibidos. Una vez que se descubren tales crímenes, ya es muy tarde para ubicar a los sospechosos, o en el caso de una desaparición o secuestro, a las víctimas de tales crímenes.
+    
+    Para resolver dichos crímenes, las fuerzas y cuerpos de seguridad muchas veces disponen únicamente de una ubicación aproximada en donde se ha cometido el crimen para identificar a los posibles sospechosos. En otros casos, en los que interesa más localizar a una víctima, sólo disponen de su teléfono para comenzar la investigación de su paradero.
+    
+    Por tanto, resulta interesante desarrollar una herramienta que, a partir de los datos provistos por distintas compañías de operadoras telefónicas, sea capaz de proveer a un analista de información y un cierto grado de reconocimiento automático para poder resolver estos casos.
+  
   
   \section{Objetivos\label{SEC:OBJETIVOS}}
     A continuación listaremos los objetivos que debe cumplir la aplicación para ser satisfactoria:
     \begin{objetive}
       \item Permitir definir los formatos de los ficheros de datos a insertar en la Base de Datos.
-      \item Permitir insertar los datos en la Base de Datos.
+      \item Permitir insertar los datos en la Base de Datos usando dichos formatos.
       
-      \item Permitir conocer el comportamiento de todos los terminales en un área determinada y los instantes en que estuvieron allí.
-      \item Permitir conocer las trayectorias de unos terminales fijados y los instantes cuando estuvieron allí.
+      \item Permitir conocer el comportamiento de todos los terminales en un área determinada y los instantes en que estuvieron allí. Además de permitir excluir de entre esos terminales los que sean menos relevantes.
+      
+      \item Permitir conocer las trayectorias de un terminal objetivo y los instantes en que estuvo allí. Además de permitir identificar posibles terminales que estuvieran con el objetivo en esos instantes.
 
-      \item La aplicación debe tener una interfaz gráfica sobre la que se pueda interactuar y realizar filtros de búsqueda.
+      \item La aplicación debe tener una interfaz gráfica sobre la que se pueda realizar filtros de búsqueda y mostrar por pantalla los resultados de esos filtros.
     \end{objetive}
   
+  
   \section{Organización de la memoria\label{SEC:ORGANIZACION}}
-    Este documento está organizado en 6 capítulos, siendo el primero esta introducción. 
+    Este documento está organizado en 6 capítulos (siendo el primero esta introducción): 
     \begin{itemize}
-      \item El capítulo \ref{CAP:ESTADOARTE} contiene el Estado del Arte, donde se detallarán las herramientas de desarrollo que existen actualmente para implementar la aplicación, destacando las más útiles y analizando sus características.
-      \item En el capítulo \ref{CAP:AD} de Análisis y Diseño se listarán los requisitos funcionales y no funcionales que tiene que cumplir la aplicación. También se decidirán razonadamente las herramientas (detalladas en el capítulo anterior) que se usarán en la implementación junto a un esquema de la estructura que seguirá la aplicación.
-      \item En el capítulo \ref{CAP:DESARROLLO} se detallan las versiones de las librerías utilizadas en el momento, y se destacan los aspectos más interesantes que surgen de pasar del diseño a la implementación en código.
-      \item En el capítulo \ref{CAP:IPR} se mostrará la interfaz web de la aplicación y se detallará un ejemplo de uso en un caso realista.
-      \item En el capítulo \ref{CAP:CONCTRAB}...
-      %TODO
+      \item El capítulo \ref{CAP:ESTADOARTE} contiene el \textit{Estado del Arte}, donde se detallarán las herramientas de desarrollo que existen actualmente para implementar la aplicación, destacando las más útiles y analizando sus características.
+      
+      \item En el capítulo \ref{CAP:AD} de \textit{Análisis y Diseño} se listarán los requisitos funcionales y no funcionales que tiene que cumplir la aplicación. También se decidirán razonadamente las herramientas (detalladas en el capítulo anterior) que se usarán en la implementación junto a un esquema de la estructura que seguirá la aplicación. Adicionalmente se comentarán las mayores dificultades de encontradas durante el diseño.
+      
+      \item En el capítulo \ref{CAP:DESARROLLO} de \textit{Desarrollo}, se detallan las versiones de las librerías utilizadas en el momento, y se destacan los aspectos más interesantes que surgen de pasar del diseño a la implementación en código.
+      
+      \item En el capítulo \ref{CAP:IPR} de \textit{Integración, pruebas y resultados}, se mostrará la interfaz web de la aplicación y se detallará un ejemplo de uso en un caso realista.
+      
+      \item En el capítulo \ref{CAP:CONCTRAB} de \textit{Conclusiones y trabajo futuro}, se concluye el resultado de este proyecto, y se plantearán posibles mejoras que no ha habido tiempo para implementar.
     \end{itemize}
     
     

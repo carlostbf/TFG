@@ -1,8 +1,12 @@
 \chapter{Conclusiones y trabajo futuro\label{CAP:CONCTRAB}}
   \section{Conclusiones\label{SEC:CONCLUSIONES}}
-    TODO
-    %Qué hemos hecho
-    %utilidad
+    En este trabajo, se ha diseñado una aplicación que se encarga de proveer a un analista de información para resolver casos en los que sólo se conoce la ubicación aproximada de un crimen o el número de teléfono de la víctima o sospechoso de dicho crimen.
+    
+    La aplicación permite insertar datos de un fichero en una base de datos con un formato que se puede definir dependiendo del fichero.
+    Y ofrece una interfaz web, donde se permite realizar consultas sobre las distintas llamadas telefónicas realizadas en un mismo área y permitiendo descartar las llamadas realizadas por posibles transeúntes que simplemente pasaban por la zona sin participar en el crimen.
+    También permite filtrar las llamadas telefónicas realizadas por un mismo teléfono objetivo y visualizar otros posibles terminales que estuvieran con dicho teléfono objetivo.
+    Los resultados de estas consultas son mostrados en una mapa de Google Maps, que permite visualizar los datos de esas llamadas más detalladamente al clicar en las distintas ubicaciones del mapa.
+    
   \section{Trabajo futuro\label{SEC:TRABAJO}}
     A continuación se detallarán las distintas consideraciones que se podrían tener en cuenta de cara a mejorar el trabajo ya hecho y ampliar su funcionalidad y alcance:
     
@@ -12,7 +16,7 @@
       Actualmente para definir los formatos de los ficheros de datos de antenas y llamadas telefónicas se realiza mediante un fichero JSON. 
       Sería interesante realizar un algoritmo que identificara automáticamente columnas de los ficheros relevantes en base a la cabecera de las columnas o al formato de los datos.
       
-      \item \textbf{Filtrar teléfonos en base a las carreteras cercanas. }
+      \item \textbf{Filtrar teléfonos en base a las carreteras cercanas.}
       
       La API de Maps tiene funcionalidades que permiten identificar carreteras cercanas (Véase Snap to Roads \cite{snaproad}). De esta manera se podrían filtrar llamadas que se realicen a alta velocidad siguiendo una carretera.
       
