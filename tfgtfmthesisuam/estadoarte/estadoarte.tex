@@ -1,6 +1,6 @@
   %%GLOSARIO
   \newdefinition{api}{API}{APIs}{La interfaz de programación de aplicaciones es un conjunto de subrutinas, funciones y procedimientos que ofrece cierta biblioteca para ser utilizado por otro software como una capa de abstracción}
-  \newdefinition{framework}{framework}{frameworks}{Estructura conceptual y tecnológica de asistencia definida que sirve de base para la organización y desarrollo de software}
+  \newdefinition{framework}{Framework}{Frameworks}{Estructura conceptual y tecnológica de asistencia definida que sirve de base para la organización y desarrollo de software}
   \newacronym{bbdd}{BBDD}{Bases de Datos}
   \newacronym{bd}{BD}{Base de Datos}
   \newacronym{bdr}{BDR}{Bases de Datos Relacionales}
@@ -12,9 +12,9 @@
 
 
   \section{Framework}
-    A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que es más fácil colaborar.
+    A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que la funcionalidad está bien modularizada.
     
-    Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en python son Django\cite{django} y Flask\cite{flask}.
+    Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en Python son Django\cite{django} y Flask\cite{flask}.
 
     Ambos proporcionan una estructura a la aplicación, siendo la de Django más restrictiva y estandarizada. A pesar de ello, Django proporciona muchas herramientas de desarrollo integradas.
     
@@ -23,7 +23,7 @@
   
   \section{API de mapas}
   
-    Existen muchas \dfnpl{api} disponibles para implementar mapas en javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
+    Existen muchas \dfnpl{api} disponibles para implementar mapas en Javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
     
     El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a internet es necesaria.
 
@@ -32,7 +32,7 @@
     
     OpenLayers es la alternativa más clásica de implementación de mapas opensource. Posee una gran cantidad de funcionalidades integradas como, por ejemplo, visualización de mapas 3D y permite mostrar rápidamente grandes conjuntos de datos vectoriales.
     
-    Leaflet es una librería javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como Openlayers, pero lo suple con la gran variedad de plugins que se le pueden añadir.
+    Leaflet es una librería Javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como OpenLayers, pero lo suple con la gran variedad de plugins que se le pueden añadir.
     
     A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}. Además, la funcionalidad que incluyen es más limitada, por ejemplo, Google Maps es la única que permite consultar carreteras cercanas a ubicaciones y trazar sus trayectorias fácilmente.
   
@@ -47,7 +47,7 @@
     PostgreSQL es una \ac{bdr} que fue creada en 1989 e implementada en C. Entre sus características más útiles se destaca su alta concurrencia, es decir, permite que mientras un proceso modifica una tabla, otros accedan a la misma sin necesidad de bloqueos, y así permitiendo a cada usuario obtener una visión consistente. Además permite la ejecución de funciones, procedimientos almacenados y triggers (también llamados disparadores).
     Por estas razones, y por su longevidad en el mercado, es una herramienta más clásica, con muchas funcionalidades y que tiene muchos más años de soporte, lo que la hace más robusta y versátil.
     
-    Por otra parte, Neo4J es una \ac{bdo} que fue creada en 2007 usando Java y se basa en el uso de "grafos de propiedad". Estos son un tipo de grafos dirigidos, con peso en las relaciones entre nodos, y que poseen etiquetas y propiedades en los nodos y relaciones entre ellos. Neo4J tiene mejor rendimiento que la mayoría de \ac{bbdd} relacionales, pues aunque las consultas de datos aumenten exponencialmente, el rendimiento de Neo4j no desciende (frente a lo que sí sucede con las BD relacionales). Esto es debido a que las \ac{bdo} responden a las consultas actualizando los nodos y las relaciones de esa búsqueda y no las de todo el grafo completo y eso optimiza mucho las consultas.
+    Por otra parte, Neo4J es una \ac{bdo} que fue creada en 2007 usando Java y se basa en el uso de "grafos de propiedad". Estos son un tipo de grafos dirigidos, con peso en las relaciones entre nodos, y que poseen etiquetas y propiedades en los nodos y relaciones entre ellos. Neo4J tiene mejor rendimiento que la mayoría de \ac{bbdd} relacionales, pues aunque las consultas de datos aumenten exponencialmente, el rendimiento de Neo4j no desciende (frente a lo que sí sucede con las \ac{bdr}). Esto es debido a que las \ac{bdo} responden a las consultas actualizando los nodos y las relaciones de esa búsqueda y no las de todo el grafo completo y eso optimiza mucho sus consultas.
     Además, cabe destacar su flexibilidad y escalabilidad, pues cuando aumentan las necesidades, es muy sencillo añadir más nodos y relaciones a un grafo ya existente.
     En general, por su naturaleza estas \ac{bbdd} destacan en eficiencia si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. 
     
@@ -56,8 +56,8 @@
     Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad, pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
     
   \section{Datos}
-    Para probar la aplicación necesitaremos dos fuentes de datos principales.
+    Para probar la aplicación se necesitan dos fuentes de datos principales.
     
-    Para empezar necesitaremos los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid\cite{opencellid}. Esta BBDD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
+    Primeramente, se requieren los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid\cite{opencellid}. Esta BD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
     
-    Por otra parte necesitaríamos datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos que tienen las otras compañías.
+    Por otra parte se necesitan datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos o compartir los mismos formatos que los que poseen otras compañías.

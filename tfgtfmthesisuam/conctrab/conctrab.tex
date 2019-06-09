@@ -3,7 +3,7 @@
     En este trabajo, se ha diseñado una aplicación que se encarga de proveer a un analista de información para resolver casos en los que sólo se conoce la ubicación aproximada de un crimen o el número de teléfono de la víctima o sospechoso de dicho crimen.
     
     La aplicación permite insertar datos de un fichero en una base de datos con un formato que se puede definir dependiendo del fichero.
-    Y ofrece una interfaz web, donde se permite realizar consultas sobre las distintas llamadas telefónicas realizadas en un mismo área y permitiendo descartar las llamadas realizadas por posibles transeúntes que simplemente pasaban por la zona sin participar en el crimen.
+    También ofrece una interfaz web, donde se permite realizar consultas sobre las distintas llamadas telefónicas realizadas en un mismo área y permitiendo descartar las llamadas realizadas por posibles transeúntes que simplemente pasaban por la zona sin participar en el crimen.
     También permite filtrar las llamadas telefónicas realizadas por un mismo teléfono objetivo y visualizar otros posibles terminales que estuvieran con dicho teléfono objetivo.
     Los resultados de estas consultas son mostrados en una mapa de Google Maps, que permite visualizar los datos de esas llamadas más detalladamente al clicar en las distintas ubicaciones del mapa.
     
@@ -13,15 +13,15 @@
     \begin{itemize}
       \item \textbf{Reconocimiento automático de formatos de ficheros de datos.}
       
-      Actualmente para definir los formatos de los ficheros de datos de antenas y llamadas telefónicas se realiza mediante un fichero JSON. 
-      Sería interesante realizar un algoritmo que identificara automáticamente columnas de los ficheros relevantes en base a la cabecera de las columnas o al formato de los datos.
+      Actualmente para definir los formatos de los ficheros de datos de antenas y llamadas telefónicas hay que escribir un fichero JSON manualmente. 
+      Debido a que los datos siguen formatos distintos, pero muy parecidos, sería interesante realizar un algoritmo que identificara automáticamente columnas de los ficheros relevantes en base a la cabecera de las columnas o al formato de los datos.
       
       \item \textbf{Filtrar teléfonos en base a las carreteras cercanas.}
       
-      La API de Maps tiene funcionalidades que permiten identificar carreteras cercanas (Véase Snap to Roads \cite{snaproad}). De esta manera se podrían filtrar llamadas que se realicen a alta velocidad siguiendo una carretera.
+      La API de Maps tiene funcionalidades que permiten identificar carreteras cercanas (Véase Snap to Roads \cite{snaproad}). De esta manera se podrían excluir en los filtros llamadas que se realicen a alta velocidad siguiendo una carretera. Y por tanto, excluir transeúntes que no han tomado participación en ningún crimen.
       
-      \item \textbf{Triangulación de trayectorias de terminales.}
+      \item \textbf{Mejorar la precisión de las trayectorias de los terminales.}
       
       Con los datos simulados actuales, sólo se puede estimar la ubicación de un terminal por áreas alrededor de las antenas a las que se conecta.
-      Pero con un muestreo de datos reales suficiente sería posible estimar la ubicación de un terminal de forma más exacta mirando sus instantes de tiempo y las intersecciones entre los rangos de las distintas antenas. 
+      Pero con un muestreo de datos reales suficiente sería posible estimar la ubicación de un terminal de forma más exacta mirando sus instantes de tiempo y las intersecciones entre los rangos de las distintas antenas. De esta manera, se podría simular una trayectoria más precisa para un sospechoso.
     \end{itemize}

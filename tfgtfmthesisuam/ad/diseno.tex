@@ -27,19 +27,19 @@
     
   \subsection{Base de Datos}
     Ambas BBDD descritas en el capítulo anterior proporcionan la misma funcionalidad de consultas geoespaciales.
-    Por tanto, la BD que se usará finalmente es PostgreSQL (\ac{bdr}). Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos y por tanto, no es necesario recurrir a \ac{bdo}, las cuáles tienen una estructura más complicada. 
+    Por tanto, la BD que se usará finalmente es PostgreSQL (\ac{bdr}) con la extesión PostGIS para consultas geoespaciales. Esto es debido a que para esta aplicación, se ha observado que no existe mucha complejidad a la hora de almacenar los datos y por tanto, no es necesario recurrir a \ac{bdo}, las cuáles tienen una estructura más complicada. 
 
     Los formatos de los datos de antenas se han obtenido basándose en los formatos de datos encontrados en OpenCellid\cite{opencellid}.
     Mientras que para crear los formatos de los ficheros de llamadas, se han tenido de referencia datos reales proporcionados por distintas compañías telefónicas privadas.
     Finalmente se ha definido un modelo básico que contiene todos los campos comunes y necesarios para la aplicación como vemos en el diagrama Entidad-Relación de \ref{FIG:ER}.
     
-    Como vemos en la imagen, la entidad Antenna se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
-    
-    La entidad Telephone que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
-    
     \begin{figure}[Diagrama Entidad-Relación]{FIG:ER}{Diagrama Entidad-Relación}
       \image{}{}{ER}
     \end{figure}
+  
+    Como vemos en la imagen, la entidad Antenna se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
+    
+    La entidad Telephone que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
        
        
   \subsection{Datos}
