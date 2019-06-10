@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import sys
 import json
 import pandas as pd
 from app import app
@@ -8,13 +7,21 @@ from models import db, Antenna, Telephone
 db.init_app(app)
 
 
-def load_tel(file_name, imodel):
-    with open("models.json", "r") as read_file:
+def load_tel(data_file, model_file, imodel):
+    """Dadas un nombre de fichero de llamadas telefónicas y un índice imodel del fichero de modelos model_file,
+    Inserta los datos del fichero en la base de datos
+
+    :param data_file: nombre del fichero xlsx de teléfonos a leer
+    :param model_file: nombre del fichero json de modelos a leer
+    :param imodel: índice de la lista de modelos
+
+    """
+    with open(model_file, "r") as read_file:
         data = json.load(read_file)
 
     model = data['calls'][imodel]
 
-    # leemos sólo las columnas necesarias
+    # leemos sólo las columnas que aparecen en el mapeo
     cols = [
         model['tel_o'],
         model['tel_d'],
@@ -27,9 +34,9 @@ def load_tel(file_name, imodel):
         model['date_init'],
         model['duration']
     ]
-    df = pd.read_excel(file_name, usecols=cols)
+    df = pd.read_excel(data_file, usecols=cols)
 
-    # unificamos los nombres de las columnas
+    # renombramos las columnas del modelo de datos para que sea siempre el mismo
     df.rename(columns={
         model['tel_o']: 'tel_o',
         model['tel_d']: 'tel_d',
@@ -43,15 +50,17 @@ def load_tel(file_name, imodel):
         model['duration']: 'duration'
     }, inplace=True)
 
-    # comprobamos telefonos repetidas para no insertarlas
+    # comprobamos filas repetidas para no insertarlas
     records = df.to_dict(orient="records")
-    print("TELEFONOS REPETIDOS")
+    print("LISTA DE TELEFONOS REPETIDOS:")
     for rec in list(records):
-        # tel = Telephone.query.get({"tel_o": rec['tel_o'], "tel_d": rec['tel_d'], "date_init": rec['date_init']})
         tel = Telephone.query.get((rec['tel_o'], rec['tel_d'], rec['date_init']))
+        # Si ya está en la BD, lo imprimimos por pantalla y lo quitamos del diccionario
         if tel is not None:
             print(tel)
             records.remove(rec)
+
+    # Insertamos sólo las filas no repetidas
     with app.app_context():
         db.session.bulk_insert_mappings(Telephone, records)
         db.session.commit()
@@ -59,13 +68,21 @@ def load_tel(file_name, imodel):
     return
 
 
-def load_ant(file_name, imodel):
-    with open("models.json", "r") as read_file:
+def load_ant(data_file, model_file, imodel):
+    """Dadas un nombre de fichero de antenas y un índice imodel del fichero de modelos model_file,
+    Inserta los datos del fichero en la base de datos
+
+    :param data_file: nombre del fichero xlsx de antenas a leer
+    :param model_file: nombre del fichero json de modelos a leer
+    :param imodel: índice de la lista de modelos
+
+    """
+    with open(model_file, "r") as read_file:
         data = json.load(read_file)
 
     model = data['antennas'][imodel]
 
-    # leemos sólo las columnas necesarias
+    # leemos sólo las columnas que aparecen en el mapeo
     cols = [
         model['mcc'],
         model['mnc'],
@@ -76,9 +93,9 @@ def load_ant(file_name, imodel):
         model['lat'],
         model['range']
     ]
-    df = pd.read_excel(file_name, usecols=cols)
+    df = pd.read_excel(data_file, usecols=cols)
 
-    # unificamos los nombres de las columnas
+    # renombramos las columnas del modelo de datos para que sea siempre el mismo
     df.rename(columns={
         model['mcc']: 'mcc',
         model['mnc']: 'mnc',
@@ -89,26 +106,30 @@ def load_ant(file_name, imodel):
         model['lat']: "lat",
         model['range']: "range"
     }, inplace=True)
-    # comprobamos antenas repetidas para no insertarlas
+
+    # comprobamos filas repetidas para no insertarlas
     records = df.to_dict(orient="records")
-    print("ANTENAS REPETIDAS")
+    print("LISTA DE ANTENAS REPETIDAS:")
     for rec in list(records):
         ant = Antenna.query.get((rec['mcc'], rec['mnc'], rec['lac'], rec['cid']))
+        # Si ya está en la BD, lo imprimimos por pantalla y lo quitamos del diccionario
         if ant is not None:
             print(ant)
             records.remove(rec)
+
+    # Insertamos sólo las filas no repetidas
     with app.app_context():
         db.session.bulk_insert_mappings(Antenna, records)
         db.session.commit()
+        # Rellena la columna de Point para las nuevas antenas
         Antenna.update_geometries()
 
     return
 
 
 if __name__ == '__main__':
-    file_name = "llamadas.xlsx"
     with app.app_context():
-        # db.drop_all()
         db.create_all()
-        load_ant("antenas.xlsx", 0)
-        load_tel("llamadas.xlsx", 0)
+
+        load_ant("antenas.xlsx", "models.json", 0)
+        load_tel("llamadas.xlsx", "models.json", 0)

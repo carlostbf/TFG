@@ -1,3 +1,5 @@
+--SCRIPT PARA QUE LA BD SEA COMPATIBLE CON CONSULTAS POSTGIS--
+
 -- Enable PostGIS (includes raster)
 CREATE EXTENSION postgis;
 -- Enable Topology

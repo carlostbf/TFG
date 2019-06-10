@@ -2,20 +2,9 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
-    CODIGO
-        MAPAS
-            pintar trayectoria por numeros de tlf
-                filtros de mas de x minutos
-                    slider de tiempo para mostrar telefonos que han estado con objetivo en esos intervalos
-                dado 1 numero telefono lista de zonas donde estuvo
-                del resto telefonos cuales han compartido más de una ubicación con el objetivo
-
-            dado un area obtener telefonos cercanos
-                pintar trayectorias? NO
-                filtro tiempo estancia (cuanto tiempo ha estado allí) 0-2h?
-                (seleccionar telefono en tabla y mostrar ubicacion asociada)
-        mejorar aspecto aplicación
-        comentar codigo
+    Manual de instalacion y ejecución en readme.txt
+    Leerme normativa
+    Hacer diapositivas
 
     AFTERWARDS
         DATOS
@@ -28,23 +17,8 @@ TODO
                 trabajo futuro
 
             verificar que datos repetidos coinciden
-        trayectorias movidas para que se vean
-DUDAS
+        trayectorias movidas para que se vean (jitter)
 
-    pintar trayectoria por numeros de tlf
-        diferenciar casos
-            y colores
-
-    comentar mejor sqlalchemy
-    jitter
-
-    MEMORIA
-        contar como montar todo la aplicación?
-            como ejecutar?
-                si pero en el código
-
-        presentación la hago despues de entrega?
-            pregunto a Eloy
 
 
 MEMORIA
@@ -59,7 +33,7 @@ MEMORIA
         diferencia con diseño?
             codigo alto nivel de cosas relevantes (algoritmos) mejor pseudo si no es simple
     integracion pruebas y resultados
-        setup inicial
+        (setup inicial)
         explicar como usar aplicación
         capturas de pantalla
     trabajo futuro
@@ -93,8 +67,7 @@ ALGORITMO
 
 
 EXTRAS
-    requirements.txt
-    .env para Variables de entorno automaticas
+    .env para Variables de entorno automaticas?
     aplicación tiene que ser instalable? concentrarme en codigo
         pip install?
         script?
@@ -106,12 +79,7 @@ INFORMACIÓN SOBRE PLAZOS
     memoria
         evaluan mi trabajo, no es un manual de usuario
 
-    (envio de memoria por capitulo cerrado)
     defiendo en julio
-
-    concentrarme en interfaz
-    memoria
-    luego acabo codigo
 
     domingo 16 fecha ultimo dia que me da feedback
     jueves 13 sería fecha limite de memoria

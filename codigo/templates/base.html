@@ -21,8 +21,8 @@
 <section class="content">
   <!--<header>
     {% block header %}{% endblock %}
-  </header>-->
-  {% block content %}{% endblock %}
+  </header>
+  {% block content %}{% endblock %}-->
   <div class="left-panel">
     <div id="map"></div>
     <div class="left-panel">
@@ -35,7 +35,6 @@
 
         <hr>
 
-
         <label for="tel" style="padding-top:16px;">Teléfono Objetivo</label>
         <input name="tel" id="tel" value="{{ tel }}" required>
         <input type="checkbox" name="resto" value="resto">Mostrar el resto de teléfonos en la zona<br><br>
@@ -47,7 +46,6 @@
 
     <div class="right-panel">
       <hr style="margin-top:145px;">
-
 
       <form name="form2" action="/query2" method="post" style="padding-top:8px;">
 
@@ -71,6 +69,11 @@
       </form>
     </div>
     <script>
+      /**
+       * Obtiene la fecha actual en formato datetime UTC YYYY-MM-DD hh:mm:ss
+       *
+       * @return {string} La fecha actual en el formato establecido.
+       */
       function getCurrentDate() {
         let currentDate = new Date();
 
@@ -84,6 +87,7 @@
         return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
       }
 
+      // Establecemos los valores por defecto en date_init y date_end
       document.form1.date_init.value =
         {% if date_init is defined %}
           "{{ date_init }}";
@@ -135,41 +139,54 @@
   <script>
 
 
-    /*Esta función se encarga de insertar un value en el hashmap<object,value>
-    * Internamente compara el object para ver si ya existía otro obj con los mismos parámetros
-    * Devuelve true si se ha insertado un objeto nuevo*/
-    function MapInsertObject(map, object, value) {
-      for (const obj of map.keys()) {
+    /**
+     * Esta función se encarga de insertar un value en el hashmap<coordinate,value>
+     * Internamente compara el object para ver si ya existía otro coordinate con los mismos parámetros
+     * Devuelve true si se ha insertado un coordinate nuevo, false en otro caso
+     *
+     *
+     * @param {map}       hashmap   hashmap compuesto por pares <coordinate, string>.
+     * @param {object}    object    objeto coordenada compuesta de una clave lat y otra lng
+     * @param {string}    value     string que aparece asociada a esta clave
+     *
+     * @return {boolean} true si se ha insertado una clave coordinate nueva. False en otro caso
+     */
+    function MapInsertObject(hashmap, object, value) {
+      for (const obj of hashmap.keys()) {
         /*Caso en que ya existía otro objeto con los mismos parámetros*/
         if (JSON.stringify(obj) === JSON.stringify(object)) {
-          map.set(obj, map.get(obj) + value);
+          //Se añade el texto en value
+          hashmap.set(obj, hashmap.get(obj) + value);
           return false;
         }
       }
-      //si no estaba en el hashmap
-      map.set(object, value);
+      //si no estaba en el hashmap se crea una nueva clave y valor
+      hashmap.set(object, value);
       return true;
     }
 
     let map;
-    const apiKey = 'AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ';
 
     function initMap() {
-      //coordenadas por defecto
+      //coordenadas por defecto en el mapa
       let centro = {lat: 8, lng: 38};
       let zoom = 15;
-      let pathCoordinates = [], circles = [], ranges = [], infowindows = [], markers = [];
+      let pathCoordinates = [], //lista de coordenadas que marcan una trayectoria
+        ranges = [], //lista de rangos de alcance de las antenas
+        circles = [], //círculos de radios de alcance en el mapa
+        infowindows = [], //ventanas de información para los markers
+        markers = []; //lista de marcadores en el mapa
 
 
-      let coordinates;
-      let content;
-      let contents = new Map(); //Empty Map
-      let text = [];
-      let lastOpenedInfoWindow;
+      let coordinates; //par latitud y longitud para las coordenadas
+      let content; //variable auxiliar para filas de la tabla de datos
+      let contents = new Map(); //pares de clave-valor con coordinates de clave y un string de valor
+      let text = []; /*Aquí se almacenará el html de las filas de las distintas tablas de datos*/
+      let lastOpenedInfoWindow; //variable auxiliar para controlar el último infowindow abierto
 
       let lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-      };
+      };/*flecha para las trayectorias*/
 
 
       {% if calls is defined and calls|length %} //Caso query por teléfono objetivo
@@ -181,8 +198,7 @@
 
         {% for call in calls %}
           coordinates = {lat: {{ call.Antenna.lat }}, lng: {{ call.Antenna.lon }}};
-          /*content = 'tel_o: {{ call.tel_o }} tel_d: {{ call.tel_d }}<br>' +
-            'lat: {{ call.Antenna.lat }} lng: {{ call.Antenna.lon }} date_init: {{ call.date_init }}<br><br>';*/
+          /*código html en cada fila de la tabla de datos*/
           content =
             {% if tel|int() == call.tel_o|int() %}
               '<tr style="background-color: hsl({{ tel }}, 75%, 90%);">' +
@@ -210,25 +226,32 @@
             '<td>{{ call.date_init }}</td>' +
             '<td>{{ call.duration }}</td>' +
             '</tr>';
+          /*Insertamos los pares coordinates-content en el hashmap contents*/
           if (MapInsertObject(contents, coordinates, content) === true) {
+            /*Si se trata de un coordinates nuevo, creamos un rango nuevo distinto*/
             ranges.push({{ call.Antenna.range }});
           }
+          /*Metemos las coordenadas en la trayectoria*/
           pathCoordinates.push(coordinates);
 
         {% endfor %}
         let i = 0;
         for (const [key, value] of contents) {
+          /*En key tenemos coordenadas distintas
+          * En value tenemos el código html de las filas para cada coordenada*/
 
           infowindows.push(new google.maps.InfoWindow({
             content: 'latidud: ' + key.lat + ' longitud: ' + key.lng
           }));
+          /*Hacemos un array para cada tabla tener el html de sus filas*/
           text.push(value);
+          // Creamos un marcador para la ubicación
           markers.push(new google.maps.Marker({
             position: key,
             map: map,
             title: 'Ubicación'
           }));
-          // Add the circle for this point to the map.
+          // Creamos un círculo de radio de alcance para la ubicación
           circles.push(new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.1,
@@ -241,16 +264,17 @@
           }));
           i++;
         }
-        // Activamos los popups
+        // Activamos los popups de los marcadores
         for (let i = 0; i < markers.length; i++) {
           markers[i].addListener("click", function () {
-            //abrir marker cerrando el anterior
+            //abrir marker cerrando el anterior si se clica
             if (lastOpenedInfoWindow) {
               lastOpenedInfoWindow.close();
             }
             infowindows[i].open(map, markers[i]);
             lastOpenedInfoWindow = infowindows[i];
 
+            /*contenido que se muestra en la tabla si se clica una ubicación*/
             document.getElementById("data").innerHTML = '<tr>' +
               '<th>Teléfono Origen</th>' +
               '<th>Teléfono Destino</th>' +
@@ -258,7 +282,6 @@
               '<th>Duración (s)</th>' +
               '</tr>' +
               text[i];
-            //TODO: cambiar colores de circulos?
           })
         }
 
@@ -280,22 +303,16 @@
 
 
 
-      {% elif tels is defined and tels|length  %} //Caso query por latitud longitud
+      {% elif tels is defined and tels|length  %} //Caso query por coordenadas y radio de búsqueda
         //centramos en la ubicación filtrada
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: {{ lat }}, lng: {{ lon }}},
           zoom: zoom,
         });
-        new google.maps.Marker({
-          position: {lat: {{ lat }}, lng: {{ lon }}},
-          map: map,
-          title: 'Ubicación actual'
-        });
+
         {% for tel in tels %}
           coordinates = {lat: {{ tel.Antenna.lat }}, lng: {{ tel.Antenna.lon }}};
-          /*content = 'tel_o: {{ tel.tel_o }} tel_d: {{ tel.tel_d }}<br>' +
-            'lat: {{ tel.Antenna.lat }} lng: {{ tel.Antenna.lon }} date_init: {{ tel.date_init }}<br><br>';*/
-
+          /*código html en cada fila de la tabla de datos*/
           content =
             '<tr style="background-color: hsl({{ tel.tel_o }}, 75%, 90%);">' +
             '<td>' +
@@ -320,25 +337,30 @@
             '<td>{{ tel.duration }}</td>' +
             '</tr>';
 
-
+          /*Insertamos los pares coordinates-content en el hashmap contents*/
           if (MapInsertObject(contents, coordinates, content) === true) {
+            /*Si se trata de un coordinates nuevo, creamos un rango nuevo distinto*/
             ranges.push({{ tel.Antenna.range }});
           }
 
         {% endfor %}
         let i = 0;
         for (const [key, value] of contents) {
+          /*En key tenemos coordenadas distintas
+            * En value tenemos el código html de las filas para cada coordenada*/
 
           infowindows.push(new google.maps.InfoWindow({
             content: 'latidud: ' + key.lat + ' longitud: ' + key.lng
           }));
+          /*Hacemos un array para cada tabla tener el html de sus filas*/
           text.push(value);
+          // Creamos un marcador para la ubicación
           markers.push(new google.maps.Marker({
             position: key,
             map: map,
             title: 'Ubicación'
           }));
-          // Add the circle for this point to the map.
+          // Creamos un círculo de radio de alcance para la ubicación
           circles.push(new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.1,
@@ -351,8 +373,14 @@
           }));
           i++;
         }
-
-        circles.push(new google.maps.Circle({
+        /*Creamos un marcador para la ubicación filtrada de interés*/
+        new google.maps.Marker({
+          position: {lat: {{ lat }}, lng: {{ lon }}},
+          map: map,
+          title: 'Ubicación actual'
+        });
+        /*Creamos una circunferencia de radio de búsqueda para la ubicación filtrada de interés*/
+        new google.maps.Circle({
           strokeColor: '#0F0000',
           strokeOpacity: 0.1,
           strokeWeight: 2,
@@ -361,17 +389,18 @@
           map: map,
           center: {lat: {{ lat }}, lng: {{ lon }}},
           radius: {{ radio }}
-        }));
-        // Activamos los popups
+        });
+        // Activamos los popups de los marcadores
         for (let i = 0; i < markers.length; i++) {
           markers[i].addListener("click", function () {
-            //abrir marker cerrando el anterior
+            //abrir marker cerrando el anterior si se clica
             if (lastOpenedInfoWindow) {
               lastOpenedInfoWindow.close();
             }
             infowindows[i].open(map, markers[i]);
             lastOpenedInfoWindow = infowindows[i];
 
+            /*contenido que se muestra en la tabla si se clica una ubicación*/
             document.getElementById("data").innerHTML = '<tr>' +
               '<th>Teléfono Origen</th>' +
               '<th>Teléfono Destino</th>' +
@@ -379,12 +408,11 @@
               '<th>Duración (s)</th>' +
               '</tr>' +
               text[i];
-            //TODO: cambiar colores de circulos?
           })
         }
 
 
-      {% else %} /*mapa por defecto si no hay queries*/
+      {% else %} /*mapa por defecto si la query está vacía*/
         map = new google.maps.Map(document.getElementById('map'), {
           center: centro,
           zoom: 5,
@@ -408,6 +436,7 @@
       );*/
     }
   </script>
+  <!--Aquí hay que cambiar la API Key de Gmaps-->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1cLa1Z2_iBh9jtBKnAEa9BQa9vo8-2oQ&callback=initMap"
           async defer></script>
 </section>
