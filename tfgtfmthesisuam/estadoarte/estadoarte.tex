@@ -12,7 +12,8 @@
 
 
   \section{Framework}
-    A la hora de considerar el desarrollo de esta aplicación, se ha decidido usar un \dfn{framework}. De esta manera se facilita su creación, pues le dotamos de un esqueleto estandarizado en el que la funcionalidad está bien modularizada.
+    A la hora de considerar el desarrollo de esta aplicación, a petición del cliente, es necesario que la aplicación esté desarrollada en Python, y que posea una interfaz web.
+    Por tanto, se ha decidido usar un \dfn{framework}, pues de esta manera se facilita la creación de la app, ya que se le dota de un esqueleto estandarizado en el que la funcionalidad está bien modularizada.
     
     Los dos \dfnpl{framework} más populares del momento para aplicaciones web desarrolladas en Python son Django\cite{django} y Flask\cite{flask}.
 
@@ -25,7 +26,7 @@
   
     Existen muchas \dfnpl{api} disponibles para implementar mapas en Javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
     
-    El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a internet es necesaria.
+    El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a Internet es necesaria.
 
     
     Por tanto, se han investigado las alternativas opensource y gratuitas existentes. Las dos \dfnpl{api} principales en este sector son OpenLayers\cite{openlayers} y Leaflet\cite{leaflet}.
@@ -56,8 +57,8 @@
     Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad, pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
     
   \section{Datos}
-    Para probar la aplicación se necesitan dos fuentes de datos principales.
+    Para diseñar la aplicación se necesitan dos fuentes de datos principales.
     
     Primeramente, se requieren los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid\cite{opencellid}. Esta BD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
     
-    Por otra parte se necesitan datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por desgracia, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos o compartir los mismos formatos que los que poseen otras compañías.
+    Por otra parte se necesitan datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por supuesto, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos o compartir los mismos formatos que los que poseen otras compañías.
