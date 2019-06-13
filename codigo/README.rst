@@ -2,7 +2,6 @@
 Detección de patrones y trayectorias a partir de información temporal y geoespacial poco precisa
 
 TODO
-    Manual de instalacion y ejecución en readme.txt
     Leerme normativa
     Hacer diapositivas
 
@@ -66,12 +65,6 @@ ALGORITMO
             ver la red de llamadas a sospechosos
 
 
-EXTRAS
-    .env para Variables de entorno automaticas?
-    aplicación tiene que ser instalable? concentrarme en codigo
-        pip install?
-        script?
-
 
 INFORMACIÓN SOBRE PLAZOS
     codigo
@@ -83,12 +76,4 @@ INFORMACIÓN SOBRE PLAZOS
 
     domingo 16 fecha ultimo dia que me da feedback
     jueves 13 sería fecha limite de memoria
-
-
-COMANDOS
-    export APP_SETTINGS="config.DevelopmentConfig"
-    flask db init
-    flask db migrate
-    flask db upgrade
-
 

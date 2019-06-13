@@ -42,6 +42,7 @@ class Antenna(db.Model):
 
         db.session.commit()
 
+
 # Clase para almacenar los registros de llamada telefónicos
 class Telephone(db.Model):
     # Teléfono origen de llamada
