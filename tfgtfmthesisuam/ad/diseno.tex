@@ -4,11 +4,11 @@
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diseño\label{SEC:DISENO}}
-  Tras la evaluación de las diferentes herramientas en el capítulo \ref{CAP:ESTADOARTE}, aquí se asignan las que se usarán finalmente junto al criterio que se ha seguido a la hora de decidirlo. Además se detallará un esquema de la estructura que seguirán los distintos componentes.
+  Tras la evaluación de las diferentes herramientas existentes en el capítulo \ref{CAP:ESTADOARTE}, aquí se asignan las que se usarán finalmente junto al criterio que se ha seguido a la hora de decidirlo. Además se detallará un esquema de la estructura que seguirán los distintos componentes.
   
   
   \subsection{Framework}
-    La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambos proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de desarrollar.
+    La envergadura del proyecto no es muy grande y con respecto a las herramientas necesarias, ambas proporcionan las mismas funcionalidades. Por tanto, el framework que se utilizará será Flask, pues su arquitectura es más sencilla que la de Django, por lo que en este caso primaremos la simpleza, para que el proyecto no sea innecesariamente complicado de desarrollar.
     
     El esquema que sigue es la estándar de una arquitectura \dfn{mvc} en Flask. Por tanto, en el capítulo \ref{CAP:DESARROLLO} se realizará un análisis más detallado del esquema.
 
@@ -18,7 +18,7 @@
 
     Este módulo forma parte de la interfaz web de la aplicación, pues se usa la API mediante Javascript. Su utilidad consiste principalmente en representar gráficamente los resultados de las consultas realizadas mediante un formulario web.
     
-    Principalmente, tendremos 2 formularios distintos:
+    Principalmente, se tendrán dos formularios distintos:
     \begin{itemize}
       \item En el primero, dados un intervalo de tiempo entre una fecha inicial y una fecha final, y dado un teléfono objetivo, representará en el mapa todas las ubicaciones donde se ha realizado una llamada que involucre a ese teléfono.
       
@@ -37,9 +37,9 @@
       \image{}{}{ER}
     \end{figure}
   
-    Como vemos en la imagen, la entidad Antenna se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
+    Como vemos en la imagen, la entidad \textit{Antenna} se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
     
-    La entidad Telephone que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
+    La entidad \textit{Telephone} que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
        
        
   \subsection{Datos}

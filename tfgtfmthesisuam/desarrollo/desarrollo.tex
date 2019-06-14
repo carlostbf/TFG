@@ -25,7 +25,7 @@
   
   
   \section{Implementación}
-    En el capítulo \ref{CAP:AD} elegimos las herramientas que se usarán, y un esquema del diseño que se seguirá. A continuación destacaremos las características más interesantes que surgen de traducir del diseño al desarrollo.
+    En el capítulo \ref{CAP:AD} se eligieron las herramientas que se usarán, y un esquema del diseño que se seguirá. A continuación se destacarán las características más interesantes que surgen de traducir del diseño al desarrollo.
     
     \subsection{Flask}
       Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask} y se ha modulado como dicta el estándar de diseño.
@@ -50,18 +50,18 @@
         .2 populate.py.
       }
       
-      En el directorio principal se encuentra una carpeta static, donde se guarda el css de la página, y una carpeta templates, donde se encuentra  base.html donde se tiene toda la interfaz gráfica de la aplicación con Javascript. Estos componentes conforman la vista. 
+      En el directorio principal se encuentra una carpeta \textit{static}, donde se guarda el css de la página, y una carpeta \textit{templates}, donde se encuentra \textit{base.html} donde se tiene toda la interfaz gráfica de la aplicación con Javascript. Estos componentes conforman la vista. 
        
       En el directorio principal también se tiene el resto de los módulos en Python. 
-      Entre ellos se encuentra el models.py, que conforma el modelo del sistema, pues almacena los modelos de la base de datos.
+      Entre ellos se encuentra el \textit{models.py}, que conforma el modelo del sistema, pues almacena los modelos de la base de datos.
       
-      Por la parte de controlador, se tiene el forms.py, que hace de intermediario entre las peticiones del usuario y la base de datos, el manage.py para realizar migraciones de base de datos en caso de que sea necesario, y finalmente el app.py, el programa principal que se ejecuta para activar el servidor.
+      Por la parte de controlador, se tiene el \textit{forms.py}, que hace de intermediario entre las peticiones del usuario y la base de datos, el \textit{manage.py} para realizar migraciones de base de datos en caso de que sea necesario, y finalmente el \textit{app.py}, el programa principal que se ejecuta para activar el servidor.
       
-      Aparte del modelo \dfn{mvc}, hay un fichero populate.py, un script que se encarga de la inserción de datos en la BD, tal y como se explica en la subsección \ref{SS:IDAT}.
+      Aparte del modelo \dfn{mvc}, hay un fichero \textit{populate.py}, un script que se encarga de la inserción de datos en la BD, tal y como se explica en la subsección \ref{SS:IDAT}.
       
       
     \subsection{Google Maps API e Interfaz Web}
-      Toda la interfaz web se puede encontrar principalmente en el fichero base.html y con el estilo definido en el fichero style.css. El código consiste esencialmente en código HTML y Javascript, por tanto no hay mucho código que destacar. Lo único menos convencional es el uso de la  librería Javascript de la API de Google Maps, pero sigue los estándares de implementación de la documentación oficial en \cite{gmaps}, por lo que no se profundizará más en ello.
+      Toda la interfaz web se puede encontrar principalmente en el fichero \textit{base.html} y con el estilo definido en el fichero \textit{style.css}. El código consiste esencialmente en código HTML y Javascript, por tanto no hay mucho código que destacar. Lo único menos convencional es el uso de la  librería Javascript de la API de Google Maps, pero sigue los estándares de implementación de la documentación oficial en \cite{gmaps}, por lo que no se profundizará más en ello.
       
       El aspecto y la funcionalidad de la interfaz web se examinarán detalladamente en el capítulo \ref{CAP:IPR}.
       
@@ -74,7 +74,7 @@
     
     
     \subsection{Inserción de datos en BD\label{SS:IDAT}}
-      La inserción de datos se hace con el código que encontramos en el fichero populate.py. A continuación se describirá el algoritmo, pues la metodología no es trivial, y requiere de explicaciones.
+      La inserción de datos se hace con el código que se encuentra en el fichero \textit{populate.py}. A continuación se describirá el algoritmo, pues la metodología no es trivial, y requiere de explicaciones.
       
       Primero se leen los formatos de los datos a insertar usando el mapeo definido en un fichero JSON.
       El mapeo ha sido diseñado tal y como aparece en la figura \ref{FIG:JSON}. 
@@ -83,10 +83,10 @@
         \image{3cm}{}{json}
       \end{figure}
       
-      Esencialmente hay 2 listas de objetos, una para los distintos modelos de fichero para la tabla de llamadas y otra para la de la tabla de antenas.
+      Esencialmente hay dos listas de objetos, una para los distintos modelos de fichero para la tabla de llamadas y otra para la de la tabla de antenas.
       Cada objeto está formado por pares clave-valor, en este caso la clave se refiere a la columna de la tabla en el modelo en PostgreSQL, y el valor es el nombre que tiene asociada la columna correspondiente en el fichero de datos a insertar.
     
       A continuación se leen los datos de los ficheros excel con la librería de Pandas y usando el mapeo designado en el fichero JSON.
 
       Cabe destacar, que antes de insertar los datos se hace una comprobación por si hay claves primarias duplicadas. En tal caso, se imprimen por pantalla las filas conflictivas y se insertan el resto de datos.
-      Sabiendo que los datos a insertar no tienen claves duplicadas, se realiza un \dfn{bins} pues es más rápido que la inserción fila a fila.
+      Sabiendo que los datos a insertar no tienen claves duplicadas, se realiza un \dfn{bins} pues es más rápido y eficiente que la inserción fila a fila.

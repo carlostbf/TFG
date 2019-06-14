@@ -6,13 +6,13 @@
     
     El problema surgió cuando se comprobó que los mapas estaban poco actualizados y contenían pocos datos útiles para consultas, entre ellos, datos de carreteras cercanas. Además, esta librería tenía funcionalidades mucho más limitadas que las de Google Maps.
     
-    Por ese motivo, y para mejorar la escalabilidad en caso de querer ampliar la aplicación en un futuro, se pasó a la API de Google Maps como detallamos previamente. 
-    Aunque se mencionó en el capítulo \ref{CAP:ESTADOARTE} que esta API es de pago tras un número de transacciones y que no permite su uso offline, también es la más completa y usada del mercado y se comprobó que el uso que se le daba no llegaba a superar el umbral de transacciones, por lo que a este nivel, se puede usar sin gastos económicas.
+    Por ese motivo, y para mejorar la escalabilidad en caso de querer ampliar la aplicación en un futuro, se pasó a la API de Google Maps como se detalló previamente. 
+    Aunque se mencionó en el capítulo \ref{CAP:ESTADOARTE} que esta API es de pago tras un número de transacciones y que no permite su uso offline, también es la más completa y usada del mercado y se comprobó que el uso que se le daba no llegaba a superar el umbral de transacciones, por lo que a este nivel, se puede usar sin gastos económicos.
     
     
    \subsection{Simulado de datos}
     Para empezar, como se mencionó en el capítulo \ref{CAP:ESTADOARTE}, los datos que poseen las distintas compañías sobre antenas y teléfonos tienen formatos completamente distintos, siendo muy difícil unificar la lectura de ficheros en las mismas tablas de la BD.
-    Además, debido a la sensibilidad de los datos que se manejan, las compañías no han podido proveernos de datos reales para utilizar la aplicación. 
+    Además, debido a la sensibilidad de los datos que se manejan, las compañías no han podido proveer datos reales para utilizar la aplicación. 
     Por ese motivo, sin una fuente de datos reales de la que partir, ha resultado inviable simular casos realistas para comprobar que la aplicación funciona correctamente. 
     
     Por tanto, al final se han pedido datos simulados al personal de la Guardia Civil. Estos datos contienen unos formatos muy básicos y son de un muestreo bastante reducido, del orden de sólo 5 ubicaciones distintas para las antenas y sólo 50 llamadas realizadas entre esas 5 ubicaciones.

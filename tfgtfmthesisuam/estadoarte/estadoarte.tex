@@ -8,7 +8,7 @@
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \chapter{Estado del Arte\label{CAP:ESTADOARTE}}
-  En la actualidad, existen numerosas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación describiremos los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
+  En la actualidad, existen numerosas herramientas de desarrollo que facilitan la implementación de esta aplicación. A continuación se describirán los componentes esenciales que son relevantes para el diseño y sus variantes más útiles.
 
 
   \section{Framework}
@@ -26,7 +26,7 @@
   
     Existen muchas \dfnpl{api} disponibles para implementar mapas en Javascript, la más usada y completa en el mercado actualmente es la de Google Maps\cite{gmaps}. Al ser tan utilizada, se ha convertido prácticamente en el estándar para mapas en la web. Y por tanto, contiene muchas funcionalidades, mapas muy actualizados, una documentación muy cuidada y un buen soporte por parte de los desarrolladores de la \dfn{api}.
     
-    El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con la \dfn{api}. Actualmente permite el uso de la \dfn{api} con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a Internet es necesaria.
+    El problema principal con esta \dfn{api} es que fue gratuita hasta el 11 de junio de 2018, pero desde entonces se ha vuelto de pago, y esto conlleva un gasto mensual dependiendo del número de transacciones con ella. Actualmente la \dfn{api} permite su uso con un coste máximo de 200\$ mensuales de forma gratuita. Además, tiene la desventaja de que no permite su uso offline, por lo que una conexión a Internet es necesaria.
 
     
     Por tanto, se han investigado las alternativas opensource y gratuitas existentes. Las dos \dfnpl{api} principales en este sector son OpenLayers\cite{openlayers} y Leaflet\cite{leaflet}.
@@ -35,7 +35,7 @@
     
     Leaflet es una librería Javascript más moderna que OpenLayers. Por tanto, posee una mejor arquitectura y diseño interno. La idea tras Leaflet es la de una librería más simple y sencilla de utilizar. Por tanto, posee una documentación de la API más cuidada y actualizada. No tiene tantas funcionalidades integradas como OpenLayers, pero lo suple con la gran variedad de plugins que se le pueden añadir.
     
-    A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}. Además, la funcionalidad que incluyen es más limitada, por ejemplo, Google Maps es la única que permite consultar carreteras cercanas a ubicaciones y trazar sus trayectorias fácilmente.
+    A diferencia de Google Maps, estas alternativas, no poseen sus propios mapas, por tanto, tienen que hacer uso de un mapa de terceros. En este caso, el proveedor de mapas gratuitos por excelencia es OpenStreetMap\cite{osm}. Además, la funcionalidad que incluyen es más limitada, por ejemplo, Google Maps es la única que permite consultar carreteras cercanas a ubicaciones y trazar sus trayectorias fácilmente (Véase Snap to Roads \cite{snaproad}).
   
   
   \section{Bases de Datos}
@@ -53,7 +53,7 @@
     En general, por su naturaleza estas \ac{bbdd} destacan en eficiencia si lo que se busca es optimizar las búsquedas basadas en relaciones entre nodos. 
     
     En general, ambas BBDD permiten realizar consultas relacionadas con objetos geográficos.
-    PostgreSQL lo puede hacer mediante una extensión espacial llamada PostGIS\cite{postgis}. Esta herramienta permite crear objetos geográficos, y a su vez realizar consultas SQL sobre estos objetos. En nuestro caso, nos interesa la funcionalidad de distancia entre coordenadas geográficas.
+    PostgreSQL lo puede hacer mediante una extensión espacial llamada PostGIS\cite{postgis}. Esta herramienta permite crear objetos geográficos, y a su vez realizar consultas SQL sobre estos objetos. En este trabajo, lo interesante es la funcionalidad de distancia entre coordenadas geográficas.
     Por otra parte, Neo4J tiene ya integrada esta funcionalidad geoespacial, permitiéndole realizar la misma funcionalidad, pero de forma más natural y optimizada, pues la BD fue creada teniendo estas funcionalidades en mente.
     
   \section{Datos}
@@ -61,4 +61,4 @@
     
     Primeramente, se requieren los datos de las antenas o repetidores existentes y sus ubicaciones. Actualmente la mayor fuente de información de antenas opensource es la que se encuentra en OpenCellid\cite{opencellid}. Esta BD es mantenida por una comunidad de forma voluntaria, y como tal, no contiene todas las antenas existentes.
     
-    Por otra parte se necesitan datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por supuesto, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos o compartir los mismos formatos que los que poseen otras compañías.
+    Por otra parte se necesitan datos sobre las llamadas realizadas por números de teléfono, la antena a la que se conectaron y el momento en que se realizó la llamada. Por supuesto, estos datos son privados y sólo se pueden conseguir contactando directamente con las distintas operadoras. Además existe una complicación añadida, pues cada operadora tiene sus respectivos datos y que pueden no ser los mismos o ni siquiera compartir los mismos formatos que los que poseen otras compañías.
