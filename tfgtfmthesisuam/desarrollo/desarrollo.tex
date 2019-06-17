@@ -2,7 +2,7 @@
 
 \chapter{Desarrollo\label{CAP:DESARROLLO}}
   \section{Versiones de Librerías}
-    Al desarrollar esta aplicación, se ha optado por usar las versiones más recientes de cada librería en el momento. A continuación mostramos una tabla con esa información:
+    Al desarrollar esta aplicación, se ha optado por usar las versiones más recientes de cada librería en el momento. A continuación se muestra una tabla con esa información:
 
     \begin{table}[Tabla de versiones de librerías]{TB:LIB}{Esta es una tabla donde detallamos las versiones de las librerías usadas.}
       \begin{tabular}{cccc}
@@ -29,7 +29,7 @@
     
     \subsection{Flask}
       Para implementar toda la arquitectura de la aplicación en Flask se ha seguido el tutorial provisto por la documentación oficial de Flask \cite{flask} y se ha modulado como dicta el estándar de diseño.
-      Esencialmente sigue una arquitectura de diseño \dfn{mvc} tal y como vemos en la imagen \ref{FIG:MVC}. 
+      Esencialmente sigue una arquitectura de diseño \dfn{mvc} tal y como se ve en la figura \ref{FIG:MVC}. 
       
       \begin{figure}[Diagrama Modelo-Vista-Controlador]{FIG:MVC}{Diagrama Modelo-Vista-Controlador}
         \image{5cm}{}{MVC}
@@ -70,7 +70,7 @@
       Para implementar este módulo se ha decidido usar la librería SQLAlchemy\cite{sqlalchemy} de Python. De esta manera se puede abstraer el lenguaje SQL utilizado y realizar todas las operaciones con su \dfn{orm}. 
       Para poder usar la funcionalidad geoespacial asociada a la extensión PostGIS, SQLAlchemy cuenta con su propia extensión de herramienta llamada GeoAlchemy 2\cite{geoalchemy}. Esta herramienta, permite abstraer el uso de PostGIS al igual que SQLAlchemy lo hace con PostgreSQL y extendiendo de forma natural a SQLAlchemy.
       
-      El modelo de datos, que encontramos en el fichero models.py, es esencialmente el descrito en la sección \ref{SEC:DISENO} de diseño, en la figura \ref{FIG:ER}.
+      El modelo de datos, que se encuentra en el fichero models.py, es esencialmente el descrito en la sección \ref{SEC:DISENO} de diseño, en la figura \ref{FIG:ER}.
     
     
     \subsection{Inserción de datos en BD\label{SS:IDAT}}
@@ -86,7 +86,7 @@
       Esencialmente hay dos listas de objetos, una para los distintos modelos de fichero para la tabla de llamadas y otra para la de la tabla de antenas.
       Cada objeto está formado por pares clave-valor, en este caso la clave se refiere a la columna de la tabla en el modelo en PostgreSQL, y el valor es el nombre que tiene asociada la columna correspondiente en el fichero de datos a insertar.
     
-      A continuación se leen los datos de los ficheros excel con la librería de Pandas y usando el mapeo designado en el fichero JSON.
+      A continuación se leen los datos de los ficheros excel con la librería de Pandas\cite{pandas} y usando el mapeo designado en el fichero JSON.
 
       Cabe destacar, que antes de insertar los datos se hace una comprobación por si hay claves primarias duplicadas. En tal caso, se imprimen por pantalla las filas conflictivas y se insertan el resto de datos.
       Sabiendo que los datos a insertar no tienen claves duplicadas, se realiza un \dfn{bins} pues es más rápido y eficiente que la inserción fila a fila.

@@ -167,6 +167,14 @@
 
     let map;
 
+    /**
+     * Carga el mapa con los resultados del formulario.
+     * Esencialmente hay 3 casos sobre lo que se muestra en el mapa:
+     * - Cargar los resultados de la query por teléfono objetivo
+     * - Cargar los resultados de la query por coordenadas y radio de búsqueda
+     * - Cargar el mapa vacío
+     *
+     */
     function initMap() {
       //coordenadas por defecto en el mapa
       let centro = {lat: 8, lng: 38};
@@ -419,21 +427,6 @@
         });
       {% endif %}
 
-
-      //obtiene el array de puntos más cercanos a los que se consultan (correspondientemente)
-      /*$.get('https://roads.googleapis.com/v1/nearestRoads?points=' + '60.170880,24.942795|40.4167278,-3.7033387' + '&key=' + apiKey,
-        function (data) {
-          for (let i = 0; i < data.snappedPoints.length; i++) {
-            let latlng = new google.maps.LatLng(
-              data.snappedPoints[i].location.latitude,
-              data.snappedPoints[i].location.longitude);
-            let marker = new google.maps.Marker({
-              position: latlng,
-              map: map
-            });
-          }
-        }
-      );*/
     }
   </script>
   <!--Aquí hay que cambiar la API Key de Gmaps-->

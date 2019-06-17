@@ -22,7 +22,7 @@
     \begin{itemize}
       \item En el primero, dados un intervalo de tiempo entre una fecha inicial y una fecha final, y dado un teléfono objetivo, representará en el mapa todas las ubicaciones donde se ha realizado una llamada que involucre a ese teléfono.
       
-      \item En el segundo, dado un intervalo de tiempo entre una fecha inicial y una fecha final, una ubicación, y un rango de búsqueda, muestra todos las llamadas de teléfono que se han realizado en ese área. 
+      \item En el segundo, dado un intervalo de tiempo entre una fecha inicial y una fecha final, una ubicación, y un rango de búsqueda, mostrará todos las llamadas de teléfono que se han realizado en ese área. 
     \end{itemize}
     
   \subsection{Base de Datos}
@@ -37,9 +37,9 @@
       \image{}{}{ER}
     \end{figure}
   
-    Como vemos en la imagen, la entidad \textit{Antenna} se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, nos da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, añadimos también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
+    Como se ve en la imagen, la entidad \textit{Antenna} se identifica con la tupla (mcc, mnc, lac, cid) que forman un identificador único para la antena. Además, da información sobre su ubicación con su longitud y latitud y su rango de alcance. Para realizar las consultas geoespaciales, se añade también un objeto Point que es de tipo Geometry de la librería PostGIS, y se crea usando la longitud y latitud.
     
-    La entidad \textit{Telephone} que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como vemos, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que tenemos de clave foránea la tupla de identificación de la antena.
+    La entidad \textit{Telephone} que representa las llamadas telefónicas, se compone de un teléfono de origen, un teléfono destino, una fecha de inicio de llamada y su duración en segundos. Como se ve, se relaciona con la entidad Antenna, en tanto que una llamada se realiza conectándose a una antena concreta, por lo que se tiene de clave foránea la tupla de identificación de la antena.
        
        
   \subsection{Datos}
