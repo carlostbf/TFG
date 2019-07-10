@@ -36,7 +36,7 @@ def load_tel(data_file, model_file, imodel):
     ]
     df = pd.read_excel(data_file, usecols=cols)
 
-    # renombramos las columnas del modelo de datos para que sea siempre el mismo
+    # renombramos las columnas del modelo de datos para que los formatos sean unificados
     df.rename(columns={
         model['tel_o']: 'tel_o',
         model['tel_d']: 'tel_d',
@@ -95,7 +95,7 @@ def load_ant(data_file, model_file, imodel):
     ]
     df = pd.read_excel(data_file, usecols=cols)
 
-    # renombramos las columnas del modelo de datos para que sea siempre el mismo
+    # renombramos las columnas del modelo de datos para que los formatos sean unificados
     df.rename(columns={
         model['mcc']: 'mcc',
         model['mnc']: 'mnc',
@@ -128,8 +128,14 @@ def load_ant(data_file, model_file, imodel):
 
 
 if __name__ == '__main__':
+    antena_file = "antenas.xlsx"
+    llamadas_file = "llamadas.xlsx"
+    model_file = "models.json"
+    i_model = 0
+    i_model2 = 0
+
     with app.app_context():
         db.create_all()
 
-        load_ant("antenas.xlsx", "models.json", 0)
-        load_tel("llamadas.xlsx", "models.json", 0)
+        load_ant(antena_file, model_file, i_model)
+        load_tel(llamadas_file, model_file, i_model2)

@@ -1,0 +1,41 @@
+Enviar codigo
+	quitar API Maps
+ 	junto a ultima version memoria a Alvaro
+ 	preguntar se puede publicar TFG y codigo?
+
+ENTREGA:
+	Realizar solicitud moodle
+	Envío de memorias: Memoria moodle (sin printable)
+	enviar memoria 
+		tfg.eps@uam.es a
+		Asunto: 	TFG_CarlosLiHu
+
+	Licencia
+	Memoria
+	sobre cerrado
+
+DEFENSA:
+	CRITERIOS
+		• Calidad	de	la	memoria.
+		• Calidad	del	material	empleado	en	la	presentación.
+		• Calidad	en	la	exposición	y	capacidad	de	síntesis	durante	la	defensa.
+		• Otros	posibles	méritos	que	avalen	la	calidad	del	trabajo.	
+
+	PRESENTACIÓN
+		8 transparencias máximo (aprox)
+		2-3 mins por transparencia o video
+
+		menos contenido que memoria
+		autocontenida, no requiere explicaciones extra
+		importante que lo que explique se entienda
+		poco texto en general
+		puedo referenciar contenido de memoria (que no quiera contar)
+		
+		CONTENIDO
+			Introducción (motivación, objetivos claros)
+			NO HAY estado del arte
+			Diseño con una transparencia vale
+			Implementación con un vídeo cortito
+			Conclusiones
+
+

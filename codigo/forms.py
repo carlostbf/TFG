@@ -28,9 +28,8 @@ def get_path():
     date_init = request.form['date_init']
     date_end = request.form['date_end']
     resto = request.form.get('resto')
-    error = None
 
-    # En caso de que no se defina las fechas
+    # En caso de que no se definan las fechas
     if date_init == '':
         date_init = datetime.min
     if date_end == '':
@@ -92,9 +91,8 @@ def get_path2():
     date_init = request.form['date_init']
     date_end = request.form['date_end']
     slider = int(request.form['slider'])
-    error = None
 
-    # En caso de que no se defina las fechas
+    # En caso de que no se definan las fechas
     if date_init == '':
         date_init = datetime.min
     if date_end == '':

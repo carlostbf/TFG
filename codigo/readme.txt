@@ -30,7 +30,7 @@ MANUAL DE INSTALACION Y SETUP
 
     -BBDD (PostgreSQL 11.2)
         +Primero hay que crearse una BD con los valores:
-        usuario, contraseña, nombre_BD, host, puerto
+            usuario, contraseña, nombre_BD, host, puerto
         Y rellenar los campos con estos valores en el fragmento de código que encontramos en app.py :
 
                     POSTGRES = {
@@ -64,10 +64,6 @@ MANUAL DE INSTALACION Y SETUP
         python populate.py
 
         EXTRA: si se desea usar otros ficheros de datos, entrar en el script y al final del fichero alterar los parámetros en el código:
-
-                            load_ant(antena_file, model_file, i_model)
-                            load_tel(llamadas_file, model_file, i_model2)
-
              antena_file (nombre del fichero excel donde se guardan datos de antenas)
              llamadas_file (nombre del fichero excel donde se guardan datos de llamadas)
              model_file (fichero JSON donde se guardan los formatos de los ficheros anteriores, véase "models.json")
