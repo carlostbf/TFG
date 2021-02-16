@@ -1,7 +1,14 @@
 # Degree Final Project
-Detection of patterns and trajectories from inaccurate temporal and geospatial information
+Detection of Patterns and Trajectories Based on Poorly Accurate Temporary and Geospatial Information
+(Flask application with Google Maps)
 
-Flask application with Google Maps 
+## ABSTRACT
+The security forces and bodies usually deal with the task of finding crime suspects of a committed crime, or in other cases, to find the victim of a disappearance. To solve these crimes, they usually just start with an approximate location of the crime scene, or with the victim’s phone number. Thus, having access to a phone call and antenna registry, it should be easier to solve these crimes.
+
+This project is developed in this context, as it consists of designing an app that provides an analyst with information to identify possible suspects of a crime given the approximate location and the time interval in which that crime was committed. In addition, it allows the user to see the locations and path that a given phone number follows to establish its whereabouts and, in the case of the suspects, to identify possible accomplices to the crime.
+
+To tackle this issue, a data insertion module has been developed to insert data in a database with a configurable format. Also, a web interface has been developed. In this interface, through forms, queries in the database can be done. The results of the query are shown through a Google Maps interactive map, where data can be visualized in detail when clicking on the different map locations.
 
 Degree Final project document can be found in:
+
 https://repositorio.uam.es/bitstream/handle/10486/688852/li_hu_carlos_tfg.pdf?sequence=1&isAllowed=y
